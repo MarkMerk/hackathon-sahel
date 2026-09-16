@@ -20,7 +20,8 @@ BUILD = ROOT / "build"
 OUT = ROOT / "abgabe"
 
 # Deckblatt — bei Bedarf Nachnamen/Matrikelnummern ergänzen
-TEAM = r"Mark Merkouchev \\ Leon \\ Philip"
+TEAM = r"Mark Merkouchev \\ Leon Demare \\ Philip Schurig"
+GRUPPE = ""  # z. B. "Gruppe 7" — erscheint auf beiden Deckblättern
 DATUM = "16. September 2026"
 TITEL = "Wer schöpft die Rohstoffrenten ab?"
 UNTERTITEL = ("Der Anteil staatlicher Ressourceneinnahmen an den Rohstoffrenten "
@@ -67,16 +68,17 @@ VORSPANN = r"""
 \setmainfont{Arial}[Path=/System/Library/Fonts/Supplemental/,Extension=.ttf,UprightFont=*,BoldFont=* Bold,ItalicFont=* Italic,BoldItalicFont=* Bold Italic]
 \setsansfont{Arial}[Path=/System/Library/Fonts/Supplemental/,Extension=.ttf,UprightFont=*,BoldFont=* Bold,ItalicFont=* Italic,BoldItalicFont=* Bold Italic]
 \setmonofont{Arial}[Path=/System/Library/Fonts/Supplemental/,Extension=.ttf,UprightFont=*,BoldFont=* Bold,ItalicFont=* Italic,BoldItalicFont=* Bold Italic]
-\usepackage[ngerman]{babel}
+\usepackage[ngerman,shorthands=off]{babel}
 \usepackage[autostyle,german=quotes]{csquotes}
 \usepackage[style=apa,backend=biber]{biblatex}
 \addbibresource{quellen.bib}
+\AtBeginBibliography{\raggedright}
 \usepackage{setspace}
 \onehalfspacing
 \usepackage{graphicx,float,longtable,booktabs,array,calc,xurl}
 \usepackage{fvextra}
 \fvset{breaklines=true,breakanywhere=true,fontsize=\normalsize}
-\usepackage[hidelinks]{hyperref}
+\usepackage[hidelinks,hypertexnames=false,bookmarksnumbered]{hyperref}
 \usepackage{titlesec}
 \titleformat{\section}{\normalfont\normalsize\bfseries}{}{0pt}{}
 \titleformat{\subsection}{\normalfont\normalsize\bfseries}{}{0pt}{}
@@ -99,7 +101,44 @@ VORSPANN = r"""
 
 def md_lesen(p: Path) -> str:
     t = p.read_text(encoding="utf-8")
-    return re.sub(r"<!--.*?-->", "", t, flags=re.S)
+    t = re.sub(r"<!--.*?-->", "", t, flags=re.S)
+    return tabellen_breiten(anfuehrungen(t))
+
+
+def anfuehrungen(t: str) -> str:
+    """ASCII-Anführungszeichen in deutsche umwandeln („…“); Codeabschnitte bleiben unberührt."""
+    teile = re.split(r"(```.*?```|`[^`\n]*`)", t, flags=re.S)
+    for i in range(0, len(teile), 2):
+        s = teile[i]
+        s = re.sub(r'„([^„“"\n]*?)"', r"„\1“", s)
+        s = re.sub(r'"([^"\n]*?)"', r"„\1“", s)
+        teile[i] = s
+    return "".join(teile)
+
+
+def tabellen_breiten(t: str) -> str:
+    """Spaltenbreiten der Pipe-Tabellen nach Inhaltslänge setzen (pandoc liest sie aus der Trennzeile)."""
+    zeilen = t.split("\n")
+    i = 0
+    while i < len(zeilen):
+        if re.fullmatch(r"\s*\|(\s*:?-+:?\s*\|)+\s*", zeilen[i]) and i > 0 and zeilen[i - 1].lstrip().startswith("|"):
+            j = i + 1
+            while j < len(zeilen) and zeilen[j].lstrip().startswith("|"):
+                j += 1
+            block = [zeilen[i - 1]] + zeilen[i + 1:j]
+            zellen = [[c.strip() for c in z.strip().strip("|").split("|")] for z in block]
+            n = len(zellen[0])
+            laenge = [0] * n
+            for r in zellen:
+                for k, c in enumerate(r[:n]):
+                    wort = max((len(w) for w in re.split(r"[\s/]+", re.sub(r"[`*]", "", c))), default=0)
+                    laenge[k] = max(laenge[k], min(len(c), 45), min(wort + 2, 30))
+            laenge = [max(6, l) for l in laenge]
+            zeilen[i] = "|" + "|".join("-" * l for l in laenge) + "|"
+            i = j
+        else:
+            i += 1
+    return "\n".join(zeilen)
 
 
 def abbildung(n: int) -> str:
@@ -166,6 +205,9 @@ def pandoc(md: str, ziel: Path) -> None:
                     "-t", "latex", "--no-highlight", "--columns=20", "-o", str(ziel)], check=True)
     t = ziel.read_text(encoding="utf-8")
     t = t.replace("\\begin{verbatim}", "\\begin{Verbatim}").replace("\\end{verbatim}", "\\end{Verbatim}")
+    # Pfade und Variablennamen in schmalen Tabellenspalten umbrechbar machen
+    t = re.sub(r"\\texttt\{((?:[^{}]|\{[^{}]*\})*)\}",
+               lambda m: "\\texttt{" + re.sub(r"(/|\\_|\.)", r"\1\\allowbreak{}", m.group(1)) + "}", t)
     ziel.write_text(t, encoding="utf-8")
 
 
@@ -182,6 +224,7 @@ AI Hackathon im AI Summercamp 2026\par
 {KONTEXT}\par
 \vfill
 {TEAM}\par\vspace{{0.5cm}}
+{GRUPPE}\par
 {DATUM}\par
 \end{{titlepage}}
 """
