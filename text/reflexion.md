@@ -171,9 +171,9 @@ Ergebnisdarstellung beschlossen, nachdem der Ölstaaten-Befund vorlag.
 Beschleunigt hat die Modellunterstützung vor allem dort, wo die Aufgabe klar
 umrissen war: beim Schreiben und Testen von Auswertungsskripten, beim Erzeugen
 von Abbildungen, beim Auffinden von Literatur und beim Prüfen eigener
-Entwürfe gegen eine Checkliste. Ein Arbeitstag dieser Dichte wäre ohne sie
+Entwürfe gegen eine Checkliste. Ein Arbeitstag wäre ohne sie
 nicht möglich gewesen. Kaum Zeit gespart hat sie beim Kürzen auf ein
-Zeichenbudget, weil die ersten Fassungen verlässlich zu lang waren, und keine
+Zeichenbudget, weil die ersten Fassungen zu lang waren, und keine
 Zeit bei allem, was Urteil erforderte — welche Spezifikation die
 Forschungsfrage tatsächlich beantwortet, wie ein nicht signifikanter Befund zu
 formulieren ist und ob ein unerwartetes Ergebnis die Darstellung ändern muss.
