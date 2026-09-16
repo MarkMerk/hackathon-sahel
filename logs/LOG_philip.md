@@ -25,6 +25,8 @@ Format: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil
 
 - 14:05 · Schritt 4: text/abschnitte/05_2, 05_3, 05_4 entworfen · Claude Opus 5 · exakt 4.500 von 4.500 Zeichen. Nach Teamentscheidung umgestellt: Rohstofftyp als Hauptbefund in 5.2 vor dem Regionsvergleich, 5.4 dadurch reine Robustheit. Beim Regionsbefund ausdrücklich „kein Test erreicht das Niveau von 0,05"
 
+- 14:15 · Schritt 5: text/reflexion.md entworfen · Claude Opus 5 · 11.229 von 12.500 Zeichen, vier Abschnitte (Studienstand, Arbeitsprozess, KI-Einsatz, Reflexion). Quellen: alle drei LOG-Dateien, die Prompt-Protokolle und CLAUDE.md. Zwei Platzhalter für die Absätze von Mark und Leon zur eigenen Rolle; 1.271 Zeichen Reserve dafür freigehalten. Diesmal Budget vor dem Schreiben auf die Abschnitte verteilt — erster Entwurf traf das Limit ohne Kürzungsrunden (Lehre aus 14:00 angewandt)
+
 ## KI-Fehler und Korrekturen
 
 - 14:00 · Erster Entwurf von 5.2–5.4 war 6.631 Zeichen lang, also 47 % über dem Budget von 4.500 · Claude hatte das Zeichenbudget beim Schreiben nicht mitgeführt, sondern erst danach geprüft · Korrektur: in sieben Runden gekürzt, unter anderem durch Streichung des Methodik-Vorspanns, der ohnehin in Marks Abschnitt 4 gehört. **Lehre für die Reflexion:** Das Budget muss vor dem Schreiben in Sätze pro Absatz übersetzt werden, nicht erst nachträglich geprüft
