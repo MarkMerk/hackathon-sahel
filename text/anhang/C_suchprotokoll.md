@@ -173,6 +173,20 @@ nicht aus dem Vorschlag eines Sprachmodells.
   World-Bank-API geprüft: offizieller Name **„Total natural resources rents (% of GDP)"**, Quelle *World
   Development Indicators*, Methodik laut *The Changing Wealth of Nations* (World Bank staff estimates). Damit
   ist der Nenner der Capture Ratio belegt.
+- **Nachtrag 14:20, auf Anfrage von Philip geprueft — GRD User Guide 2025:** Philip zitiert in
+  `07_limitationen.md` den Nutzerleitfaden dafuer, dass Ressourceneinnahmen unterhalb etwa 1 % BIP
+  fehlen. Diese Aussage war bislang **nicht** im Protokoll gedeckt (nur Projektseite und DOI). Jetzt
+  nachgeholt: Die Dokumentationsseite `https://www.wider.unu.edu/database/data-and-resources-grd` nennt
+  den *User Guide 2025* unter `https://www.wider.unu.edu/sites/default/files/Data/User_Guide_2025.pdf`.
+  WebFetch scheitert dort an HTTP 403; das PDF wurde stattdessen per `curl` geladen (7 Seiten, Stand
+  November 2025) und liegt als `data/raw/doku/GRD_User_Guide_2025.pdf` im Repository. Der Abschnitt
+  „What are some of the limitations to the GRD?“ (S. 6) enthaelt woertlich: „no data on resource
+  revenues is generally available for countries with small levels of resource revenue (generally less
+  than 1% of GDP) and, as such, all revenue is treated as non-resource tax revenue in these cases“.
+  **Die Zuschreibung (UNU-WIDER, 2025) ist damit gedeckt** und kann in den Limitationen bleiben. Die
+  Dokumentationsseite bestaetigt zugleich die Zitierempfehlung, die in `text/quellen.bib` verwendet wird.
+  Der Leitfaden haelt zudem fest, dass nur relativ wenige Laender ueberhaupt eine Groesse „total
+  resource revenue“ berichten — das stuetzt unsere Abdeckungsluecke von 20 der 48 Laender.
 - **Nicht verifiziert:** Die Websuche nennt „McNabb & Oppel (Oktober 2023)" als Autor:innen des
   GRD-Updates; die Crossref-Metadaten des Datensatzes führen keine Personen. Datensatz daher nach der
   Zitierempfehlung von UNU-WIDER institutionell zitieren, nicht über Personennamen. Der in der Suchanfrage
