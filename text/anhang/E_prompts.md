@@ -2,7 +2,7 @@
 
 ## E.1 Werkzeuge und Modelle
 
-Alle drei Teammitglieder arbeiteten mit **Claude Code** (Terminal-Agent), gesteuert über die projektspezifische `CLAUDE.md` und die Sitzungsleitfäden in `sessions/`. Eingesetzte Modelle laut Sitzungsprotokoll: **Claude Opus 5** (Hauptmodell aller drei Sitzungen), vereinzelt **Claude Opus 4.6** sowie **Claude Fable 5.1** in der Vorbereitungsphase (Themenfindung, Cowork, vor Sitzungsbeginn). Für einzelne, klar abgegrenzte Aufträge nutzte Mark zusätzlich eine **Sonnet-Delegation über einen separaten API-Zugang** (`tools/sonnet_api.sh`), um die reguläre Nutzungsgrenze der Sitzung zu schonen; Aufträge wurden dabei mit demselben Kontextrahmen („Kontext: Projekt laut CLAUDE.md …“) an ein zweites, unabhängiges Claude-Code-Fenster übergeben.
+Alle drei Teammitglieder arbeiteten mit **Claude Code** (Terminal-Agent), gesteuert über die projektspezifische `CLAUDE.md` und die Sitzungsleitfäden in `sessions/`. Eingesetzte Modelle laut Sitzungsprotokoll: **Claude Opus 5** (alle drei Sitzungen) sowie **Claude Fable 5.1** in der Vorbereitungsphase (Themenfindung, Cowork, vor Sitzungsbeginn). Für einzelne, klar abgegrenzte Aufträge nutzte Mark zusätzlich eine **Sonnet-Delegation über einen separaten API-Zugang** (`tools/sonnet_api.sh`), um die reguläre Nutzungsgrenze der Sitzung zu schonen; Aufträge wurden dabei mit demselben Kontextrahmen („Kontext: Projekt laut CLAUDE.md …“) an ein zweites, unabhängiges Claude-Code-Fenster übergeben.
 
 Innerhalb von Claude Code kamen fünf projektspezifische **Subagenten** (`.claude/agents/`) für abgegrenzte, wiederholbare Teilaufgaben zum Einsatz:
 
@@ -66,7 +66,7 @@ Zusammengeführt aus den Abschnitten „KI-Fehler und Korrekturen“ in `logs/LO
 | 12:27 | Leon | Falsche Bandangabe zu Mehlum et al. (2006) von einer Drittquelle übernommen (Band/Heft falsch). | Über Crossref korrigiert (Band 116, Heft 508). |
 | 12:31 | Mark | Kodierungsannahme falsch: CSV-Leser ging von UTF-8 aus; UNDP-HDR-Datei ist latin-1 kodiert und brach den Import ab. | Kodierungen werden nacheinander probiert (utf-8-sig, dann latin-1) mit Konsolenhinweis. |
 | 12:38 | Leon | Vermuteter Autorenname „Danquah“ als GRD-Autor in der Suchanfrage, kam in keinem Treffer vor. | Datensatz institutionell zitiert statt mit erratenem Autor. |
-| 12:40 | Mark | Falsche Modellangabe im eigenen Log: Claude bezeichnete sich in vier Zeilen als „Opus 4.6“ statt des tatsächlich genutzten Opus 5. | Von Mark bemerkt und korrigiert. |
+| 12:40 | Mark | Falsche Modellangabe im eigenen Log: Claude bezeichnete sich in vier Zeilen als „Opus 4.6“ statt des tatsächlich genutzten Opus 5. | Von Mark bemerkt und korrigiert; derselbe Fehler trat um 15:17 erneut auf und wurde ebenfalls korrigiert. |
 | 12:20 | Philip | Dummy-Panel erzeugt, ohne dass `flag_ratio_high` in irgendeinem Länderjahr True war; Ausreißer-Pfad der Analyseskripte wäre ungetestet geblieben. | Vereinzelte Einnahmespitzen (Faktor 4–7) eingebaut, jetzt 5 geflaggte Länderjahre. |
 | 12:24 | Philip | In Abb. 4/5 überdeckte die Legende Datenpunkte bzw. die Referenzlinie; Achsentitel kollidierte mit den n-Angaben. Nur bei visueller Kontrolle sichtbar, nicht im Code. | Legenden auf Figur-Ebene über die Zeichenfläche gelegt, y-Grenzen mit Headroom gesetzt. |
 | 12:26 | Philip | Typannotation `dict \| None` (Python ≥ 3.10) verwendet, venv läuft aber auf Python 3.9.6 → TypeError. | `from __future__ import annotations` in allen betroffenen Skripten ergänzt. |
