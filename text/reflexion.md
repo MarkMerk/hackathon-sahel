@@ -72,13 +72,10 @@ Rohstofftyp wurde zum Hauptbefund, der Regionsvergleich zum abgeleiteten
 Ergebnis. Fragestellung und Titel blieben unverändert, weil eine unerwartete
 Antwort ein Ergebnis ist und kein Anlass, die Frage nachträglich anzupassen.
 
-<!-- PLATZHALTER Absatz Mark zur eigenen Rolle: Budget nur noch ca. 320 Zeichen.
-     Falls der Absatz laenger wird, muss an anderer Stelle gekuerzt werden. -->
-<!-- Vorschlag aus den Logs, von Mark zu bestaetigen oder zu ersetzen:
 Mark verantwortete Datenaufbereitung und Deskription. Sein lehrreichster
 Fehler: Ein gegen synthetische Daten geschriebener Lader traf vier falsche
-Annahmen ueber die echte Datei, darunter den Maszstab der Werte. Seither
-prueft er jede Strukturannahme an der Quelle. -->
+Annahmen über die echte Datei, darunter den Maßstab der Werte. Seither
+prüft er jede Strukturannahme an der Quelle.
 
 Leon verantwortete Literatur, Theorie und Diskussion. Die
 Modellunterstützung beschleunigte die Literatursuche, war beim Belegen aber
