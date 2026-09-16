@@ -67,9 +67,18 @@ def periodenmittel_mehrspaltig(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def spearman_block(agg: pd.DataFrame, ziel: str) -> list[dict]:
-    """Spearman capture_ratio <-> ziel, gesamt und je Periode."""
+    """Spearman capture_ratio <-> ziel, je Periode und im Querschnitt.
+
+    Statt einer gepoolten Zeile ueber alle Perioden (die dasselbe Land bis zu
+    dreimal zaehlt und damit dieselbe Pseudoreplikation erzeugt, die die
+    Gruppentests bewusst vermeiden) wird ein echter Querschnitt mit genau
+    einem Wert je Land gerechnet.
+    """
+    querschnitt = agg.groupby("iso3", as_index=False).agg(
+        {"capture_ratio": "mean", ziel: "mean"}
+    )
     ergebnisse = []
-    for label, teil in [("alle Perioden", agg)] + [
+    for label, teil in [("Querschnitt (ein Wert je Land)", querschnitt)] + [
         (p, agg[agg["period"] == p]) for p in PERIODEN
     ]:
         paar = teil[["capture_ratio", ziel]].dropna()
@@ -142,12 +151,20 @@ def schreibe_tabelle(hdi_res, strom_res, fe, agg, ist_dummy) -> None:
             f"(SE {zahl(fe['se'], 4)}, p {p_fmt(fe['p'])}, "
             f"95-%-KI [{zahl(fe['ki_unten'], 4)}; {zahl(fe['ki_oben'], 4)}]), "
             f"n = {fe['n']} Länderjahre aus {fe['n_laender']} Ländern, "
-            f"R² = {zahl(fe['r2'])} (inkl. Fixed Effects).\n\n"
-            f"Lesart: Eine um 0,1 höhere Capture Ratio geht mit einem um "
-            f"{zahl(fe['koeffizient'] * 0.1, 4)} HDI-Punkten abweichenden Wert einher — "
-            f"**innerhalb** eines Landes und nach Kontrolle des Jahres und des "
-            f"BIP pro Kopf. Das ist eine Assoziation; die Wirkungsrichtung ist "
-            f"nicht identifiziert."
+            f"R² = {zahl(fe['r2'])} — dieses R² stammt fast vollständig aus den "
+            f"Länder-Fixed-Effects; das inkrementelle R² der Capture Ratio "
+            f"beträgt etwa 0,00005.\n\n"
+            f"**Diese Schätzung ist nicht belastbar und wird nur exploratorisch "
+            f"berichtet.** Drei Gründe: Das Vorzeichen wechselt mit der "
+            f"Spezifikation (nur Länder-Fixed-Effects: −0,0019, p = 0,041, also "
+            f"negativ und nominell signifikant). Die scheinbare Präzision stammt "
+            f"von wenigen Extremwerten: Ohne die 19 geflaggten Beobachtungen — 14 "
+            f"davon Botswana — steigt der Standardfehler um das Achtzehnfache "
+            f"auf 0,0090, das Konfidenzintervall umspannt [−0,015; +0,021]. Und "
+            f"die Clusterzahl ist klein, fünf Länder haben weniger als fünf "
+            f"Beobachtungen. Aus dem Nullbefund folgt daher **nicht**, dass es "
+            f"innerhalb der Länder keinen Zusammenhang gibt — es folgt, dass "
+            f"diese Daten die Frage nicht beantworten."
         )
 
     kopf = ""
@@ -193,9 +210,16 @@ Standardfehler geclustert nach Land.
   werden. Ein hoher Wert bedeutet nicht, dass die Mittel entwicklungswirksam
   eingesetzt werden; die Verteilung innerhalb des Staates bleibt außerhalb
   der Reichweite dieser Daten.
-- Der HDI bewegt sich über 22 Jahre träge und monoton nach oben. In der
-  FE-Schätzung konkurriert die Capture Ratio daher mit einem starken
-  Zeittrend, der über die Jahres-Fixed-Effects absorbiert wird.
+- Der Nullbefund der Fixed-Effects-Schätzung liegt **nicht** daran, dass der
+  Koeffizient nicht identifiziert wäre: Die Capture Ratio behält nach Abzug
+  der Länder- und Jahreseffekte rund ein Drittel ihrer Streuung. Er liegt an
+  der Hebelwirkung weniger Extremwerte und an der
+  Spezifikationsabhängigkeit — siehe oben.
+- Die Tests der Gruppenvergleiche laufen auf Länder-Periodenmitteln, diese
+  Schätzung auf Länderjahren. Fixed Effects benötigen Variation innerhalb der
+  Länder, die drei Periodenmittel je Land nicht hergeben; die geclusterten
+  Standardfehler adressieren die Abhängigkeit der Jahre eines Landes. Diese
+  Abweichung von der Analyseeinheit ist bewusst und in Abschnitt 4 benannt.
 
 Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDI; eigene Berechnung.
 Erzeugt von `src/05_zusammenhang_hdi.py`.

@@ -47,8 +47,8 @@ Darstellung. Erzeugt von `src/fig3_streudiagramm.py`.
 ## Philip (Abb. 4–5)
 
 **Abb. 4.** Staatliche Abschöpfungsquote (Capture Ratio) nach Periode und
-Ländergruppe. Boxplots der Länder-Periodenmittel; überlagerte Punkte zeigen die
-einzelnen Länder. Die Capture Ratio ist einheitenlos und gibt den Anteil der
+Ländergruppe. Boxplots der Länder-Periodenmittel der zentriert dreijährig
+geglätteten Quote; überlagerte Punkte zeigen die einzelnen Länder. Die Capture Ratio ist einheitenlos und gibt den Anteil der
 Rohstoffrenten an, der als staatliche Ressourceneinnahme im Haushalt ankommt;
 die gepunktete Linie bei 1,0 markiert die vollständige Abschöpfung.
 Berücksichtigt sind Länder mit mindestens drei gültigen Jahren je Periode
@@ -66,9 +66,9 @@ hervorgehoben und mit ISO-3-Code beschriftet. Angegeben sind die
 Spearman-Rangkorrelation und die Fallzahl je Periode. Die Achse endet bei
 1,6; vier Werte liegen darüber und sind als Pfeil am rechten Rand markiert —
 sie gehen in die Korrelationen vollständig ein. Die Darstellung zeigt einen
-Zusammenhang *zwischen* Ländern; innerhalb der Länder über die Zeit findet
-sich keiner (vgl. Tab. 2b). Es handelt sich um eine **Assoziation**, die
-keine Aussage über die Wirkungsrichtung erlaubt.
+Zusammenhang *zwischen* Ländern; über die Entwicklung innerhalb der Länder
+erlauben die Daten keine belastbare Aussage (vgl. Tab. 2b). Es handelt sich um
+eine **Assoziation**, die keine Aussage über die Wirkungsrichtung erlaubt.
 Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDI; eigene Berechnung
 und Darstellung. Erzeugt von `src/05_zusammenhang_hdi.py`.
 

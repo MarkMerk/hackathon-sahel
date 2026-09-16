@@ -116,7 +116,15 @@ Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDR; eigene Berechnung.
 ## Philip
 
 _Erzeugt von `src/04_gruppenvergleich.py`, `src/05_zusammenhang_hdi.py` und
-`src/06_robustheit.py` aus `data/processed/panel.csv` (Stand 13:20)._
+`src/06_robustheit.py` aus `data/processed/panel.csv` (Stand 14:45, nach
+Befunden des Subagenten `statistik-pruefer`)._
+
+> **Änderung 14:45:** Die Hauptspezifikation verwendet jetzt die im
+> Forschungsdesign §3 vorgeschriebene zentrierte 3-Jahres-Glättung
+> (`capture_ratio_3y`). Bis 14:20 rechneten die Skripte auf ungeglätteten
+> Jahreswerten — ein Abweichen vom Design, das der Prüfer gefunden hat. Die
+> ungeglättete Variante läuft weiter als Robustheitsvariante (c0). Der Befund
+> wird durch die Korrektur leicht **stärker**.
 
 ### Gruppenvergleich je Periode (Tab. 2, Abb. 4)
 
@@ -126,9 +134,14 @@ Effektgröße: Cliff's δ (negativ = Sahel niedriger).
 
 | Periode | n Sahel | Median Sahel | IQR Sahel | n übr. SSA | Median übr. SSA | IQR übr. SSA | U | p | Cliff's δ |
 |---|---|---|---|---|---|---|---|---|---|
-| 2000–2007 | 4 | 0,10 | 0,03–0,28 | 18 | 0,51 | 0,11–0,71 | 23,0 | 0,300 | −0,36 (mittel) |
-| 2008–2014 | 4 | 0,21 | 0,04–0,39 | 22 | 0,25 | 0,10–0,74 | 27,0 | 0,252 | −0,39 (mittel) |
-| 2015–2021 | 4 | 0,15 | 0,06–0,31 | 17 | 0,27 | 0,11–0,44 | 26,0 | 0,517 | −0,24 (klein) |
+| 2000–2007 | 4 | 0,10 | 0,03–0,28 | 18 | 0,51 | 0,10–0,71 | 21,0 | 0,227 | −0,42 |
+| 2008–2014 | 4 | 0,21 | 0,04–0,38 | 22 | 0,35 | 0,09–0,76 | 25,0 | 0,197 | −0,43 |
+| 2015–2021 | 4 | 0,16 | 0,06–0,32 | 17 | 0,26 | 0,11–0,45 | 25,0 | 0,462 | −0,26 |
+
+Keine Einordnung von Cliff's δ nach Romano et al. (2006): Bei vier Ländern je
+Periode umspannt das Bootstrap-Konfidenzintervall praktisch den gesamten
+Wertebereich, ein Label wie „mittel" wäre Scheingenauigkeit. Der IQR beruht
+bei n = 4 auf Interpolation und ist nur illustrativ.
 
 - **Kernbefund:** Cliff's δ ist in allen drei Perioden negativ, kein p-Wert
   unterschreitet 0,05. Formulierung im Text: durchgängig niedrigere
@@ -148,72 +161,121 @@ Spearman-Rangkorrelation auf Länder-Periodenmitteln:
 
 | Ziel | Ebene | n | ρ | p |
 |---|---|---|---|---|
-| HDI | alle Perioden | 68 | 0,515 | < 0,001 |
+| HDI | Querschnitt (ein Wert je Land) | 26 | 0,517 | 0,007 |
 | HDI | 2000–2007 | 21 | 0,577 | 0,006 |
 | HDI | 2008–2014 | 26 | 0,456 | 0,019 |
 | HDI | 2015–2021 | 21 | 0,679 | < 0,001 |
-| Stromzugang | alle Perioden | 69 | 0,429 | < 0,001 |
+| Stromzugang | Querschnitt (ein Wert je Land) | 26 | 0,410 | 0,038 |
 | Stromzugang | 2000–2007 | 22 | 0,456 | 0,033 |
 | Stromzugang | 2008–2014 | 26 | 0,355 | 0,076 |
 | Stromzugang | 2015–2021 | 21 | 0,551 | 0,010 |
 
+Die frühere Zeile „alle Perioden" (n = 68, ρ = 0,515) ist durch den
+Querschnitt ersetzt: Sie zählte dasselbe Land bis zu dreimal und erzeugte
+damit dieselbe Pseudoreplikation, die die Gruppentests vermeiden. Der
+Querschnitt bestätigt den Befund bei korrekter Fallzahl.
+
 - Two-way-FE-OLS `hdi ~ capture_ratio + log(BIP p. c.) + Land-FE + Jahr-FE`,
   Cluster-SE nach Land: Koeffizient **0,0007** (SE 0,0005, p = 0,177,
   95-%-KI [−0,0003; 0,0017]), n = 442 Länderjahre aus 28 Ländern.
-- **Wichtig für die Interpretation:** Zwischen den Ländern besteht ein
-  mittlerer positiver Zusammenhang (ρ ≈ 0,43–0,68), innerhalb der Länder
-  über die Zeit praktisch keiner (FE-Koeffizient nahe null, nicht
-  signifikant). Der Querschnittszusammenhang spiegelt also stabile
-  Länderunterschiede, nicht eine Entwicklung, die einer veränderten
-  Abschöpfung folgt. Ausschließlich als Assoziation formulieren.
+- **Die FE-Schätzung ist nicht belastbar und nur exploratorisch zu
+  berichten.** Sie darf **nicht** als „innerhalb der Länder kein
+  Zusammenhang" ausgelegt werden — das war die Formulierung bis 14:45 und
+  ist falsch. Drei Gründe: (1) Das Vorzeichen wechselt mit der
+  Spezifikation — nur mit Länder-Fixed-Effects ergibt sich −0,0019 bei
+  p = 0,041, also negativ und nominell signifikant. (2) Die scheinbare
+  Präzision stammt von wenigen Extremwerten: Ohne die 19 geflaggten
+  Beobachtungen (14 davon Botswana) steigt der Standardfehler von 0,0005 auf
+  0,0090, das Konfidenzintervall umspannt [−0,015; +0,021]. (3) Fünf der 28
+  Cluster haben weniger als fünf Beobachtungen. Korrekte Aussage: Zwischen
+  den Ländern besteht ein mittlerer positiver Zusammenhang (ρ = 0,36–0,68);
+  über die Zeit innerhalb der Länder lassen diese Daten keine Aussage zu.
+- Das hohe R² von 0,985 stammt fast vollständig aus den Länder-Fixed-Effects;
+  das inkrementelle R² der Capture Ratio beträgt etwa 0,00005. Es ist kein
+  Hinweis auf Erklärungskraft der Kennzahl.
 
 ### Robustheit (Tab. 3)
 
-Cliff's δ je Periode, sechs Spezifikationen:
+Cliff's δ je Periode, Hauptspezifikation und acht Varianten:
 
 | Variante | 2000–2007 | 2008–2014 | 2015–2021 |
 |---|---|---|---|
-| Hauptspezifikation | −0,36 | −0,39 | −0,24 |
-| (a1) Vergleichsgruppe ohne Ölstaaten, Sahel unverändert | −0,27 | −0,16 | −0,08 |
-| (a2) ohne Ölstaaten in beiden Gruppen (ohne TCD) | −0,39 | −0,38 | −0,17 |
-| (b) Sahel erweitert (+ SDN, SEN) | −0,21 | −0,32 | −0,24 |
-| (c) 5-Jahres-Mittel | −0,34 | −0,36 | −0,22 |
-| (d) ohne geflaggte Länderjahre | −0,28 | −0,33 | −0,24 |
-| (e) ≥ 5 gültige Jahre je Periode | −0,33 | −0,61 | −0,24 |
+| Hauptspezifikation (3-Jahres-Glättung) | −0,42 | −0,43 | −0,26 |
+| (a1) Vergleichsgruppe ohne Ölstaaten, Sahel unverändert | −0,27 | −0,22 | −0,08 |
+| (a2) ohne Ölstaaten in beiden Gruppen (ohne TCD) | −0,38 | −0,42 | −0,17 |
+| (b) Sahel erweitert (+ SDN, SEN) | −0,27 | −0,37 | −0,27 |
+| (c) 5- statt 3-Jahres-Glättung | −0,39 | −0,43 | −0,26 |
+| (c0) ungeglättete Jahreswerte | −0,36 | −0,39 | −0,24 |
+| (d) ohne geflaggte Länderjahre | −0,34 | −0,34 | −0,26 |
+| (e) ≥ 5 gültige Jahre je Periode | −0,38 | −0,61 | −0,26 |
+| (f) Quotient der Periodensummen | −0,47 | −0,39 | −0,29 |
 
-- **Alle 21 Zellen negativ** — vollständige Vorzeichenstabilität. Kein
-  p-Wert unter 0,05 in irgendeiner Variante (kleinster Wert: 0,118 in
-  Variante e, Periode 2008–2014).
+- **Alle 27 Zellen negativ.** Kein p-Wert unter 0,05 in irgendeiner
+  Regionsvariante (kleinster Wert 0,118 in Variante e, 2008–2014). Die
+  Zellen sind **keine unabhängigen Replikationen**: Sie beruhen alle auf
+  denselben vier Sahel-Ländern.
 - **Kernkontrast mit/ohne Ölstaaten (Tab. 3, oberste Tabelle):** Bleibt die
-  Sahel-Gruppe unverändert und werden nur die sechs Ölstaaten aus der
+  Sahel-Gruppe unverändert und werden nur die Ölstaaten aus der
   Vergleichsgruppe entfernt, fällt der Median der Vergleichsgruppe von 0,51 /
-  0,25 / 0,27 auf 0,14 / 0,15 / 0,16 und Cliff's δ von −0,36 / −0,39 / −0,24
-  auf −0,27 / −0,16 / −0,08. Der Regionsabstand ist also überwiegend ein
-  Rohstofftyp-Effekt.
+  0,35 / 0,26 auf 0,14 / 0,15 / 0,16 und Cliff's δ von −0,42 / −0,43 / −0,26
+  auf −0,27 / −0,22 / −0,08. Der Regionsabstand ist also überwiegend ein
+  Rohstofftyp-Effekt. In 2015–2021 ist δ = −0,08 vernachlässigbar.
 - In den Varianten (a2) und (e) sinkt n Sahel auf 3; (a2) entfernt mit den
   Ölstaaten auch Tschad aus der Sahel-Gruppe.
+- Variante (d) entfernt faktisch ganze Länder: Botswana verliert alle 14
+  gültigen Jahre und fällt aus der Vergleichsgruppe.
 - Die Robustheitsprüfung stützt die **Richtung** des deskriptiven Musters,
-  nicht dessen statistische Signifikanz.
+  nicht dessen Höhe und nicht dessen statistische Signifikanz.
 
 ### Abschöpfung nach Rohstofftyp (Tab. 3, ohne Regionsbezug)
 
-Ölförderer gegen Nicht-Ölförderer über alle Länder, Länder-Periodenmittel.
-Positives δ = Ölstaaten schöpfen mehr ab.
+**Post hoc:** Diese Auswertung ist im Forschungsdesign §5.6 nicht vorgesehen
+und nach Sichtung der Regionsergebnisse ergänzt worden. Das ist beim
+Berichten zu deklarieren. Positives δ = Länder mit Ölförderung schöpfen mehr ab.
+
+Abgrenzung nach der Panelspalte `oil_state` (NGA, AGO, GNQ, COG, GAB, SSD, TCD):
 
 | Periode | n Öl | Median Öl | n ohne Öl | Median ohne Öl | Cliff's δ | p |
 |---|---|---|---|---|---|---|
-| 2000–2007 | 6 | 0,52 | 16 | 0,12 | +0,31 (klein) | 0,294 |
-| 2008–2014 | 7 | 0,74 | 19 | 0,15 | +0,74 (groß) | 0,003 |
-| 2015–2021 | 6 | 0,46 | 15 | 0,14 | +0,64 (groß) | 0,023 |
+| 2000–2007 | 6 | 0,52 | 16 | 0,12 | +0,31 | 0,294 |
+| 2008–2014 | 7 | 0,74 | 19 | 0,15 | +0,74 | 0,003 |
+| 2015–2021 | 6 | 0,46 | 15 | 0,14 | +0,64 | 0,023 |
 
-- **Stärkster Befund der Arbeit:** Der Kontrast nach Rohstofftyp ist größer
-  als der nach Region und in zwei von drei Perioden auch bei diesem kleinen n
-  auffällig (δ = 0,74 und 0,64, „groß" nach Romano et al., 2006).
+**Erweiterte Abgrenzung** (zusätzlich CMR, SDN und MRT, die ebenfalls Erdöl
+fördern). Diese Fassung ist sachlich korrekter — die Spalte `oil_state` wurde
+für den Robustheits-Ausschluss definiert und ist als Öl-Kennzeichnung
+unvollständig:
+
+| Periode | n Öl | Median Öl | n ohne Öl | Median ohne Öl | Cliff's δ | p |
+|---|---|---|---|---|---|---|
+| 2000–2007 | 9 | 0,62 | 13 | 0,11 | +0,54 | 0,038 |
+| 2008–2014 | 10 | 0,66 | 16 | 0,10 | +0,76 | 0,001 |
+| 2015–2021 | 9 | 0,45 | 12 | 0,10 | +0,78 | 0,003 |
+
+- **Deskriptiv deutlichster Kontrast der Arbeit** — nicht „stärkster Befund":
+  Die Auswertung ist post hoc, und die drei Periodentests beruhen auf
+  denselben wenigen Ländern, sind also keine drei unabhängigen Belege.
+- Er hält jedoch der **Holm-Korrektur über alle 17 berichteten Tests** stand:
+  erweiterte Abgrenzung p_Holm = 0,020 (2008–2014) und 0,038 (2015–2021).
+  Mit der unvollständigen Abgrenzung `oil_state` wäre das nicht der Fall.
 - Dasselbe Muster innerhalb des Sahel (Zahlen von Mark): TCD 0,26 und MRT 0,39
   (Erdöl) gegenüber BFA 0,02 (Gold) und NER 0,04 (Uran) — die Spannweite im
   Sahel übersteigt den Gruppenunterschied.
 - Auch dies bleibt eine Assoziation. Plausible Mechanismen (Konzentration der
   Förderung, Erfassbarkeit, Vertragsregime) sind mit diesen Daten nicht
   prüfbar und gehören in die Diskussion.
+- Die Klassifikation nach Rohstofftyp ist eine Vereinfachung: Die Länder
+  fördern jeweils mehrere Rohstoffe in unterschiedlichem Anteil.
+
+### Multiples Testen
+
+Diese Arbeit berichtet 17 Signifikanztests (3 Regionstests der
+Hauptspezifikation, 6 Typtests, 8 Spearman-Korrelationen). Die in den
+Tabellen ausgewiesenen p-Werte sind **nicht adjustiert**. Nach
+Holm-Korrektur über alle 17 bleiben sechs signifikant: die vier
+Spearman-Korrelationen mit HDI beziehungsweise Stromzugang im Querschnitt
+und 2015–2021 sowie die beiden Typtests 2008–2014 und 2015–2021 in
+erweiterter Abgrenzung. Kein Regionstest ist betroffen, da keiner auch
+unadjustiert die Schwelle erreicht.
 
 Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDI; eigene Berechnung.

@@ -41,7 +41,7 @@ FARBE_VERGLEICH = "#4B6584"
 def lade_panel() -> tuple[pd.DataFrame, bool]:
     """Liest panel.csv, faellt auf panel_dummy.csv zurueck. Gibt (df, ist_dummy)."""
     if PANEL.exists():
-        return pd.read_csv(PANEL), False
+        return maskiere_glaettung(pd.read_csv(PANEL)), False
     if not PANEL_FALLBACK.exists():
         raise SystemExit(
             f"FEHLER: Weder {PANEL} noch {PANEL_FALLBACK} vorhanden.\n"
@@ -52,13 +52,35 @@ def lade_panel() -> tuple[pd.DataFrame, bool]:
     print("!! Alle Zahlen und Abbildungen sind ERFUNDEN und duerfen NICHT")
     print("!! in results/zahlen.md oder in den Text uebernommen werden.")
     print("!" * 70)
-    return pd.read_csv(PANEL_FALLBACK), True
+    return maskiere_glaettung(pd.read_csv(PANEL_FALLBACK)), True
+
+
+def maskiere_glaettung(df: pd.DataFrame) -> pd.DataFrame:
+    """Setzt capture_ratio_3y auf NaN, wo capture_ratio selbst fehlt.
+
+    Das zentrierte Mittel mit min_periods=2 erzeugt sonst Werte fuer
+    Laenderjahre, die den Filter (Renten >= 1 % BIP, Zaehler vorhanden)
+    nicht erfuellen -- eine stille Imputation ueber den Filter hinweg.
+    Betroffen im echten Panel: BWA 2002 (Renten 0,91 % BIP) und COD 2020
+    (kein Zaehler). Ohne Maskierung gehen sie in Periodenmittel ein und
+    koennen Laender ueber die Mindestjahres-Schwelle heben.
+    """
+    if "capture_ratio_3y" not in df.columns:
+        return df
+    d = df.copy()
+    betroffen = d["capture_ratio"].isna() & d["capture_ratio_3y"].notna()
+    if betroffen.any():
+        print(f"Hinweis: {int(betroffen.sum())} geglaettete Werte maskiert, weil "
+              f"das Laenderjahr selbst keine Capture Ratio hat "
+              f"({', '.join(d.loc[betroffen, 'iso3'] + ' ' + d.loc[betroffen, 'year'].astype(str))}).")
+        d.loc[betroffen, "capture_ratio_3y"] = np.nan
+    return d
 
 
 # --------------------------------------------------------------------------
 # Aggregation auf Laender-Periodenmittel
 # --------------------------------------------------------------------------
-def periodenmittel(df: pd.DataFrame, wert: str = "capture_ratio",
+def periodenmittel(df: pd.DataFrame, wert: str = "capture_ratio_3y",
                    min_jahre: int = MIN_JAHRE,
                    gruppenspalte: str = "sahel") -> pd.DataFrame:
     """Eine Beobachtung je Land und Periode: Mittel der gueltigen Jahre.
@@ -90,8 +112,17 @@ def cliffs_delta(u_statistik: float, n1: int, n2: int) -> float:
     return 2.0 * u_statistik / (n1 * n2) - 1.0
 
 
-def delta_label(delta: float) -> str:
-    """Einordnung nach Romano et al. (2006): 0,147 / 0,33 / 0,474."""
+def delta_label(delta: float, n_min: int | None = None) -> str:
+    """Einordnung nach Romano et al. (2006): 0,147 / 0,33 / 0,474.
+
+    Bei weniger als fuenf Beobachtungen in der kleineren Gruppe wird keine
+    Einordnung vergeben: Cliff's Delta kann dort nur wenige diskrete Werte
+    annehmen, und das Konfidenzintervall umspannt praktisch den gesamten
+    Wertebereich. Ein Label wie „gross" suggeriert dann eine Praezision,
+    die die Datenlage nicht hergibt.
+    """
+    if n_min is not None and n_min < 5:
+        return "n zu klein für Einordnung"
     a = abs(delta)
     if a < 0.147:
         return "vernachlässigbar"
@@ -125,7 +156,8 @@ def vergleiche(agg: pd.DataFrame) -> list[dict]:
         if len(x) >= 3 and len(y) >= 3:
             u, p = mannwhitneyu(x, y, alternative="two-sided")
             d = cliffs_delta(u, len(x), len(y))
-            eintrag.update({"u": u, "p": p, "delta": d, "delta_txt": delta_label(d)})
+            eintrag.update({"u": u, "p": p, "delta": d,
+                            "delta_txt": delta_label(d, min(len(x), len(y)))})
         zeilen.append(eintrag)
     return zeilen
 
@@ -194,11 +226,14 @@ def schreibe_tabelle(zeilen: list[dict], agg: pd.DataFrame,
 
     inhalt = f"""# Tab. 2 — Capture Ratio: Sahel vs. übriges Subsahara-Afrika
 
-{kopf}Einheit der Analyse: **Länder-Periodenmittel** der Capture Ratio
-(ein Wert je Land und Periode; Länder mit weniger als {MIN_JAHRE} gültigen
-Jahren in einer Periode bleiben für diese Periode unberücksichtigt).
+{kopf}Einheit der Analyse: **Länder-Periodenmittel** der zentriert
+3-jährig geglätteten Capture Ratio (Forschungsdesign §3; ein Wert je Land
+und Periode, Länder mit weniger als {MIN_JAHRE} gültigen Jahren in einer
+Periode bleiben für diese Periode unberücksichtigt).
 Test: Mann-Whitney-U (zweiseitig). Effektgröße: Cliff's Delta
-(negativ = Sahel niedriger), Einordnung nach Romano et al. (2006).
+(negativ = Sahel niedriger). Eine Einordnung nach Romano et al. (2006)
+entfällt, weil sie bei vier Ländern je Periode eine Genauigkeit
+suggerieren würde, die die Datenlage nicht hergibt.
 
 | Periode | n Sahel | Median Sahel | IQR Sahel | n übr. SSA | Median übr. SSA | IQR übr. SSA | U | p | Cliff's δ |
 |---|---|---|---|---|---|---|---|---|---|
@@ -216,8 +251,12 @@ Sahel-Land unter dem Vergleichsland.
 - Mit {n_sahel_txt} Sahel-Ländern je Periode ist die Teststärke gering.
   Ein nicht signifikantes Ergebnis heißt „für eine Aussage reichen die Daten
   nicht", nicht „kein Unterschied". Deshalb steht die Effektgröße vor dem p-Wert.
-- Länderjahre mit Rohstoffrenten < 1 % BIP sind bereits in `panel.csv`
-  ausgeschlossen (kleiner Nenner).
+- Länderjahre mit Rohstoffrenten < 1 % BIP erhalten in `panel.csv` keine
+  Capture Ratio (kleiner Nenner) und gehen daher nicht ein.
+- Die Vergleichsgruppe enthält Sudan und Senegal; Variante (b) in Tab. 3
+  ordnet sie dem erweiterten Sahel zu.
+- Der Interquartilsabstand beruht bei n = 4 auf Interpolation zwischen
+  wenigen Werten und ist nur illustrativ.
 - Nicht in allen Perioden vertretene Sahel-Länder: {fehlend_txt}.
 - {geflaggt} Länderjahre mit Capture Ratio > 1,5 sind enthalten und geflaggt
   (`flag_ratio_high`); sie entstehen durch Timing zwischen Rentenanfall und

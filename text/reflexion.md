@@ -9,25 +9,24 @@
 
 Wir sind drei Studierende der Data Science an der Justus-Liebig-Universität
 Gießen. Die Aufgabe traf damit in ihrem methodischen Teil auf vorhandene
-Kompetenzen: Aufbereitung und Zusammenführung heterogener Tabellen mit Python
-und pandas, deskriptive und rangbasierte Statistik, Panelstruktur und ihre
-Fallstricke, Visualisierung mit matplotlib sowie die Versionierung
-gemeinsamer Arbeit mit Git. Auch die Sensibilität für Pseudoreplikation, für
-den Unterschied zwischen Effektstärke und Signifikanz und für die Grenzen
-kleiner Stichproben stammt aus dem Studium und nicht aus dieser Arbeit.
+Kompetenzen: Aufbereitung heterogener Tabellen mit Python und pandas,
+deskriptive und rangbasierte Statistik, Panelstruktur und ihre Fallstricke,
+Visualisierung sowie die Versionierung gemeinsamer Arbeit mit Git. Auch die
+Sensibilität für Pseudoreplikation, für den Unterschied zwischen Effektstärke
+und Signifikanz und für die Grenzen kleiner Stichproben stammt aus dem
+Studium.
 
 Außerhalb unserer Fachkompetenz lag der Gegenstand selbst. Die politische
 Ökonomie rohstoffreicher Staaten, fiskalische Regime im Bergbau und die
-Geschichte der Sahelstaaten sind für uns Neuland. Wir haben darauf auf zwei
-Weisen reagiert. Erstens haben wir die Fragestellung so gewählt, dass sie mit
-offenen Sekundärdaten deskriptiv-vergleichend beantwortbar ist, statt eine
+Geschichte der Sahelstaaten sind für uns Neuland. Darauf haben wir zweifach
+reagiert: Wir haben die Fragestellung so gewählt, dass sie mit offenen
+Sekundärdaten deskriptiv-vergleichend beantwortbar ist, statt eine
 Erklärungsfrage zu stellen, die Fachwissen über Institutionen und
-Vertragsregime erfordert hätte. Zweitens haben wir jede inhaltliche Aussage an
-eine belegte Quelle gebunden und den theoretischen Rahmen aus der zitierten
-Literatur entwickelt, anstatt ihn zu paraphrasieren. Wo uns die Datenlage
-Deutungsspielraum ließ, haben wir im Zweifel die zurückhaltendere Aussage
-gewählt. Die auffälligste Konsequenz dieser Haltung ist, dass unser
-Hauptbefund nicht die Antwort ist, die die Fragestellung erwarten ließ.
+Vertragsregime erfordert hätte. Und wir haben jede inhaltliche Aussage an eine
+belegte Quelle gebunden, statt sie zu paraphrasieren. Wo die Datenlage
+Deutungsspielraum ließ, haben wir die zurückhaltendere Aussage gewählt. Die
+auffälligste Konsequenz dieser Haltung: Unser Hauptbefund ist nicht die
+Antwort, die die Fragestellung erwarten ließ.
 
 ## 2 Arbeitsprozess
 
@@ -115,32 +114,42 @@ Textfassungen regelmäßig vierzig bis fünfzig Prozent über dem Budget lagen.
 Das gegenseitige Gegenlesen fand schließlich die Fehler, die innerhalb einer
 Sitzung unsichtbar blieben.
 
-Vier Fehlertypen sind uns dabei besonders aufgefallen. Erstens die falsche
-Strukturannahme: Ein Ladeskript war vorab gegen synthetische Daten
-geschrieben worden und traf vier Annahmen über die echte GRD-Datei, die alle
-falsch waren. Die gravierendste betraf den Maßstab — die Werte sind Anteile,
-nicht Prozentzahlen; unbemerkt wäre die zentrale Kennzahl um den Faktor
-hundert zu klein gewesen. Aufgefallen ist das durch eine Größenordnungsprüfung
-an Ölstaaten, deren Ressourceneinnahmen bekanntlich im zweistelligen Bereich
-des Bruttoinlandsprodukts liegen. Zweitens die ungedeckte Aussage über eine
+Fünf Fehlertypen sind uns dabei aufgefallen. Erstens die falsche
+Strukturannahme: Ein Ladeskript war vorab gegen synthetische Daten geschrieben
+worden und traf vier Annahmen über die echte GRD-Datei, die alle falsch waren.
+Die gravierendste betraf den Maßstab — die Werte sind Anteile, nicht
+Prozentzahlen; unbemerkt wäre die zentrale Kennzahl um den Faktor hundert zu
+klein gewesen. Aufgefallen ist das durch eine Größenordnungsprüfung an
+Ölstaaten, deren Ressourceneinnahmen im zweistelligen Bereich des
+Bruttoinlandsprodukts liegen. Zweitens die ungedeckte Aussage über eine
 Quelle: Selbst bei korrekt verifizierter Veröffentlichung kann die inhaltliche
-Behauptung über sie aus einer Suchzusammenfassung stammen und nicht aus dem
-Text. Metadatenprüfung ersetzt keine Inhaltsprüfung. Drittens die
-Kausalsprache, die sich unauffällig einschleicht: Wörter wie „antreibt" oder
-„hemmt" unterstellen eine Wirkungsrichtung, die unsere Daten nicht hergeben.
-Viertens die unsichtbare Darstellungsfehler — Legenden, die Datenpunkte
-verdecken, oder ein einzelner Extremwert, der die gesamte relevante Variation
-in ein Achsenzehntel staucht. Beides war im Code nicht erkennbar und fiel nur
-auf, weil wir jede erzeugte Abbildung selbst angesehen haben.
+Behauptung über sie aus einer Suchzusammenfassung stammen. Metadatenprüfung
+ersetzt keine Inhaltsprüfung. Drittens die Kausalsprache, die sich unauffällig
+einschleicht: Wörter wie „antreibt" oder „hemmt" unterstellen eine
+Wirkungsrichtung, die unsere Daten nicht hergeben. Viertens Darstellungsfehler
+— Legenden, die Datenpunkte verdecken, oder ein einzelner Extremwert, der die
+relevante Variation in ein Achsenzehntel staucht. Beides war im Code nicht
+erkennbar und fiel nur auf, weil wir jede Abbildung selbst angesehen haben.
+
+Fünftens, und am folgenreichsten: die stillschweigend falsche Spezifikation.
+Ein adversarial angesetzter Prüfagent fand, dass unsere Hauptspezifikation die
+im Forschungsdesign vorgeschriebene Dreijahresglättung überhaupt nicht
+verwendete; die Robustheitsvariante „Fünf- statt Dreijahresmittel" verglich
+folglich gegen eine Referenz, die es nicht gab. Derselbe Durchlauf zeigte,
+dass unsere Öl-Klassifikation drei Ölförderer als Nicht-Ölförderer führte und
+dass eine als „kein Zusammenhang über Zeit" formulierte Aussage nur besagte,
+dass die Schätzung von wenigen Extremwerten getragen wird. Alle drei Punkte
+hätten in der Abgabe gestanden — sie erzeugten plausible Zahlen und waren
+deshalb weder in der Konsolenausgabe noch in den Tabellen sichtbar.
 
 Zwei Verstöße gegen unsere eigene Dateiordnung gehören ebenfalls hierher.
-Einmal wurde ein fremdes Skript ausgeführt, um dessen Lauffähigkeit zu
-prüfen — es schrieb dabei in Zieldateien, die einer anderen Person gehörten.
-Ein anderes Mal überschrieb ein Skript eine bewusst geteilte Datei
-vollständig und löschte den Abschnitt einer anderen Person. Beide Fälle
-wurden bemerkt, zurückgesetzt und behoben, der zweite durch eine Funktion,
-die nur den eigenen Abschnitt ersetzt. Bemerkenswert ist, dass es derselbe
-Fehlertyp war: Ein Werkzeug schreibt weiter, als die Absicht reichte.
+Einmal wurde ein fremdes Skript ausgeführt, um dessen Lauffähigkeit zu prüfen
+— es schrieb dabei in Zieldateien einer anderen Person. Ein anderes Mal
+überschrieb ein Skript eine bewusst geteilte Datei vollständig und löschte den
+Abschnitt einer anderen Person. Beide Fälle wurden bemerkt und behoben, der
+zweite durch eine Funktion, die nur den eigenen Abschnitt ersetzt.
+Bemerkenswert ist, dass es derselbe Fehlertyp war: Ein Werkzeug schreibt
+weiter, als die Absicht reichte.
 
 Ohne Modellunterstützung haben wir die Fragestellung ausgewählt, das
 Analysefenster festgelegt, die Operationalisierung der Kennzahl bestimmt, die
@@ -170,12 +179,18 @@ Richtung des Musters über alle Spezifikationen hinweg sowie der Kontrast nach
 Rohstofftyp. Wir haben uns entschieden, das so zu schreiben, statt die
 Unsicherheit sprachlich zu glätten.
 
-Anders machen würden wir zwei Dinge. Die Struktur der Rohdaten würden wir vor
+Anders machen würden wir drei Dinge. Die Struktur der Rohdaten würden wir vor
 dem ersten Skript prüfen, nicht danach — die vier falschen Annahmen über die
-GRD-Datei hätte ein einziger Blick in die Datei erspart. Und wir würden das
+GRD-Datei hätte ein einziger Blick in die Datei erspart. Wir würden das
 Zeichenbudget vor dem Schreiben in eine Zahl von Absätzen und Sätzen
 übersetzen, statt es hinterher zu messen; das Kürzen hat mehr Zeit gekostet
-als das Schreiben.
+als das Schreiben. Und wir würden die adversariale Prüfung der Auswertung
+früher ansetzen: Sie kam erst, als Tabellen, Abbildungen und Textentwürfe
+fertig waren, weshalb ein einzelner Befund die Neuberechnung aller Ergebnisse
+und die Überarbeitung von vier Abschnitten nach sich zog. Bezeichnend ist
+dabei, dass gerade die schwerwiegendsten Fehler solche waren, die plausible
+Zahlen erzeugten — falsche Ergebnisse fallen auf, stillschweigend falsche
+Spezifikationen nicht.
 
 Die Verantwortung für diese Arbeit liegt bei uns. Sprachmodelle haben Code
 geschrieben, Texte entworfen, Quellen vorgeschlagen und unsere Entwürfe
