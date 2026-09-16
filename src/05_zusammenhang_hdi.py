@@ -197,7 +197,7 @@ Standardfehler geclustert nach Land.
   FE-Schätzung konkurriert die Capture Ratio daher mit einem starken
   Zeittrend, der über die Jahres-Fixed-Effects absorbiert wird.
 
-Quelle: World Bank WDI, ICTD/UNU-WIDER GRD 2023, UNDP HDI; eigene Berechnung.
+Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDI; eigene Berechnung.
 Erzeugt von `src/05_zusammenhang_hdi.py`.
 """
     TAB_OUT.parent.mkdir(parents=True, exist_ok=True)

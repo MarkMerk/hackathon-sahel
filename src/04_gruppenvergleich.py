@@ -201,7 +201,7 @@ Sahel-Land unter dem Vergleichsland.
   (`flag_ratio_high`); sie entstehen durch Timing zwischen Rentenanfall und
   Zahlungseingang sowie durch Preisschocks und wurden nicht entfernt.
 
-Quelle: World Bank WDI, ICTD/UNU-WIDER GRD 2023; eigene Berechnung.
+Quelle: World Bank WDI, UNU-WIDER GRD 2025; eigene Berechnung.
 Erzeugt von `src/04_gruppenvergleich.py`.
 """
     TAB_OUT.parent.mkdir(parents=True, exist_ok=True)

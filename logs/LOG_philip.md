@@ -9,6 +9,9 @@ Format: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil
 - 12:26 · src/05_zusammenhang_hdi.py + tables/tab2b_zusammenhang.md + figures/fig5_hdi.png · Claude Opus 5 · Spearman Capture Ratio ↔ HDI und ↔ Stromzugang, Two-way-FE-OLS mit Cluster-SE nach Land; durchgängig als Assoziation ausgewiesen
 - 12:28 · src/06_robustheit.py + tables/tab3_robustheit.md · Claude Opus 5 · sechs Varianten (Haupt, ohne Ölstaaten, sahel_ext, 5-Jahres-Mittel, ohne geflaggte Ausreißer, ≥ 5 Jahre); Kernkriterium Vorzeichenstabilität von Cliff's Delta statt p-Wert
 - 12:29 · results/zahlen.md und figures/captions.md (Abschnitt Philip) · Claude Opus 5 · Gerüst mit Skriptverweisen angelegt, bewusst ohne Dummy-Zahlen (CLAUDE.md §6.2)
+- 12:48 · Quellenangabe auf GRD 2025 korrigiert (Befund von Leon, bestätigt von Mark) · Claude Opus 5 · „ICTD/UNU-WIDER GRD 2023" → „UNU-WIDER GRD 2025" an 8 Stellen: in den drei Skripten 04–06 (dort entstehen die Zeilen) und in captions.md; Tabellen neu erzeugt
+- 12:55 · text/abschnitte/07_limitationen.md (Schritt 4 vorgezogen) · Claude Opus 5 · 2.298 von 2.300 Zeichen; vier Blöcke: Indikatorkonstruktion, systematische GRD-Lücken, Reichweite der Aussagen, zeitliche Grenzen. Platzhalter <n_vergleich> für Marks Nachtrag. Vorgezogen, weil panel.csv noch fehlte und die Limitationen keine Zahlen brauchen
+- 12:56 · STRaWBERRY-Prüfung des Limitationsentwurfs · Subagent strawberry-reviewer · Befunde siehe unten
 
 ## KI-Fehler und Korrekturen
 

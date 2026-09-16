@@ -183,7 +183,7 @@ erhalten bleibt.
   sagt etwas über die Stabilität des deskriptiven Musters, nicht über dessen
   Ursachen.
 
-Quelle: World Bank WDI, ICTD/UNU-WIDER GRD 2023; eigene Berechnung.
+Quelle: World Bank WDI, UNU-WIDER GRD 2025; eigene Berechnung.
 Erzeugt von `src/06_robustheit.py`.
 """
     TAB_OUT.parent.mkdir(parents=True, exist_ok=True)
