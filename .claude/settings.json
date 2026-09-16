@@ -11,7 +11,10 @@
       "Edit(~/Library/**)",
       "Edit(~/Documents/**)",
       "Bash(git push --force:*)",
-      "Bash(git push -f:*)"
+      "Bash(git push -f:*)",
+      "Read(~/AppData/**)",
+      "Read(~/OneDrive/**)",
+      "Edit(~/AppData/**)"
     ]
   },
   "hooks": {
@@ -20,7 +23,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_start.py\""
+            "command": "if python -c \"import sys; sys.exit(0 if sys.version_info>=(3,9) else 1)\" >/dev/null 2>&1; then python \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_start.py\"; else python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/session_start.py\"; fi"
           }
         ]
       }
@@ -30,7 +33,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/log_prompt.py\""
+            "command": "if python -c \"import sys; sys.exit(0 if sys.version_info>=(3,9) else 1)\" >/dev/null 2>&1; then python \"$CLAUDE_PROJECT_DIR/.claude/hooks/log_prompt.py\"; else python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/log_prompt.py\"; fi"
           }
         ]
       }
@@ -40,7 +43,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop_log_check.py\""
+            "command": "if python -c \"import sys; sys.exit(0 if sys.version_info>=(3,9) else 1)\" >/dev/null 2>&1; then python \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop_log_check.py\"; else python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop_log_check.py\"; fi"
           }
         ]
       }

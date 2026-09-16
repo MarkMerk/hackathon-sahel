@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """UserPromptSubmit: schreibt jeden Prompt mit Uhrzeit nach logs/prompts_<person>.md (Anhang E / Reflexion)."""
 import datetime as dt
-from zoneinfo import ZoneInfo
+try:
+    from zoneinfo import ZoneInfo
+except ImportError:  # Python < 3.9
+    ZoneInfo = None
 import json
 import os
 import re
@@ -31,7 +34,10 @@ p = person()
 path = os.path.join(project_dir(), "logs", f"prompts_{p}.md")
 os.makedirs(os.path.dirname(path), exist_ok=True)
 new = not os.path.exists(path)
-now = dt.datetime.now(ZoneInfo("Europe/Berlin")).strftime("%H:%M")
+try:
+    now = dt.datetime.now(ZoneInfo("Europe/Berlin")).strftime("%H:%M")
+except Exception:  # Windows ohne tzdata
+    now = dt.datetime.now().strftime("%H:%M")
 sid = str(data.get("session_id", ""))[:8]
 with open(path, "a", encoding="utf-8") as f:
     if new:

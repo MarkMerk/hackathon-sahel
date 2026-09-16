@@ -16,17 +16,45 @@ Forschungsfrage: *Wer schöpft die Rohstoffrenten ab? Der Anteil staatlicher Res
 | `logs/LOG_<name>.md` | KI-Protokoll je Person, von Claude nach jeder Teilaufgabe gepflegt (Grundlage für die Reflexion) |
 | `logs/prompts_<name>.md` | Automatisches Prompt-Protokoll per Hook (Anhang E) |
 | `.claude/agents/` | Projekt-Subagenten (Datenprüfung, Abbildungen, Statistik-Review, STRaWBERRY-Review, Quellenprüfung) |
+| `.claude/commands/` | `/start`, `/weiter`, `/abschluss` |
+| `.claude/hooks/` | Automatische Protokollierung |
 
-## Setup (jede Person, 5 Minuten)
+## Setup (jede Person, ca. 5 Minuten)
+
+**1. VS Code mit GitHub verbinden:** unten links Symbol *Accounts* → *Mit GitHub anmelden* → im Browser autorisieren. Einladung zum Repo vorher auf github.com/notifications annehmen.
+
+**2. Klonen:** `Strg/Cmd+Shift+P` → *Git: Clone* → *Clone from GitHub* → `hackathon-sahel` → Ordner wählen → *Öffnen*.
+
+**3. Im VS-Code-Terminal** (`` Strg+` ``):
+
+macOS / Linux:
 ```bash
-git clone <REPO-URL> hackathon-sahel && cd hackathon-sahel
-git config user.name "<Vorname Nachname>"   # wichtig: Vorname bestimmt die Log-Datei (mark/philip/leon)
+git config user.name "Vorname Nachname"      # Vorname bestimmt die Log-Datei (mark/philip/leon)
 python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
-# API-Zugang wie von der Hackathon-Leitung vorgegeben laden (z. B. .hrz.env lokal, NIE committen)
 claude
 ```
-Beim ersten Start fragt Claude Code ggf., ob den Projekt-Hooks vertraut wird → **ja** (sie schreiben nur in `logs/`).
-Erste Nachricht in Claude Code: *„Lies CLAUDE.md und sessions/<DEIN_NAME>.md und starte mit Schritt 1.“*
+Windows (PowerShell):
+```powershell
+git config user.name "Vorname Nachname"
+py -m venv .venv
+Set-ExecutionPolicy -Scope Process RemoteSigned   # nur falls Activate blockiert wird
+.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+claude
+```
+Windows-Voraussetzungen: Git for Windows (bringt Git Bash mit, das Claude Code benötigt) und Python 3.10+ von python.org mit Häkchen „Add python.exe to PATH“. Test: `python --version` muss eine echte Version zeigen (nicht den Microsoft Store öffnen).
+
+**4. In Claude Code:** Beim ersten Start den Projekt-Hooks vertrauen (**ja** — sie schreiben nur in `logs/`). Dann eingeben:
+```
+/start
+```
+Claude erklärt dir deine Rolle, deine Dateien, Abhängigkeiten, deinen Zeitplan und den ersten Schritt.
+
+| Befehl in Claude Code | Wofür |
+|---|---|
+| `/start` | Einweisung in die eigene Aufgabe (einmal zu Beginn oder nach Neustart) |
+| `/weiter` | Stand prüfen, was die anderen gepusht haben, nächsten Schritt vorschlagen |
+| `/abschluss <Beschreibung>` | Log-Zeile, nur eigene Dateien committen, pull --rebase, push |
 
 ## Zeitplan
 | Zeit | Mark | Philip | Leon |

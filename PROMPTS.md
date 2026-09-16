@@ -2,7 +2,7 @@
 
 Persönliche Schritt-Prompts stehen in `sessions/<NAME>.md`. Platzhalter `<…>` ausfüllen.
 
-## P0 — Sitzungsstart
+## P0 — Sitzungsstart (Alternative zu `/start`)
 ```
 Ich bin <Mark|Philip|Leon>. Lies CLAUDE.md, docs/Forschungsdesign.md, sessions/<NAME>.md und die letzten Zeilen von logs/LOG_<name>.md. Führe `git pull --rebase` aus. Fasse in 5 Zeilen zusammen: Forschungsfrage, Stand im Repo, mein nächster Schritt laut Leitfaden. Dann warte auf meine Bestätigung. Nach jeder abgeschlossenen Teilaufgabe: Log-Zeile, Commit nur mit meinen Dateien, pull --rebase, push.
 ```

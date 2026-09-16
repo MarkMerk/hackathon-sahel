@@ -12,6 +12,8 @@ außer Leerzeilen — Deckblatt, Inhaltsverzeichnis, Literaturverzeichnis und An
 Export aus der Datei entfernen oder mit --von/--bis eingrenzen.
 Exit-Code 1, wenn das Limit überschritten ist.
 """
+from __future__ import annotations
+
 import argparse
 import glob
 import os
