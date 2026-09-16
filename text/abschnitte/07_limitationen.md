@@ -1,40 +1,39 @@
 # 7 Limitationen
 
 <!-- Budget: 2.300 Zeichen inkl. Leerzeichen (Forschungsdesign §8). STRaWBERRY: REFLOW, Schwerpunkt L.
-     PLATZHALTER: <n_vergleich> = Zahl der Vergleichsländer je Periode (aus tables/tab2_gruppenvergleich.md,
-     sobald panel.csv vorliegt). -->
+     PLATZHALTER (Mark trägt nach, sobald panel.csv und tables/abdeckung.md vorliegen):
+       <n_sahel>     = Zahl der Sahel-Länder je Periode in Tab. 2 (kann 3–5 betragen, s. Variante a)
+       <n_vergl_min> / <n_vergl_max> = Spannweite der Vergleichsgruppe über die drei Perioden
+     Geprüft mit strawberry-reviewer (REFLOW) am 16.09., Befunde eingearbeitet. -->
 
 **Konstruktion der Capture Ratio.** Der Indikator setzt zwei unterschiedlich
-erhobene Größen ins Verhältnis: Die Weltbank schätzt Rohstoffrenten als
-Differenz zwischen Weltmarktpreis und Förderkosten, das Government Revenue
+erhobene Größen ins Verhältnis: Die Weltbank schätzt Rohstoffrenten
+modellbasiert aus Weltmarktpreis und Förderkosten, das Government Revenue
 Dataset erfasst tatsächliche Zahlungseingänge (UNU-WIDER, 2025; World Bank,
-2026). Renten fallen mit der Förderung an, Abgaben werden verzögert gezahlt.
-Das zentrierte Dreijahresmittel dämpft diese Verschiebung, hebt sie aber
-nicht auf. Länderjahre mit Quotienten über 1,5 haben wir gekennzeichnet und
-nicht entfernt, da sie plausibel auf Nachzahlungen zurückgehen.
+2026). Messfehler im geschätzten Nenner schlagen durch. Renten fallen mit der
+Förderung an, Abgaben folgen verzögert; das Dreijahresmittel dämpft dies nur
+(vgl. Tab. 3, Variante d).
 
-**Systematische Datenlücken.** Der GRD-Nutzerleitfaden dokumentiert, dass
-Werte überwiegend fehlen, wenn die Ressourceneinnahmen unter etwa einem
-Prozent des Bruttoinlandsprodukts liegen. Sie häufen sich am unteren
-Rand der Verteilung, und die ausgewiesenen Quoten dürften die
-tatsächlichen eher überschätzen — in beiden Gruppen, weshalb der
-Gruppenvergleich weniger betroffen ist als das Niveau. Zudem liegen im GRD
-einzelne Land-Jahr-Kombinationen mehrfach vor, weil verschiedene
-Regierungsebenen berichtet werden; wir behalten den Eintrag mit mehr belegten
-Werten. Diese Entscheidung ist nachvollziehbar, aber nicht neutral.
+**Systematische Datenlücken.** Der Nutzerleitfaden dokumentiert, dass Werte
+überwiegend fehlen, wenn die Ressourceneinnahmen unter etwa einem Prozent des
+Bruttoinlandsprodukts liegen (UNU-WIDER, 2025). Sie häufen sich am
+Rand der Verteilung, sodass die Quoten die tatsächlichen eher überschätzen —
+bei ähnlicher Ausfallstruktur beider Gruppen vor allem im Niveau, weniger im
+Gruppenvergleich. Manche Land-Jahr-Angaben liegen zudem mehrfach vor, weil
+verschiedene Regierungsebenen berichten; wir behalten die belegtere Zeile.
 
-**Reichweite der Aussagen.** Sämtliche Ergebnisse sind Assoziationen, keine
-Kausalaussagen. Die Rangtests beruhen auf Länder-Periodenmitteln, um
-Pseudoreplikation über Länderjahre zu vermeiden; je Periode stehen damit fünf
-Sahel-Staaten rund <n_vergleich> Vergleichsländern gegenüber. Die Teststärke
-ist entsprechend gering: Ein nicht signifikantes Ergebnis belegt keine
-Gleichheit, sondern zeigt, dass die Daten nicht ausreichen. Wir gewichten
-daher Effektgrößen vor p-Werten.
+**Reichweite der Aussagen.** Alle Ergebnisse sind Assoziationen, keine
+Kausalaussagen, und sie gelten allein für rohstoffreiche Länderjahre, da nur
+Werte ab einem Prozent Renten eingehen. Die Rangtests beruhen auf
+Länder-Periodenmitteln, um Pseudoreplikation zu vermeiden; je Periode stehen
+<n_sahel> Sahel-Staaten <n_vergl_min> bis <n_vergl_max> Vergleichsländern
+gegenüber. Die Teststärke ist gering, und wir prüfen viele Spezifikationen
+ohne Adjustierung: Ein einzelner p-Wert unter 0,05 wäre kein Befund, weshalb
+wir Effektgrößen vorrangig lesen. Auch geclusterte Standardfehler sind bei so
+wenigen Clustern unzuverlässig.
 
-**Zeitliche und inhaltliche Grenzen.** Das Analysefenster endet 2021, weil
-beide Quellen danach keine belastbaren Werte für die Sahel-Staaten ausweisen.
-Der malische Bergbaukodex von 2023 und die Verstaatlichung von SOMAÏR 2025
-liegen außerhalb der Daten und werden in der Diskussion aufgegriffen.
-Schließlich sagt eine hohe Abschöpfungsquote nichts darüber, wofür die Mittel
-verwendet werden: Über die Verteilung innerhalb des Staates erlauben unsere
-Daten keine Aussage.
+**Zeitliche Grenzen.** Das Fenster endet 2021, weil der Rentenindikator
+danach keine Werte für die Sahel-Staaten ausweist; Politikwechsel
+nach 2021 liegen außerhalb der Daten (Abschnitt 6). Zudem sagt eine hohe
+Quote nichts über die Mittelverwendung: Über die Verteilung im Staat erlauben
+unsere Daten keine Aussage.

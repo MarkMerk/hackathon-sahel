@@ -11,13 +11,18 @@ Format: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil
 - 12:29 · results/zahlen.md und figures/captions.md (Abschnitt Philip) · Claude Opus 5 · Gerüst mit Skriptverweisen angelegt, bewusst ohne Dummy-Zahlen (CLAUDE.md §6.2)
 - 12:48 · Quellenangabe auf GRD 2025 korrigiert (Befund von Leon, bestätigt von Mark) · Claude Opus 5 · „ICTD/UNU-WIDER GRD 2023" → „UNU-WIDER GRD 2025" an 8 Stellen: in den drei Skripten 04–06 (dort entstehen die Zeilen) und in captions.md; Tabellen neu erzeugt
 - 12:55 · text/abschnitte/07_limitationen.md (Schritt 4 vorgezogen) · Claude Opus 5 · 2.298 von 2.300 Zeichen; vier Blöcke: Indikatorkonstruktion, systematische GRD-Lücken, Reichweite der Aussagen, zeitliche Grenzen. Platzhalter <n_vergleich> für Marks Nachtrag. Vorgezogen, weil panel.csv noch fehlte und die Limitationen keine Zahlen brauchen
-- 12:56 · STRaWBERRY-Prüfung des Limitationsentwurfs · Subagent strawberry-reviewer · Befunde siehe unten
+- 12:56 · STRaWBERRY-Prüfung des Limitationsentwurfs · Subagent strawberry-reviewer · REFLOW: L erfüllt (alle 5 Checklistenpunkte), aber 7 Befunde; drei designspezifische Limitationen fehlten
+- 13:10 · Befunde eingearbeitet, 07_limitationen.md überarbeitet · Claude Opus 5 · neu aufgenommen: Modellcharakter des WDI-Nenners, Selektion durch den 1-%-Filter, multiples Testen ohne Adjustierung, wenige Cluster bei den FE-Standardfehlern; „fünf Sahel-Staaten" → Platzhalter, Symmetrie-Annahme konditional, Verweis auf Tab. 3 Variante d statt Methodikwiederholung; 2.296 von 2.300 Zeichen
 
 ## KI-Fehler und Korrekturen
 
 - 12:20 · Claude erzeugte den Dummy zunächst so, dass `flag_ratio_high` in keinem einzigen Länderjahr True war · Folge: der Ausreißer-Pfad der Analyseskripte wäre ungetestet geblieben · Korrektur: vereinzelte Einnahmespitzen (Faktor 4–7, p = 0,03) eingebaut, jetzt 5 geflaggte Länderjahre
 - 12:24 · Abb. 4 und Abb. 5: Legende überdeckte Datenpunkte bzw. die Referenzlinie, Achsentitel „Periode" kollidierte mit den n-Angaben · nur bei der visuellen Kontrolle des PNG aufgefallen, nicht im Code sichtbar · Korrektur: Legenden auf Figur-Ebene über die Zeichenfläche gelegt, y-Grenzen mit Headroom gesetzt
 - 12:26 · Claude nutzte die Typannotation `dict | None` (Python ≥ 3.10), das venv läuft aber auf Python 3.9.6 → TypeError · Korrektur: `from __future__ import annotations` in allen Skripten
+- 13:05 · Im ersten Limitationsentwurf schrieb Claude „fünf Sahel-Staaten" je Periode als feste Zahl · Verstoß gegen CLAUDE.md §6.2 (keine Zahl ohne results/zahlen.md) und sachlich unsicher, weil Tab. 2 nur Länder mit ≥ 3 gültigen Jahren je Periode aufnimmt — in Variante (a) sind es bereits 4 · vom strawberry-reviewer gefunden · Korrektur: Platzhalter `<n_sahel>`
+- 13:05 · Claude behauptete im Indikativ, die GRD-Lücken beträfen „beide Gruppen, weshalb der Gruppenvergleich weniger betroffen ist" · das gilt nur bei symmetrischer Ausfallstruktur, die ohne tables/abdeckung.md nicht belegt ist · vom strawberry-reviewer gefunden · Korrektur: konditional formuliert („bei ähnlicher Ausfallstruktur beider Gruppen")
+- 13:05 · Claude begründete das Datenende 2021 mit „beide Quellen weisen danach keine Werte aus" · falsch: bindend ist allein der WDI-Rentenindikator, das GRD reicht laut Forschungsdesign §1 bis 2021/22 und in Version 2025 vermutlich weiter · vom strawberry-reviewer gefunden · Korrektur: Begründung auf den Nenner beschränkt
+- 13:05 · Die Aussage zum GRD-Nutzerleitfaden stand ohne Klammerzitat und ist im Suchprotokoll nicht als geprüft dokumentiert · Korrektur: (UNU-WIDER, 2025) gesetzt; **offen an Leon**: den User Guide selbst in C_suchprotokoll.md nachweisen, sonst ist die zentrale Aussage des Absatzes formal unbelegt
 
 ## Verworfene Ansätze
 
