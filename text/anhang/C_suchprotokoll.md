@@ -199,10 +199,11 @@ und ist Material für die Reflexion.
 
 | Kategorie | Anzahl |
 |---|---|
-| In `text/quellen.bib` übernommen (DOI/URL geprüft) | 12 |
+| In `text/quellen.bib` übernommen (DOI/URL geprüft) | **13** (11 Literatur + 2 Datenquellen) |
 | davon Klassiker (bis 2011) | 5 (Beblawi/Luciani 1987; Sachs/Warner 2001; Mehlum et al. 2006 ×2; van der Ploeg 2011) |
-| davon ab 2015 | 6 (Corrigan 2017; Albertin et al. 2021; Debonheur 2025; Nkemgha 2026; Tull 2026; GRD 2025) |
-| davon Datenquellen | 2 (GRD 2025; WDI) |
+| davon ab 2015 | 5 (Corrigan 2017; Albertin et al. 2021; Debonheur 2025; Nkemgha 2026; Tull 2026) |
+| dazwischen | 1 (Crivelli & Gupta 2014) |
+| davon Datenquellen | 2 (GRD Version 2025; WDI `NY.GDP.TOTL.RT.ZS`) |
 | Als „nicht verifiziert" vermerkt | 5 (Mahdavy 1970; Smith 2012; AU/ECA-Bericht; AES/ECOWAS-Daten; McNabb/Oppel) |
 | Verworfen | ca. 25 Treffer (Presse, Advocacy, Preprints, Wikipedia, thematisch fremd) |
 
