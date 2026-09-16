@@ -1,6 +1,6 @@
 # Sitzungsleitfaden — Philip (Statistik, Gruppenvergleich, Robustheit, Limitationen, Reflexion)
 
-> Für Claude Code in Philips Terminal. Arbeite Schritt für Schritt; nach jedem Schritt Log-Zeile, Commit, `git pull --rebase`, `git push`.
+> Für Claude Code in Philips Terminal. Arbeite Schritt für Schritt; nach jedem Schritt Log-Zeile in `logs/LOG_philip.md` (inkl. verworfener Analysen und KI-Fehler), Commit, `git pull --rebase`, `git push`.
 
 ## Rolle
 Statistische Auswertung auf Basis von `data/processed/panel.csv`: Gruppenvergleich je Periode, Zusammenhang mit HDI/Stromzugang, Robustheit, Abb. 4–5, Tab. 2–3, Ergebnisse 5.2–5.4, Limitationen, Entwurf der Dokumentation & Reflexion.
@@ -31,5 +31,5 @@ Alle Zahlen zusätzlich in results/zahlen.md unter „Philip“ (mit Skriptname)
 - Limitationen mindestens: kleine Sahel-Gruppe (n = 5), Datenende 2021, fehlende GRD-Werte bei geringen Ressourceneinnahmen, Messfehler/Timing zwischen Renten und Einnahmen, Weltmarktpreise, Assoziation statt Kausalität, keine Aussage über Verteilung *innerhalb* des Staates.
 
 ### Schritt 5 — Dokumentation & Reflexion (15:00–16:25)
-- Alle drei `logs/LOG_*.md` pullen, Prompt P5 aus `PROMPTS.md` → `text/reflexion.md` (≤ 12.500).
+- Alle `logs/LOG_*.md` und `logs/prompts_*.md` pullen, Prompt P5 aus `PROMPTS.md` → `text/reflexion.md` (≤ 12.500).
 - Mark und Leon ergänzen je einen Absatz zur eigenen Rolle; dann `python count_chars.py text/reflexion.md 12500`, ins Google Doc übernehmen, formatieren.

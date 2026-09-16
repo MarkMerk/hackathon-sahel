@@ -1,6 +1,7 @@
 # Sitzungsleitfaden — Leon (Theorie, Forschungsstand, Einleitung, Diskussion, Literatur)
 
 > Für Claude Code in Leons Terminal. Schwerpunkt Literatur und Text. Grundregel: **Keine Quelle ohne geprüfte DOI/URL.** Alles, was die KI vorschlägt, wird geöffnet und kontrolliert, bevor es in `text/quellen.bib` kommt.
+> **Protokoll:** Nach jedem Schritt Log-Zeile in `logs/LOG_leon.md` (was, Modell, Ergebnis/verworfen). Besonders wichtig: jede von der KI vorgeschlagene Quelle, die nicht existierte oder die Aussage nicht stützte, unter „## KI-Fehler und Korrekturen“ — das ist zentrales Material für die Reflexion. Danach Commit, `git pull --rebase`, `git push`.
 
 ## Rolle
 Theoretischer Rahmen, Forschungsstand mit Forschungslücke, Einleitung, Diskussion inkl. Fallbeispiele Niger (Uran) und Mali (Gold), Literaturverzeichnis APA 7, Suchprotokoll (Anhang C), Formatierung im Google Doc.

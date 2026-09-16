@@ -13,16 +13,19 @@ Forschungsfrage: *Wer schöpft die Rohstoffrenten ab? Der Anteil staatlicher Res
 | `PROMPTS.md` | Gemeinsame Prompts (Sitzungsstart, Abschnitt schreiben, STRaWBERRY-Check, Reflexion, Formatcheck) |
 | `STRAWBERRY.md` | Checkliste wissenschaftliches Schreiben |
 | `DATA_DOWNLOAD.md` | Manuelle Datendownloads |
-| `logs/LOG_<name>.md` | KI-Protokoll je Person (Grundlage für die Reflexion) |
+| `logs/LOG_<name>.md` | KI-Protokoll je Person, von Claude nach jeder Teilaufgabe gepflegt (Grundlage für die Reflexion) |
+| `logs/prompts_<name>.md` | Automatisches Prompt-Protokoll per Hook (Anhang E) |
 | `.claude/agents/` | Projekt-Subagenten (Datenprüfung, Abbildungen, Statistik-Review, STRaWBERRY-Review, Quellenprüfung) |
 
 ## Setup (jede Person, 5 Minuten)
 ```bash
 git clone <REPO-URL> hackathon-sahel && cd hackathon-sahel
+git config user.name "<Vorname Nachname>"   # wichtig: Vorname bestimmt die Log-Datei (mark/philip/leon)
 python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
 # API-Zugang wie von der Hackathon-Leitung vorgegeben laden (z. B. .hrz.env lokal, NIE committen)
 claude
 ```
+Beim ersten Start fragt Claude Code ggf., ob den Projekt-Hooks vertraut wird → **ja** (sie schreiben nur in `logs/`).
 Erste Nachricht in Claude Code: *„Lies CLAUDE.md und sessions/<DEIN_NAME>.md und starte mit Schritt 1.“*
 
 ## Zeitplan

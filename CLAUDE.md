@@ -41,16 +41,17 @@ text/abschnitte/    Entwürfe je Abschnitt (werden ins Google Doc übernommen)
 text/anhang/        A_code.md B_datenquellen.md C_suchprotokoll.md D_tabellen.md E_prompts.md
 text/quellen.bib    nur DOI-geprüfte Quellen
 text/reflexion.md   Entwurf Dokumentation & Reflexion
-logs/               LOG_mark.md, LOG_philip.md, LOG_leon.md
+logs/               LOG_<name>.md (manuell/Claude), prompts_<name>.md (automatisch per Hook)
+.claude/hooks/      Protokoll-Hooks (nicht verändern)
 .claude/agents/     Projekt-Subagenten
 ```
 
 ## 5. Dateihoheit
 | Person | Schreibt in |
 |---|---|
-| Mark | `src/01_*`–`src/03_*`, `data/processed/panel.csv`, `figures/fig1–3*`, `tables/tab1*`, `tables/abdeckung.md`, `results/zahlen.md` Abschnitt „Mark“, `text/abschnitte/00_abstract.md`, `04_methodik.md`, `05_1_*.md`, `08_fazit.md`, `text/anhang/A_*`, `B_*`, `D_*`, `E_*`, `logs/LOG_mark.md` |
-| Philip | `src/00_dummy_panel.py`, `data/processed/panel_dummy.csv`, `src/04_*`–`src/06_*`, `figures/fig4–5*`, `tables/tab2*`, `tables/tab3*`, `results/zahlen.md` Abschnitt „Philip“, `text/abschnitte/05_2_*`–`05_4_*`, `07_limitationen.md`, `text/reflexion.md`, `logs/LOG_philip.md` |
-| Leon | `text/abschnitte/01_einleitung.md`, `02_theorie.md`, `03_forschungsstand.md`, `06_diskussion.md`, `text/quellen.bib`, `text/anhang/C_suchprotokoll.md`, `logs/LOG_leon.md` |
+| Mark | `src/01_*`–`src/03_*`, `data/processed/panel.csv`, `figures/fig1–3*`, `tables/tab1*`, `tables/abdeckung.md`, `results/zahlen.md` Abschnitt „Mark“, `text/abschnitte/00_abstract.md`, `04_methodik.md`, `05_1_*.md`, `08_fazit.md`, `text/anhang/A_*`, `B_*`, `D_*`, `E_*`, `logs/LOG_mark.md`, `logs/prompts_mark.md` |
+| Philip | `src/00_dummy_panel.py`, `data/processed/panel_dummy.csv`, `src/04_*`–`src/06_*`, `figures/fig4–5*`, `tables/tab2*`, `tables/tab3*`, `results/zahlen.md` Abschnitt „Philip“, `text/abschnitte/05_2_*`–`05_4_*`, `07_limitationen.md`, `text/reflexion.md`, `logs/LOG_philip.md`, `logs/prompts_philip.md` |
+| Leon | `text/abschnitte/01_einleitung.md`, `02_theorie.md`, `03_forschungsstand.md`, `06_diskussion.md`, `text/quellen.bib`, `text/anhang/C_suchprotokoll.md`, `logs/LOG_leon.md`, `logs/prompts_leon.md` |
 `figures/captions.md` und `results/zahlen.md`: jede Person nur ihren eigenen Abschnitt.
 
 ## 6. Arbeitsregeln
@@ -59,7 +60,7 @@ logs/               LOG_mark.md, LOG_philip.md, LOG_leon.md
 3. Abbildungen: matplotlib, `dpi=300`, `bbox_inches="tight"`, deutsche Achsenbeschriftung mit Einheit, Legende, Quelle in `figures/captions.md` („Quelle: World Bank WDI, ICTD/UNU-WIDER GRD 2023; eigene Berechnung und Darstellung.“). Keine Screenshots.
 4. Statistik: n immer angeben; Assoziation ≠ Kausalität; Effektgrößen vor p-Werten.
 5. Textentwürfe: wissenschaftliches Deutsch, nüchtern, „wir“ bzw. „die vorliegende Arbeit“, Zitate APA 7 im Format (Autor, Jahr), Zeichenbudget laut Forschungsdesign §8, danach gegen `STRAWBERRY.md` prüfen.
-6. **Log:** Nach jeder abgeschlossenen Teilaufgabe eine Zeile in `logs/LOG_<name>.md`: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil …“`. KI-Fehler separat — sie gehören in die Reflexion.
+6. **Log (Pflicht, Grundlage der Reflexion):** Nach jeder abgeschlossenen Teilaufgabe, jedem Subagenten-Einsatz, jeder verworfenen Idee und jedem entdeckten KI-Fehler eine Zeile in `logs/LOG_<name>.md`: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil …“`. KI-Fehler zusätzlich unter „## KI-Fehler und Korrekturen“. **Automatisch per Hook** (`.claude/settings.json`): jeder Prompt landet mit Uhrzeit in `logs/prompts_<name>.md`; beim Sitzungsstart wird an die Pflicht erinnert; wenn das Log > 25 Min. nicht aktualisiert wurde, fordert der Stop-Hook einmal zum Nachtragen auf. Log-Dateien mit der jeweiligen Arbeit committen.
 7. **Git:** kleine Commits nur mit eigenen Dateien, `git pull --rebase` vor `git push`, Nachricht `<name>: <was>` auf Deutsch.
 8. Subagenten (`.claude/agents/`) für abgegrenzte Aufgaben nutzen; nie zwei Agenten parallel dieselbe Datei schreiben lassen.
 9. Bei Unklarheit zur Aufgabe: `docs/Arbeitsauftrag.pdf` lesen, nicht raten.

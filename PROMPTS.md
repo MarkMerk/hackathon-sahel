@@ -21,7 +21,7 @@ Nutze den Subagenten strawberry-reviewer auf <Datei, z. B. export_abhandlung.txt
 
 ## P5 — Dokumentation & Reflexion (≤ 12.500 Zeichen)
 ```
-Schreibe text/reflexion.md aus logs/LOG_mark.md, logs/LOG_philip.md, logs/LOG_leon.md, CLAUDE.md und text/anhang/E_prompts.md. Fließtext, Deutsch, ≤ 12.500 Zeichen inkl. Leerzeichen, wir-Form, ehrlich, keine Werbesprache, keine Aufzählungslisten. Inhalt:
+Schreibe text/reflexion.md aus logs/LOG_mark.md, logs/LOG_philip.md, logs/LOG_leon.md, den automatischen Prompt-Protokollen logs/prompts_*.md, CLAUDE.md und text/anhang/E_prompts.md. Fließtext, Deutsch, ≤ 12.500 Zeichen inkl. Leerzeichen, wir-Form, ehrlich, keine Werbesprache, keine Aufzählungslisten. Inhalt:
 1. Einordnung im Studienstand: Team aus dem Data-Science-Studium der JLU Gießen; angewandte Kompetenzen (Datenaufbereitung mit Python/pandas, Statistik, Visualisierung, wissenschaftliches Schreiben nach STRaWBERRY); was außerhalb unserer Fachkompetenz lag (Politische Ökonomie der Sahelzone) und wie wir damit umgegangen sind.
 2. Arbeitsprozess chronologisch: Themenfindung (Vorschläge aller drei, mit KI erarbeitet; welche Alternativen verworfen wurden und warum), Datenprüfung und Festlegung auf 2000–2021, Rollen- und Dateiaufteilung im Git-Repository, Abweichungen vom Zeitplan.
 3. KI-Nutzung konkret: Claude (Cowork) für Planung und Themenvergleich, Claude Code je Person mit Projekt-Regeln (CLAUDE.md) und Subagenten für Datenprüfung, Abbildungen, Statistik- und STRaWBERRY-Review, Claude Science für Quellenprüfung und Review; 3–4 verkürzte Beispiel-Prompts; konkrete KI-Fehler aus den Logs und wie sie entdeckt wurden (DOI-Prüfung, Zahlen nur aus Skripten, Zeichenzähler, Gegenlesen); was bewusst ohne KI entschieden wurde.

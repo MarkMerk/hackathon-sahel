@@ -13,7 +13,7 @@ Datenverantwortung und Integration: Downloads, `panel.csv` nach Schema, Abdeckun
 | `statistik-pruefer` | Philips Tests/Robustheit adversarial prüfen (Pseudoreplikation, n, Interpretation) | opus |
 | `strawberry-reviewer` | Textentwurf gegen `STRAWBERRY.md` prüfen, nur Befund, keine Umschreibung | opus |
 | `quellen-pruefer` | `text/quellen.bib` auf Vollständigkeit/APA/DOI-Plausibilität prüfen | sonnet |
-**Parallelisierungsregeln:** Jeder Subagent bekommt eine Zieldatei und liefert eine Zusammenfassung ≤ 10 Zeilen zurück. Nie zwei Agenten auf dieselbe Datei. Ergebnisse der Agenten vor dem Commit selbst gegenlesen. Jeden Agenteneinsatz in `logs/LOG_mark.md` protokollieren (Name des Agenten, Auftrag, Ergebnis, ggf. Fehler).
+**Parallelisierungsregeln:** Jeder Subagent bekommt eine Zieldatei und liefert eine Zusammenfassung ≤ 10 Zeilen zurück. Nie zwei Agenten auf dieselbe Datei. Ergebnisse der Agenten vor dem Commit selbst gegenlesen. Jeden Agenteneinsatz in `logs/LOG_mark.md` protokollieren (Name des Agenten, Auftrag, Ergebnis, ggf. Fehler). Subagenten selbst schreiben kein Log — das übernimmt die Hauptsitzung nach Rückgabe. Claude-Science-Nutzung läuft außerhalb der Hooks → manuell ins Log.
 
 ## Ablauf
 
