@@ -224,6 +224,25 @@ def main() -> int:
         im_sahel = sorted(geflaggt[geflaggt["sahel_ext"]]["iso3"].unique())
         zeilen += ["", f"Davon im Sahel: **{', '.join(im_sahel) if im_sahel else 'keines'}**."]
 
+    # Rentenniveau 2021 je Sahel-Land, inklusive Rang in der Region (für Abb. 1)
+    j2021 = panel[(panel["year"] == 2021) & panel["rents_pct_gdp"].notna()].copy()
+    j2021["rang"] = j2021["rents_pct_gdp"].rank(ascending=False, method="min").astype(int)
+    zeilen += [
+        "",
+        "### Rohstoffrenten 2021 je Sahel-Kernland (Abb. 1)",
+        "",
+        f"Grundlage: {len(j2021)} Länder der Region mit vorhandenem Wert für 2021.",
+        "",
+        "| Land | ISO3 | Renten (% BIP) | Rang in der Region |",
+        "|---|---|---|---|",
+    ]
+    for iso3 in SAHEL:
+        z = j2021[j2021["iso3"] == iso3]
+        if len(z):
+            r = z.iloc[0]
+            zeilen.append(f"| {r['country']} | {iso3} | {fmt(r['rents_pct_gdp'], 1)} "
+                          f"| {r['rang']} von {len(j2021)} |")
+
     zeilen += [
         "",
         "### Datenabdeckung der Sahel-Kernländer",

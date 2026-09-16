@@ -16,3 +16,4 @@
 - 13:29 · Sitzung b3deaa0c · да, давай C, скажи Philipp и Leon что им нужно поменять и какое по итогу будет Aufgabe? и еще philipp написал 1. Mark sagen, dass sein Skript meinen Abschnitt löscht. src/03_capture_ratio.py schreibt results/zahlen.md komplett neu und hat meinen Abschnitt „Philip" gelöscht. Ich habe ihn wiederhergestellt, aber bei seinem nächsten Lauf ist er wieder weg. Das ist das Einzige, was dringend ist.
 - 13:35 · Sitzung b3deaa0c · а какой наш главный вопрос тема работы по итоуг будет
 - 13:37 · Sitzung b3deaa0c · да конечно
+- 13:44 · Sitzung b3deaa0c · да, продолжай полностью сам, мониторь периодически что другие коммитят, я тебя оставляю, сам ушел примерно на 30 минут

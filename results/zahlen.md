@@ -63,6 +63,18 @@ Nicht gelöscht, sondern gekennzeichnet. Ursachen sind zeitliche Verschiebungen 
 
 Davon im Sahel: **keines**.
 
+### Rohstoffrenten 2021 je Sahel-Kernland (Abb. 1)
+
+Grundlage: 46 Länder der Region mit vorhandenem Wert für 2021.
+
+| Land | ISO3 | Renten (% BIP) | Rang in der Region |
+|---|---|---|---|
+| Mali | MLI | 18,4 | 10 von 46 |
+| Burkina Faso | BFA | 20,1 | 8 von 46 |
+| Niger | NER | 6,4 | 26 von 46 |
+| Chad | TCD | 21,3 | 7 von 46 |
+| Mauritania | MRT | 11,4 | 16 von 46 |
+
 ### Datenabdeckung der Sahel-Kernländer
 
 | ISO3 | Jahre mit Renten und Ressourceneinnahmen |
