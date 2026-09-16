@@ -42,5 +42,6 @@ sid = str(data.get("session_id", ""))[:8]
 with open(path, "a", encoding="utf-8") as f:
     if new:
         f.write(f"# Prompt-Protokoll — {p.capitalize()} (automatisch per Hook)\n\n")
-    f.write(f"- {now} · Sitzung {sid} · {short}\n")
+    tag = " · [API/Sonnet, delegiert]" if os.environ.get("HACKATHON_HEADLESS") else ""
+    f.write(f"- {now} · Sitzung {sid}{tag} · {short}\n")
 sys.exit(0)

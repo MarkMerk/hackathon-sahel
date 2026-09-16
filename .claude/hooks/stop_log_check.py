@@ -12,7 +12,7 @@ try:
     data = json.load(sys.stdin)
 except Exception:
     data = {}
-if data.get("stop_hook_active"):
+if data.get("stop_hook_active") or os.environ.get("HACKATHON_HEADLESS"):
     sys.exit(0)  # keine Endlosschleife
 
 p = person()
