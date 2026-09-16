@@ -4,7 +4,7 @@
 
 ## Mark
 
-_Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv`._
+_Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv` am 16.09.2026._
 
 ### Datengrundlage
 
@@ -72,6 +72,32 @@ Davon im Sahel: **keines**.
 | NER | 22 |
 | TCD | 18 |
 | MRT | 18 |
+
+### Zusammensetzung der Vergleichsgruppe
+
+- Länder der Region insgesamt: **48**; davon mit mindestens einem GRD-Wert: **28**
+- **20 Länder ohne jeden GRD-Wert** und damit nicht in der Analyse: BDI, BEN, CAF, COM, CPV, ERI, ETH, GMB, GNB, KEN, LSO, MOZ, MUS, MWI, RWA, SOM, SWZ, SYC, TZA, ZAF
+- Länderjahre ohne GRD-Wert weisen im Mittel **8,97 % BIP** Renten auf, solche mit GRD-Wert **14,28 % BIP** — die Lücken liegen also systematisch bei den rentenärmeren Ländern, wie es der GRD User Guide beschreibt.
+- Vergleichsgruppe der Analyse: **21 Länder**, davon **6 Ölstaaten** (NGA, AGO, COG, GAB, GNQ, SSD), die 29 % der Länder und 33 % der Länderjahre stellen.
+
+### Abschöpfung nach Rohstofftyp statt nach Region
+
+Die Ölstaaten prägen den Gruppenunterschied. Ihre Abschöpfungsquote liegt deutlich über der aller übrigen Länder, und der Sahel fördert überwiegend Gold und Uran.
+
+| Gruppe | n Länder | n Länderjahre | Median | 1. Quartil | 3. Quartil |
+|---|---|---|---|---|---|
+| Sahel (Kernländer) | 5 | 83 | 0,075 | 0,036 | 0,285 |
+| übriges SSA: Ölstaaten | 6 | 110 | 0,615 | 0,447 | 0,742 |
+| übriges SSA: ohne Ölstaaten | 15 | 224 | 0,131 | 0,043 | 0,413 |
+
+Auf Ebene der Länder-Periodenmittel (Einheit der Tests):
+
+| Vergleich | Sahel | Vergleichsgruppe |
+|---|---|---|
+| gegen das gesamte übrige SSA | 0,116 (n = 4 Länder) | 0,365 (n = 20) |
+| gegen das übrige SSA ohne Ölstaaten | 0,116 (n = 4) | 0,145 (n = 14) |
+
+> **Einordnung:** Der Abstand zwischen Sahel und übrigem Subsahara-Afrika geht weitgehend auf die Ölstaaten zurück. Ohne sie liegen die Mediane nahe beieinander. Innerhalb des Sahel ist die Spannweite größer als der Gruppenunterschied: Tschad und Mauretanien (beide mit Erdölförderung) erreichen 0,26 bzw. 0,39, Burkina Faso (Gold) 0,02 und Niger (Uran) 0,04. Die Signifikanztests dazu stehen in Tab. 2 und Tab. 3 (Philip).
 
 Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDR; eigene Berechnung.
 

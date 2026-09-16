@@ -35,6 +35,45 @@ def fmt(wert: float | None, stellen: int = 3) -> str:
     return f"{wert:.{stellen}f}".replace(".", ",")
 
 
+def schreibe_abschnitt(pfad: Path, ueberschrift: str, inhalt: list[str],
+                       kopf: list[str]) -> None:
+    """Nur den eigenen Abschnitt in results/zahlen.md ersetzen.
+
+    Die Datei ist geteilt: Mark und Philip pflegen je einen Abschnitt
+    (CLAUDE.md §5). Ein vollständiges Überschreiben würde den Abschnitt der
+    anderen Person löschen, deshalb wird hier ausschließlich der Bereich
+    zwischen der eigenen Überschrift und der nächsten `##`-Überschrift ersetzt.
+    """
+    neu = "\n".join([ueberschrift, ""] + inhalt).rstrip() + "\n"
+
+    if not pfad.exists():
+        pfad.parent.mkdir(parents=True, exist_ok=True)
+        pfad.write_text("\n".join(kopf + ["", neu]), encoding="utf-8")
+        print(f"  {pfad.name} neu angelegt")
+        return
+
+    zeilen = pfad.read_text(encoding="utf-8").splitlines()
+
+    start = next((i for i, z in enumerate(zeilen) if z.strip() == ueberschrift), None)
+    if start is None:
+        # Abschnitt fehlt: hinten anhängen, fremde Abschnitte bleiben unberührt.
+        pfad.write_text("\n".join(zeilen).rstrip() + "\n\n" + neu, encoding="utf-8")
+        print(f"  Abschnitt '{ueberschrift}' in {pfad.name} ergänzt")
+        return
+
+    ende = next((i for i in range(start + 1, len(zeilen))
+                 if zeilen[i].startswith("## ")), len(zeilen))
+    fremd = [z for z in zeilen[ende:] if z.startswith("## ")]
+
+    pfad.write_text(
+        "\n".join(zeilen[:start]).rstrip() + "\n\n" + neu + "\n"
+        + "\n".join(zeilen[ende:]).lstrip("\n"),
+        encoding="utf-8",
+    )
+    print(f"  Abschnitt '{ueberschrift}' in {pfad.name} aktualisiert"
+          + (f"; unverändert: {', '.join(fremd)}" if fremd else ""))
+
+
 def periodenmittel(panel: pd.DataFrame) -> pd.DataFrame:
     """Länder-Periodenmittel der Capture Ratio.
 
@@ -74,16 +113,16 @@ def main() -> int:
     print(f"  übriges SSA: Median {fmt(vergleich['capture_ratio'].median())} "
           f"(n = {len(vergleich)})")
 
-    zeilen: list[str] = [
+    kopf = [
         "# Zahlen für den Text",
         "",
         "> Verbindliche Quelle für alle Zahlenangaben in der Abhandlung. "
-        "Keine Zahl in einen Textentwurf, die nicht hier steht. "
-        f"Erzeugt am {date.today().strftime('%d.%m.%Y')}.",
-        "",
-        "## Mark",
-        "",
-        "_Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv`._",
+        "Keine Zahl in einen Textentwurf, die nicht hier steht.",
+    ]
+
+    zeilen: list[str] = [
+        f"_Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv` "
+        f"am {date.today().strftime('%d.%m.%Y')}._",
         "",
         "### Datengrundlage",
         "",
@@ -196,15 +235,85 @@ def main() -> int:
         g = panel[(panel["iso3"] == iso3) & panel["rents_pct_gdp"].notna()
                   & panel["res_rev_pct_gdp"].notna()]
         zeilen.append(f"| {iso3} | {len(g)} |")
+
+    # --- Zusammensetzung der Vergleichsgruppe ---------------------------------
+    # Zentral für die Einordnung: Die Vergleichsgruppe ist keine Zufallsauswahl,
+    # sondern der rohstoffreiche, im GRD erfasste Teil Subsahara-Afrikas.
+    ohne_grd = sorted(set(panel["iso3"]) - set(panel[panel["res_rev_pct_gdp"].notna()]["iso3"]))
+    oel = vergleich[vergleich["oil_state"]]
+    nicht_oel = vergleich[~vergleich["oil_state"]]
+    fehlt = panel[panel["res_rev_pct_gdp"].isna() & panel["rents_pct_gdp"].notna()]
+    hat = panel[panel["res_rev_pct_gdp"].notna()]
+
     zeilen += [
         "",
-        "Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDR; eigene Berechnung.",
+        "### Zusammensetzung der Vergleichsgruppe",
+        "",
+        f"- Länder der Region insgesamt: **{panel['iso3'].nunique()}**; "
+        f"davon mit mindestens einem GRD-Wert: **{hat['iso3'].nunique()}**",
+        f"- **{len(ohne_grd)} Länder ohne jeden GRD-Wert** und damit nicht in der "
+        f"Analyse: {', '.join(ohne_grd)}",
+        f"- Länderjahre ohne GRD-Wert weisen im Mittel **{fmt(fehlt['rents_pct_gdp'].mean(), 2)} % BIP** "
+        f"Renten auf, solche mit GRD-Wert **{fmt(hat['rents_pct_gdp'].mean(), 2)} % BIP** — "
+        "die Lücken liegen also systematisch bei den rentenärmeren Ländern, wie es der "
+        "GRD User Guide beschreibt.",
+        f"- Vergleichsgruppe der Analyse: **{vergleich['iso3'].nunique()} Länder**, davon "
+        f"**{oel['iso3'].nunique()} Ölstaaten** (NGA, AGO, COG, GAB, GNQ, SSD), die "
+        f"{oel['iso3'].nunique() / vergleich['iso3'].nunique() * 100:.0f} % der Länder und "
+        f"{len(oel) / len(vergleich) * 100:.0f} % der Länderjahre stellen.",
+        "",
+        "### Abschöpfung nach Rohstofftyp statt nach Region",
+        "",
+        "Die Ölstaaten prägen den Gruppenunterschied. Ihre Abschöpfungsquote liegt "
+        "deutlich über der aller übrigen Länder, und der Sahel fördert überwiegend "
+        "Gold und Uran.",
+        "",
+        "| Gruppe | n Länder | n Länderjahre | Median | 1. Quartil | 3. Quartil |",
+        "|---|---|---|---|---|---|",
+        f"| Sahel (Kernländer) | {sahel['iso3'].nunique()} | {len(sahel)} | "
+        f"{fmt(sahel['capture_ratio'].median())} | {fmt(sahel['capture_ratio'].quantile(.25))} | "
+        f"{fmt(sahel['capture_ratio'].quantile(.75))} |",
+        f"| übriges SSA: Ölstaaten | {oel['iso3'].nunique()} | {len(oel)} | "
+        f"{fmt(oel['capture_ratio'].median())} | {fmt(oel['capture_ratio'].quantile(.25))} | "
+        f"{fmt(oel['capture_ratio'].quantile(.75))} |",
+        f"| übriges SSA: ohne Ölstaaten | {nicht_oel['iso3'].nunique()} | {len(nicht_oel)} | "
+        f"{fmt(nicht_oel['capture_ratio'].median())} | "
+        f"{fmt(nicht_oel['capture_ratio'].quantile(.25))} | "
+        f"{fmt(nicht_oel['capture_ratio'].quantile(.75))} |",
         "",
     ]
 
-    ZAHLEN.parent.mkdir(parents=True, exist_ok=True)
-    ZAHLEN.write_text("\n".join(zeilen), encoding="utf-8")
-    print(f"\nGeschrieben: {ZAHLEN.relative_to(ROOT)}")
+    # Auf Länder-Periodenmitteln (Testebene), damit die Zahlen zu Tab. 2/3 passen
+    m_sahel = mittel[mittel["sahel"]]
+    m_vgl = mittel[~mittel["sahel_ext"]]
+    m_vgl_ohne_oel = m_vgl[~m_vgl["oil_state"]]
+    zeilen += [
+        "Auf Ebene der Länder-Periodenmittel (Einheit der Tests):",
+        "",
+        "| Vergleich | Sahel | Vergleichsgruppe |",
+        "|---|---|---|",
+        f"| gegen das gesamte übrige SSA | {fmt(m_sahel['capture_ratio'].median())} "
+        f"(n = {m_sahel['iso3'].nunique()} Länder) | {fmt(m_vgl['capture_ratio'].median())} "
+        f"(n = {m_vgl['iso3'].nunique()}) |",
+        f"| gegen das übrige SSA ohne Ölstaaten | {fmt(m_sahel['capture_ratio'].median())} "
+        f"(n = {m_sahel['iso3'].nunique()}) | {fmt(m_vgl_ohne_oel['capture_ratio'].median())} "
+        f"(n = {m_vgl_ohne_oel['iso3'].nunique()}) |",
+        "",
+        "> **Einordnung:** Der Abstand zwischen Sahel und übrigem Subsahara-Afrika "
+        "geht weitgehend auf die Ölstaaten zurück. Ohne sie liegen die Mediane nahe "
+        "beieinander. Innerhalb des Sahel ist die Spannweite größer als der "
+        "Gruppenunterschied: Tschad und Mauretanien (beide mit Erdölförderung) "
+        f"erreichen {fmt(gueltig[gueltig.iso3 == 'TCD']['capture_ratio'].median(), 2)} "
+        f"bzw. {fmt(gueltig[gueltig.iso3 == 'MRT']['capture_ratio'].median(), 2)}, "
+        f"Burkina Faso (Gold) {fmt(gueltig[gueltig.iso3 == 'BFA']['capture_ratio'].median(), 2)} "
+        f"und Niger (Uran) {fmt(gueltig[gueltig.iso3 == 'NER']['capture_ratio'].median(), 2)}. "
+        "Die Signifikanztests dazu stehen in Tab. 2 und Tab. 3 (Philip).",
+        "",
+        "Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDR; eigene Berechnung.",
+    ]
+
+    schreibe_abschnitt(ZAHLEN, "## Mark", zeilen, kopf)
+    print(f"Geschrieben: {ZAHLEN.relative_to(ROOT)}")
 
     # --- Tabelle 1: Datenquellen ---
     tab1 = [
