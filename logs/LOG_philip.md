@@ -23,7 +23,11 @@ Format: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil
 - 13:50 · Zusatzauswertung Rohstofftyp ohne Regionsbezug (Marks Punkt 2) · Claude Opus 5 · Ölförderer vs. Nicht-Ölförderer über alle Länder: δ = +0,31 / +0,74 / +0,64, in zwei von drei Perioden p < 0,05 (0,003 und 0,023). Deutlich stärker als der Regionsbefund — stärkster Befund der Arbeit
 - 13:52 · Limitationen um die Zusammensetzung der Vergleichsgruppe erweitert · Claude Opus 5 · 20 von 48 Ländern ohne GRD-Wert, systematisch die rentenärmeren (8,97 vs. 14,28 % BIP); Vergleichsgruppe ist der rohstoffreiche, erfasste Teil der Region aus 21 Ländern, nicht Subsahara-Afrika. 2.290 von 2.300 Zeichen
 
+- 14:05 · Schritt 4: text/abschnitte/05_2, 05_3, 05_4 entworfen · Claude Opus 5 · exakt 4.500 von 4.500 Zeichen. Nach Teamentscheidung umgestellt: Rohstofftyp als Hauptbefund in 5.2 vor dem Regionsvergleich, 5.4 dadurch reine Robustheit. Beim Regionsbefund ausdrücklich „kein Test erreicht das Niveau von 0,05"
+
 ## KI-Fehler und Korrekturen
+
+- 14:00 · Erster Entwurf von 5.2–5.4 war 6.631 Zeichen lang, also 47 % über dem Budget von 4.500 · Claude hatte das Zeichenbudget beim Schreiben nicht mitgeführt, sondern erst danach geprüft · Korrektur: in sieben Runden gekürzt, unter anderem durch Streichung des Methodik-Vorspanns, der ohnehin in Marks Abschnitt 4 gehört. **Lehre für die Reflexion:** Das Budget muss vor dem Schreiben in Sätze pro Absatz übersetzt werden, nicht erst nachträglich geprüft
 
 - 13:20 · **Marks `src/03_capture_ratio.py` überschreibt `results/zahlen.md` vollständig** und hat dabei meinen Abschnitt „Philip" gelöscht (Commit 25fdd59) · gemeinsam genutzte Datei, laut CLAUDE.md §5 schreibt aber jede Person nur ihren Abschnitt · Abschnitt wiederhergestellt und mit echten Zahlen gefüllt; **an Mark gemeldet**: Das Skript muss den Fremdabschnitt erhalten, sonst geht er bei jedem seiner Läufe wieder verloren
 - 13:10 · Claude formulierte in Tab. 2 automatisch „Mit n = 4–4 Sahel-Ländern" · Artefakt einer Spannweiten-Formatierung, wenn Minimum und Maximum gleich sind · Korrektur: Spannweite wird nur noch genannt, wenn sie tatsächlich variiert
