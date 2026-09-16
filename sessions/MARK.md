@@ -18,7 +18,7 @@ Datenverantwortung und Integration: Downloads, `panel.csv` nach Schema, Abdeckun
 ## Modell- und Kostenaufteilung (Abo für Opus, Hackathon-Key für Sonnet)
 Claude Code nutzt pro Prozess genau einen Zugang — Subagenten laufen immer über denselben Zugang wie die Hauptsitzung. Deshalb:
 - **Hauptsitzung = Opus über Marks Abo.** Starten **ohne** `.hrz.env`: `claude --model opus`. Mit `/status` prüfen: Anmeldung über claude.ai, nicht API-Key.
-- **Routine = Sonnet über den Hackathon-Key** mit `tools/sonnet_api.sh "<Auftrag>"` (eigener Headless-Prozess, lädt `.hrz.env`). Verwenden statt der Subagenten `daten-pruefer` und `abbildungen` — diese würden sonst Abo-Kontingent verbrauchen.
+- **Routine = Sonnet über den Hackathon-Key (OpenRouter)** mit `tools/sonnet_api.sh "<Auftrag>"` (eigener Headless-Prozess, lädt `OPENROUTER_API_KEY` aus `.hrz.env`, eigener `CLAUDE_CONFIG_DIR` → Abo-Login der Hauptsitzung bleibt unberührt; **in der Hauptsitzung nie `/logout`**). Verwenden statt der Subagenten `daten-pruefer` und `abbildungen` — diese würden sonst Abo-Kontingent verbrauchen.
 - Parallel: mehrere Aufrufe als Hintergrund-Befehle starten, jeder mit eigener Zieldatei.
 - In der Hauptsitzung (Opus, Abo) bleiben: Planung, Entscheidungen (GRD/EITI), `statistik-pruefer`, `strawberry-reviewer`, Textentwürfe Methodik/Abstract/Fazit.
 - Delegierte Prompts erscheinen in `logs/prompts_mark.md` mit Markierung `[API/Sonnet, delegiert]` — für die Reflexion.

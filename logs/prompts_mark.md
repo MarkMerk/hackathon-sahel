@@ -22,3 +22,6 @@
 - 14:38 · Sitzung b3deaa0c · continue
 - 14:38 · Sitzung b3deaa0c · continue
 - 14:51 · Sitzung b3deaa0c · continue
+- 14:58 · Sitzung a52269fb · ты тут?
+- 14:58 · Sitzung a52269fb · ты тут?
+- 14:58 · Sitzung a52269fb · по подписке или по апи?
