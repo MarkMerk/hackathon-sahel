@@ -209,22 +209,40 @@ Erzeugt von `src/05_zusammenhang_hdi.py`.
 def zeichne_abb5(agg: pd.DataFrame, hdi_res: list[dict], ist_dummy: bool) -> None:
     fig, axes = plt.subplots(1, 3, figsize=(13, 4.8), sharex=True, sharey=True)
 
+    # Wie in Abb. 4: einzelne Vergleichslaender erreichen Quoten um 7-9
+    # (Dividenden aus Joint Ventures im GRD-Zaehler). Ohne Begrenzung liegt
+    # die gesamte relevante Variation im linken Achsenzehntel. Gekappte
+    # Punkte werden als Dreieck am Rand markiert; die Korrelationen sind
+    # auf allen Beobachtungen gerechnet.
+    X_MAX = 1.6
+    n_gekappt = 0
+
     for ax, periode in zip(axes, PERIODEN):
         teil = agg[agg["period"] == periode].dropna(subset=["capture_ratio", "hdi"])
         verg = teil[~teil["sahel"]]
         sahel = teil[teil["sahel"]]
 
-        ax.scatter(verg["capture_ratio"], verg["hdi"], s=34,
+        innen = verg["capture_ratio"] <= X_MAX
+        ax.scatter(verg.loc[innen, "capture_ratio"], verg.loc[innen, "hdi"], s=34,
                    color=FARBE_VERGLEICH, alpha=0.55, edgecolor="white",
                    linewidth=0.6, label="übriges Subsahara-Afrika")
+        if (~innen).any():
+            n_gekappt += int((~innen).sum())
+            ax.scatter(np.full((~innen).sum(), X_MAX * 0.99),
+                       verg.loc[~innen, "hdi"], s=44, marker=">",
+                       color=FARBE_VERGLEICH, alpha=0.8, edgecolor="white",
+                       linewidth=0.6, clip_on=False)
+
         ax.scatter(sahel["capture_ratio"], sahel["hdi"], s=90,
                    color=FARBE_SAHEL, edgecolor="white", linewidth=0.9,
                    zorder=4, label="Sahel")
 
-        # Sahel-Laender beschriften -- macht die fuenf Faelle nachvollziehbar.
-        for _, r in sahel.iterrows():
+        # Sahel-Laender beschriften. Labels abwechselnd oben/unten setzen,
+        # weil die Punkte bei niedrigen Quoten dicht beieinanderliegen.
+        for k, (_, r) in enumerate(sahel.sort_values("hdi").iterrows()):
+            versatz = (7, 5) if k % 2 == 0 else (7, -11)
             ax.annotate(r["iso3"], (r["capture_ratio"], r["hdi"]),
-                        xytext=(6, 4), textcoords="offset points",
+                        xytext=versatz, textcoords="offset points",
                         fontsize=7.5, color=FARBE_SAHEL, fontweight="bold")
 
         rho = next((r["rho"] for r in hdi_res if r["ebene"] == periode), np.nan)
@@ -234,6 +252,7 @@ def zeichne_abb5(agg: pd.DataFrame, hdi_res: list[dict], ist_dummy: bool) -> Non
         )
         ax.set_title(f"{periode}\n{beschriftung}, n = {n}", fontsize=10)
         ax.set_xlabel("Capture Ratio")
+        ax.set_xlim(-0.06 * X_MAX, X_MAX)
         ax.spines[["top", "right"]].set_visible(False)
         ax.grid(alpha=0.22, linewidth=0.6)
 
@@ -242,6 +261,14 @@ def zeichne_abb5(agg: pd.DataFrame, hdi_res: list[dict], ist_dummy: bool) -> Non
                     color="red", alpha=0.16, ha="center", va="center", rotation=22)
 
     axes[0].set_ylabel("HDI (Index, 0–1)")
+    if n_gekappt:
+        axes[-1].text(
+            0.98, 0.02,
+            f"▶ {n_gekappt} Werte über {X_MAX:.1f}".replace(".", ",")
+            + "\n(in den Korrelationen enthalten)",
+            transform=axes[-1].transAxes, ha="right", va="bottom",
+            fontsize=7, color="#555555",
+        )
     fig.suptitle(
         "Abb. 5: Staatliche Abschöpfungsquote und menschliche Entwicklung "
         "(Länder-Periodenmittel)", fontsize=12, y=1.10,

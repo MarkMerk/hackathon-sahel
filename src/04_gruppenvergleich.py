@@ -163,6 +163,27 @@ def schreibe_tabelle(zeilen: list[dict], agg: pd.DataFrame,
 
     geflaggt = int(df["flag_ratio_high"].sum()) if "flag_ratio_high" in df else 0
 
+    # n-Angabe: Spannweite nur nennen, wenn sie ueber die Perioden variiert.
+    n_werte = sorted({z["n_sahel"] for z in zeilen})
+    n_sahel_txt = (
+        f"n = {n_werte[0]}" if len(n_werte) == 1
+        else f"n = {n_werte[0]}–{n_werte[-1]}"
+    )
+
+    # Welche Sahel-Laender schaffen die Mindestjahres-Schwelle nicht in
+    # allen Perioden? Fuer die Limitationen und den Ergebnistext relevant.
+    sahel_alle = set(df.loc[df["sahel"], "iso3"])
+    vertreten = {
+        p: set(agg.loc[agg["gruppe_sahel"] & (agg["period"] == p), "iso3"])
+        for p in PERIODEN
+    }
+    luecken = []
+    for iso in sorted(sahel_alle):
+        fehlt = [p for p in PERIODEN if iso not in vertreten[p]]
+        if fehlt:
+            luecken.append(f"{iso} (fehlt in {', '.join(fehlt)})")
+    fehlend_txt = "; ".join(luecken) if luecken else "keine"
+
     kopf = ""
     if ist_dummy:
         kopf = (
@@ -192,11 +213,12 @@ Sahel-Land unter dem Vergleichsland.
 - Der Test prüft, ob ein zufällig gezogenes Sahel-Land über einem zufällig
   gezogenen Vergleichsland liegt, nicht Kausalität. Alle Befunde sind
   **Assoziationen**.
-- Mit n = {zeilen[0]['n_sahel']}–{max(z['n_sahel'] for z in zeilen)} Sahel-Ländern ist die Teststärke gering.
+- Mit {n_sahel_txt} Sahel-Ländern je Periode ist die Teststärke gering.
   Ein nicht signifikantes Ergebnis heißt „für eine Aussage reichen die Daten
   nicht", nicht „kein Unterschied". Deshalb steht die Effektgröße vor dem p-Wert.
 - Länderjahre mit Rohstoffrenten < 1 % BIP sind bereits in `panel.csv`
   ausgeschlossen (kleiner Nenner).
+- Nicht in allen Perioden vertretene Sahel-Länder: {fehlend_txt}.
 - {geflaggt} Länderjahre mit Capture Ratio > 1,5 sind enthalten und geflaggt
   (`flag_ratio_high`); sie entstehen durch Timing zwischen Rentenanfall und
   Zahlungseingang sowie durch Preisschocks und wurden nicht entfernt.
@@ -237,13 +259,31 @@ def zeichne_abb4(agg: pd.DataFrame, ist_dummy: bool) -> None:
         patch.set_facecolor(farbe)
         patch.set_alpha(0.35)
 
+    # Achse auf den interpretierbaren Bereich begrenzen. Einzelne
+    # Vergleichslaender (v. a. BWA) erreichen Quoten um 7-9, weil im GRD
+    # Dividenden aus Joint Ventures als Ressourceneinnahme erscheinen, die
+    # WDI-Rente aber nur Preis minus Foerderkosten erfasst. Ohne Begrenzung
+    # stauchen diese Faelle die gesamte relevante Variation unkenntlich.
+    # Die Werte bleiben in Median, IQR und Test enthalten -- nur die
+    # Darstellung wird gekappt, und die Zahl der gekappten Punkte wird
+    # in der Abbildung ausgewiesen.
+    Y_MAX = 1.6
+    n_gekappt = 0
+
     # Einzelne Laenderpunkte ueberlagern -- macht das kleine n sichtbar.
     for pos, werte, farbe in zip(positionen, daten, farben):
         if len(werte) == 0:
             continue
         x = pos + rng.uniform(-0.18, 0.18, size=len(werte))
-        ax.scatter(x, werte, s=26, color=farbe, edgecolor="white",
-                   linewidth=0.6, zorder=3, alpha=0.9)
+        innen = werte <= Y_MAX
+        ax.scatter(x[innen], werte[innen], s=26, color=farbe,
+                   edgecolor="white", linewidth=0.6, zorder=3, alpha=0.9)
+        # Gekappte Punkte als Dreieck am oberen Rand andeuten.
+        if (~innen).any():
+            n_gekappt += int((~innen).sum())
+            ax.scatter(x[~innen], np.full((~innen).sum(), Y_MAX * 0.995),
+                       s=34, color=farbe, marker="^", edgecolor="white",
+                       linewidth=0.6, zorder=3, alpha=0.9, clip_on=False)
 
     ax.set_xticks([i * 3 + 0.5 for i in range(len(PERIODEN))])
     ax.set_xticklabels(PERIODEN)
@@ -253,13 +293,20 @@ def zeichne_abb4(agg: pd.DataFrame, ist_dummy: bool) -> None:
                  pad=28)
 
     # Untere Headroom fuer die n-Angaben innerhalb der Achse.
-    alle = np.concatenate([w for w in daten if len(w)])
-    unten, oben = alle.min(), max(alle.max(), 1.02)
-    ax.set_ylim(unten - 0.12 * (oben - unten), oben + 0.06 * (oben - unten))
+    ax.set_ylim(-0.19 * Y_MAX, Y_MAX)
 
     ax.axhline(1.0, color="#999999", linestyle=":", linewidth=1)
     ax.text(ax.get_xlim()[1], 1.0, " Rente vollständig\n abgeschöpft",
             va="center", ha="left", fontsize=7, color="#666666")
+
+    if n_gekappt:
+        ax.text(
+            0.985, 0.975,
+            f"▲ {n_gekappt} Länder-Periodenmittel über {Y_MAX:.1f}".replace(".", ",")
+            + "\n(in Median, IQR und Test enthalten)",
+            transform=ax.transAxes, ha="right", va="top", fontsize=7.5,
+            color="#555555",
+        )
 
     # Legende ueber der Zeichenfläche -- ueberdeckt so keine Datenpunkte.
     ax.legend(

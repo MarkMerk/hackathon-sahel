@@ -74,3 +74,77 @@ Davon im Sahel: **keines**.
 | MRT | 18 |
 
 Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDR; eigene Berechnung.
+
+## Philip
+
+_Erzeugt von `src/04_gruppenvergleich.py`, `src/05_zusammenhang_hdi.py` und
+`src/06_robustheit.py` aus `data/processed/panel.csv` (Stand 13:20)._
+
+### Gruppenvergleich je Periode (Tab. 2, Abb. 4)
+
+Einheit: **Länder-Periodenmittel** der Capture Ratio, nur Länder mit ≥ 3
+gültigen Jahren je Periode. Test: Mann-Whitney-U, zweiseitig.
+Effektgröße: Cliff's δ (negativ = Sahel niedriger).
+
+| Periode | n Sahel | Median Sahel | IQR Sahel | n übr. SSA | Median übr. SSA | IQR übr. SSA | U | p | Cliff's δ |
+|---|---|---|---|---|---|---|---|---|---|
+| 2000–2007 | 4 | 0,10 | 0,03–0,28 | 18 | 0,51 | 0,11–0,71 | 23,0 | 0,300 | −0,36 (mittel) |
+| 2008–2014 | 4 | 0,21 | 0,04–0,39 | 22 | 0,25 | 0,10–0,74 | 27,0 | 0,252 | −0,39 (mittel) |
+| 2015–2021 | 4 | 0,15 | 0,06–0,31 | 17 | 0,27 | 0,11–0,44 | 26,0 | 0,517 | −0,24 (klein) |
+
+- **Kernbefund:** Cliff's δ ist in allen drei Perioden negativ, kein p-Wert
+  unterschreitet 0,05. Formulierung im Text: durchgängig niedrigere
+  Abschöpfung im Sahel, statistisch nicht abgesichert.
+- **Mali ist in keiner Periode vertreten** (nur 4 Länderjahre mit Renten und
+  Ressourceneinnahmen, davon max. 2 je Periode — Schwelle ≥ 3 verfehlt).
+  Die Sahel-Gruppe besteht in allen Tests aus BFA, NER, TCD, MRT (n = 4).
+  In 18 Länderjahren hat Mali Renten ≥ 1 % BIP, aber keinen GRD-Wert.
+- 19 Länderjahre mit Capture Ratio > 1,5 sind geflaggt, **keines im Sahel**.
+
+### Zusammenhang mit Entwicklung (Tab. 2b, Abb. 5)
+
+Spearman-Rangkorrelation auf Länder-Periodenmitteln:
+
+| Ziel | Ebene | n | ρ | p |
+|---|---|---|---|---|
+| HDI | alle Perioden | 68 | 0,515 | < 0,001 |
+| HDI | 2000–2007 | 21 | 0,577 | 0,006 |
+| HDI | 2008–2014 | 26 | 0,456 | 0,019 |
+| HDI | 2015–2021 | 21 | 0,679 | < 0,001 |
+| Stromzugang | alle Perioden | 69 | 0,429 | < 0,001 |
+| Stromzugang | 2000–2007 | 22 | 0,456 | 0,033 |
+| Stromzugang | 2008–2014 | 26 | 0,355 | 0,076 |
+| Stromzugang | 2015–2021 | 21 | 0,551 | 0,010 |
+
+- Two-way-FE-OLS `hdi ~ capture_ratio + log(BIP p. c.) + Land-FE + Jahr-FE`,
+  Cluster-SE nach Land: Koeffizient **0,0007** (SE 0,0005, p = 0,177,
+  95-%-KI [−0,0003; 0,0017]), n = 442 Länderjahre aus 28 Ländern.
+- **Wichtig für die Interpretation:** Zwischen den Ländern besteht ein
+  mittlerer positiver Zusammenhang (ρ ≈ 0,43–0,68), innerhalb der Länder
+  über die Zeit praktisch keiner (FE-Koeffizient nahe null, nicht
+  signifikant). Der Querschnittszusammenhang spiegelt also stabile
+  Länderunterschiede, nicht eine Entwicklung, die einer veränderten
+  Abschöpfung folgt. Ausschließlich als Assoziation formulieren.
+
+### Robustheit (Tab. 3)
+
+Cliff's δ je Periode, sechs Spezifikationen:
+
+| Variante | 2000–2007 | 2008–2014 | 2015–2021 |
+|---|---|---|---|
+| Hauptspezifikation | −0,36 | −0,39 | −0,24 |
+| (a) ohne Ölstaaten | −0,39 | −0,38 | −0,17 |
+| (b) Sahel erweitert (+ SDN, SEN) | −0,21 | −0,32 | −0,24 |
+| (c) 5-Jahres-Mittel | −0,34 | −0,36 | −0,22 |
+| (d) ohne geflaggte Länderjahre | −0,28 | −0,33 | −0,24 |
+| (e) ≥ 5 gültige Jahre je Periode | −0,33 | −0,61 | −0,24 |
+
+- **Alle 18 Zellen negativ** — vollständige Vorzeichenstabilität. Kein
+  p-Wert unter 0,05 in irgendeiner Variante (kleinster Wert: 0,118 in
+  Variante e, Periode 2008–2014).
+- In den Varianten (a) und (e) sinkt n Sahel auf 3; Variante (a) entfernt
+  mit den Ölstaaten auch Tschad aus der Sahel-Gruppe.
+- Die Robustheitsprüfung stützt die **Richtung** des deskriptiven Musters,
+  nicht dessen statistische Signifikanz.
+
+Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDI; eigene Berechnung.

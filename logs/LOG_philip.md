@@ -14,7 +14,16 @@ Format: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil
 - 12:56 · STRaWBERRY-Prüfung des Limitationsentwurfs · Subagent strawberry-reviewer · REFLOW: L erfüllt (alle 5 Checklistenpunkte), aber 7 Befunde; drei designspezifische Limitationen fehlten
 - 13:10 · Befunde eingearbeitet, 07_limitationen.md überarbeitet · Claude Opus 5 · neu aufgenommen: Modellcharakter des WDI-Nenners, Selektion durch den 1-%-Filter, multiples Testen ohne Adjustierung, wenige Cluster bei den FE-Standardfehlern; „fünf Sahel-Staaten" → Platzhalter, Symmetrie-Annahme konditional, Verweis auf Tab. 3 Variante d statt Methodikwiederholung; 2.296 von 2.300 Zeichen
 
+- 13:05 · Schritt 3: Skripte 04–06 auf dem echten `panel.csv` · Claude Opus 5 · Kernbefund: Cliff's δ in allen drei Perioden negativ (−0,36 / −0,39 / −0,24), kein p-Wert < 0,05; Sahel-Median 0,10 / 0,21 / 0,15 gegen 0,51 / 0,25 / 0,27. Robustheit: alle 18 Zellen negativ, vollständige Vorzeichenstabilität
+- 13:12 · Abb. 4 und 5 nach Sichtprüfung auf y- bzw. x-Grenze 1,6 begrenzt · Claude Opus 5 · Botswana (Quote bis 9,2) hatte die gesamte relevante Variation ins unterste Achsenzehntel gestaucht; gekappte Punkte als Dreieck/Pfeil markiert und in den Bildunterschriften ausgewiesen, Tests unverändert auf allen Werten
+- 13:18 · Abdeckungsprüfung der Sahel-Gruppe · Claude Opus 5 · **Mali erreicht in keiner Periode die Schwelle von 3 gültigen Jahren** (18 Länderjahre mit Renten ≥ 1 % BIP ohne GRD-Wert); alle Tests laufen faktisch auf BFA, NER, TCD, MRT. In Tab. 2 jetzt explizit ausgewiesen, in den Limitationen ergänzt
+- 13:20 · results/zahlen.md Abschnitt „Philip" mit echten Zahlen gefüllt · Claude Opus 5 · Gruppenvergleich, Spearman, FE-OLS und alle sechs Robustheitsvarianten
+- 13:22 · Statistik-Review der Auswertung auf echten Daten · Subagent statistik-pruefer · läuft
+
 ## KI-Fehler und Korrekturen
+
+- 13:20 · **Marks `src/03_capture_ratio.py` überschreibt `results/zahlen.md` vollständig** und hat dabei meinen Abschnitt „Philip" gelöscht (Commit 25fdd59) · gemeinsam genutzte Datei, laut CLAUDE.md §5 schreibt aber jede Person nur ihren Abschnitt · Abschnitt wiederhergestellt und mit echten Zahlen gefüllt; **an Mark gemeldet**: Das Skript muss den Fremdabschnitt erhalten, sonst geht er bei jedem seiner Läufe wieder verloren
+- 13:10 · Claude formulierte in Tab. 2 automatisch „Mit n = 4–4 Sahel-Ländern" · Artefakt einer Spannweiten-Formatierung, wenn Minimum und Maximum gleich sind · Korrektur: Spannweite wird nur noch genannt, wenn sie tatsächlich variiert
 
 - 12:20 · Claude erzeugte den Dummy zunächst so, dass `flag_ratio_high` in keinem einzigen Länderjahr True war · Folge: der Ausreißer-Pfad der Analyseskripte wäre ungetestet geblieben · Korrektur: vereinzelte Einnahmespitzen (Faktor 4–7, p = 0,03) eingebaut, jetzt 5 geflaggte Länderjahre
 - 12:24 · Abb. 4 und Abb. 5: Legende überdeckte Datenpunkte bzw. die Referenzlinie, Achsentitel „Periode" kollidierte mit den n-Angaben · nur bei der visuellen Kontrolle des PNG aufgefallen, nicht im Code sichtbar · Korrektur: Legenden auf Figur-Ebene über die Zeichenfläche gelegt, y-Grenzen mit Headroom gesetzt

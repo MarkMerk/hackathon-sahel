@@ -1,8 +1,5 @@
 # Tab. 3 — Robustheitsprüfungen
 
-> **ACHTUNG: auf DUMMY-DATEN gerechnet (`panel_dummy.csv`).**
-> Alle Werte sind erfunden. Nach Vorliegen von `panel.csv` neu erzeugen.
-
 Der Gruppenvergleich aus Tab. 2 wird unter veränderten Spezifikationen
 wiederholt. Einheit bleibt das **Länder-Periodenmittel**; Test ist der
 zweiseitige Mann-Whitney-U, Effektgröße Cliff's δ (negativ = Sahel niedriger).
@@ -11,24 +8,24 @@ zweiseitige Mann-Whitney-U, Effektgröße Cliff's δ (negativ = Sahel niedriger)
 
 | Spezifikation | Periode | n Sahel | Median Sahel | n Vergleich | Median Vergleich | p | Cliff's δ |
 |---|---|---|---|---|---|---|---|
-| **Haupt** — Hauptspezifikation (Sahel = 5 Länder, 3-Jahres-Basis, ≥ 3 Jahre) | 2000–2007 | 5 | 0,45 | 37 | 0,43 | 0,940 | 0,03 (vernachlässigbar) |
-|  | 2008–2014 | 5 | 0,37 | 38 | 0,46 | 0,273 | -0,32 (klein) |
-|  | 2015–2021 | 5 | 0,48 | 37 | 0,41 | 0,237 | 0,34 (mittel) |
-| **a** — ohne Ölstaaten (NGA, AGO, GNQ, COG, GAB, SSD, TCD) | 2000–2007 | 4 | 0,41 | 31 | 0,43 | 0,745 | -0,11 (vernachlässigbar) |
-|  | 2008–2014 | 4 | 0,36 | 32 | 0,46 | 0,208 | -0,41 (mittel) |
-|  | 2015–2021 | 4 | 0,54 | 31 | 0,41 | 0,352 | 0,31 (klein) |
-| **b** — Sahel erweitert (+ SDN, SEN) | 2000–2007 | 7 | 0,43 | 35 | 0,43 | 0,921 | -0,03 (vernachlässigbar) |
-|  | 2008–2014 | 7 | 0,38 | 36 | 0,46 | 0,236 | -0,29 (klein) |
-|  | 2015–2021 | 7 | 0,47 | 35 | 0,41 | 0,692 | 0,10 (vernachlässigbar) |
-| **c** — 5-Jahres-Mittel statt 3-Jahres-Glättung | 2000–2007 | 5 | 0,42 | 37 | 0,43 | 0,851 | -0,06 (vernachlässigbar) |
-|  | 2008–2014 | 5 | 0,37 | 38 | 0,46 | 0,405 | -0,24 (klein) |
-|  | 2015–2021 | 5 | 0,50 | 37 | 0,42 | 0,286 | 0,31 (klein) |
-| **d** — ohne geflaggte Länderjahre (Capture Ratio > 1,5) | 2000–2007 | 5 | 0,45 | 37 | 0,43 | 0,910 | 0,04 (vernachlässigbar) |
-|  | 2008–2014 | 5 | 0,37 | 38 | 0,45 | 0,308 | -0,29 (klein) |
-|  | 2015–2021 | 5 | 0,47 | 37 | 0,41 | 0,426 | 0,23 (klein) |
-| **e** — mindestens 5 statt 3 gültige Jahre je Periode | 2000–2007 | 5 | 0,45 | 36 | 0,43 | 0,985 | 0,01 (vernachlässigbar) |
-|  | 2008–2014 | 5 | 0,37 | 37 | 0,47 | 0,269 | -0,32 (klein) |
-|  | 2015–2021 | 4 | 0,55 | 34 | 0,41 | 0,035 | 0,65 (groß) |
+| **Haupt** — Hauptspezifikation (Sahel = 5 Länder, 3-Jahres-Basis, ≥ 3 Jahre) | 2000–2007 | 4 | 0,10 | 18 | 0,51 | 0,300 | -0,36 (mittel) |
+|  | 2008–2014 | 4 | 0,21 | 22 | 0,25 | 0,252 | -0,39 (mittel) |
+|  | 2015–2021 | 4 | 0,15 | 17 | 0,27 | 0,517 | -0,24 (klein) |
+| **a** — ohne Ölstaaten (NGA, AGO, GNQ, COG, GAB, SSD, TCD) | 2000–2007 | 3 | 0,03 | 13 | 0,14 | 0,364 | -0,38 (mittel) |
+|  | 2008–2014 | 3 | 0,05 | 16 | 0,15 | 0,359 | -0,38 (mittel) |
+|  | 2015–2021 | 3 | 0,07 | 12 | 0,16 | 0,734 | -0,17 (klein) |
+| **b** — Sahel erweitert (+ SDN, SEN) | 2000–2007 | 6 | 0,13 | 16 | 0,51 | 0,494 | -0,21 (klein) |
+|  | 2008–2014 | 6 | 0,22 | 20 | 0,25 | 0,268 | -0,32 (klein) |
+|  | 2015–2021 | 6 | 0,18 | 15 | 0,37 | 0,424 | -0,24 (klein) |
+| **c** — 5-Jahres-Mittel statt 3-Jahres-Glättung | 2000–2007 | 4 | 0,09 | 19 | 0,50 | 0,324 | -0,34 (mittel) |
+|  | 2008–2014 | 5 | 0,22 | 22 | 0,35 | 0,232 | -0,36 (mittel) |
+|  | 2015–2021 | 5 | 0,19 | 17 | 0,26 | 0,493 | -0,22 (klein) |
+| **d** — ohne geflaggte Länderjahre (Capture Ratio > 1,5) | 2000–2007 | 4 | 0,10 | 16 | 0,37 | 0,437 | -0,28 (klein) |
+|  | 2008–2014 | 4 | 0,21 | 20 | 0,22 | 0,347 | -0,32 (klein) |
+|  | 2015–2021 | 4 | 0,15 | 17 | 0,27 | 0,517 | -0,24 (klein) |
+| **e** — mindestens 5 statt 3 gültige Jahre je Periode | 2000–2007 | 3 | 0,03 | 14 | 0,37 | 0,432 | -0,33 (mittel) |
+|  | 2008–2014 | 3 | 0,05 | 17 | 0,47 | 0,118 | -0,61 (groß) |
+|  | 2015–2021 | 4 | 0,15 | 17 | 0,27 | 0,517 | -0,24 (klein) |
 
 ## Vorzeichenstabilität der Effektgröße
 
@@ -38,9 +35,9 @@ erhalten bleibt.
 
 | Variante | Beschreibung | 2000–2007 | 2008–2014 | 2015–2021 |
 |---|---|---|---|---|
-| a | ohne Ölstaaten (NGA, AGO, GNQ, COG, GAB, SSD, TCD) | **nein** | ja | ja |
-| b | Sahel erweitert (+ SDN, SEN) | **nein** | ja | ja |
-| c | 5-Jahres-Mittel statt 3-Jahres-Glättung | **nein** | ja | ja |
+| a | ohne Ölstaaten (NGA, AGO, GNQ, COG, GAB, SSD, TCD) | ja | ja | ja |
+| b | Sahel erweitert (+ SDN, SEN) | ja | ja | ja |
+| c | 5-Jahres-Mittel statt 3-Jahres-Glättung | ja | ja | ja |
 | d | ohne geflaggte Länderjahre (Capture Ratio > 1,5) | ja | ja | ja |
 | e | mindestens 5 statt 3 gültige Jahre je Periode | ja | ja | ja |
 

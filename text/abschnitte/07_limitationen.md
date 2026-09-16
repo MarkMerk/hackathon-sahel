@@ -1,9 +1,7 @@
 # 7 Limitationen
 
 <!-- Budget: 2.300 Zeichen inkl. Leerzeichen (Forschungsdesign §8). STRaWBERRY: REFLOW, Schwerpunkt L.
-     PLATZHALTER (Mark trägt nach, sobald panel.csv und tables/abdeckung.md vorliegen):
-       <n_sahel>     = Zahl der Sahel-Länder je Periode in Tab. 2 (kann 3–5 betragen, s. Variante a)
-       <n_vergl_min> / <n_vergl_max> = Spannweite der Vergleichsgruppe über die drei Perioden
+     Alle Zahlen aus results/zahlen.md, Abschnitt Philip (Stand 13:20, echte Daten).
      Geprüft mit strawberry-reviewer (REFLOW) am 16.09., Befunde eingearbeitet. -->
 
 **Konstruktion der Capture Ratio.** Der Indikator setzt zwei unterschiedlich
@@ -16,21 +14,24 @@ Förderung an, Abgaben folgen verzögert; das Dreijahresmittel dämpft dies nur
 
 **Systematische Datenlücken.** Der Nutzerleitfaden dokumentiert, dass Werte
 überwiegend fehlen, wenn die Ressourceneinnahmen unter etwa einem Prozent des
-Bruttoinlandsprodukts liegen (UNU-WIDER, 2025). Sie häufen sich am
-Rand der Verteilung, sodass die Quoten die tatsächlichen eher überschätzen —
-bei ähnlicher Ausfallstruktur beider Gruppen vor allem im Niveau, weniger im
-Gruppenvergleich. Manche Land-Jahr-Angaben liegen zudem mehrfach vor, weil
-verschiedene Regierungsebenen berichten; wir behalten die belegtere Zeile.
+Bruttoinlandsprodukts liegen (UNU-WIDER, 2025). Sie häufen sich am unteren
+Rand der Verteilung, sodass die Quoten die tatsächlichen eher überschätzen.
+Am schwersten wiegt dies bei Mali: In 18 Länderjahren liegen Renten über
+einem Prozent, ohne dass Ressourceneinnahmen berichtet werden. Mali erreicht
+damit in keiner Periode die Mindestzahl von drei Jahren und fehlt in allen
+Tests — die Sahel-Gruppe besteht faktisch aus vier Ländern. Manche
+Land-Jahr-Angaben liegen zudem mehrfach vor, weil verschiedene
+Regierungsebenen berichten; wir behalten die belegtere Zeile.
 
 **Reichweite der Aussagen.** Alle Ergebnisse sind Assoziationen, keine
 Kausalaussagen, und sie gelten allein für rohstoffreiche Länderjahre, da nur
 Werte ab einem Prozent Renten eingehen. Die Rangtests beruhen auf
 Länder-Periodenmitteln, um Pseudoreplikation zu vermeiden; je Periode stehen
-<n_sahel> Sahel-Staaten <n_vergl_min> bis <n_vergl_max> Vergleichsländern
-gegenüber. Die Teststärke ist gering, und wir prüfen viele Spezifikationen
-ohne Adjustierung: Ein einzelner p-Wert unter 0,05 wäre kein Befund, weshalb
-wir Effektgrößen vorrangig lesen. Auch geclusterte Standardfehler sind bei so
-wenigen Clustern unzuverlässig.
+vier Sahel-Staaten 17 bis 22 Vergleichsländern gegenüber. Entsprechend bleibt
+kein Test signifikant, obwohl der Gruppenunterschied in allen achtzehn
+Robustheitszellen dasselbe Vorzeichen trägt: Wir berichten ein stabiles
+Muster, keinen abgesicherten Effekt. Auch geclusterte Standardfehler sind bei
+so wenigen Clustern unzuverlässig.
 
 **Zeitliche Grenzen.** Das Fenster endet 2021, weil der Rentenindikator
 danach keine Werte für die Sahel-Staaten ausweist; Politikwechsel

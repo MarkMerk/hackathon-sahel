@@ -1,8 +1,5 @@
 # Tab. 2b — Capture Ratio und menschliche Entwicklung
 
-> **ACHTUNG: auf DUMMY-DATEN gerechnet (`panel_dummy.csv`).**
-> Alle Werte sind erfunden. Nach Vorliegen von `panel.csv` neu erzeugen.
-
 Spearman-Rangkorrelation auf **Länder-Periodenmitteln** (ein Wert je Land
 und Periode, mindestens 3 gültige Jahre). Rangbasiert, weil beide
 Größen schief verteilt sind und der Zusammenhang nicht linear sein muss.
@@ -11,28 +8,28 @@ Größen schief verteilt sind und der Zusammenhang nicht linear sein muss.
 
 | Ebene | n | Spearman ρ | p |
 |---|---|---|---|
-| alle Perioden | 127 | -0,001 | 0,994 |
-| 2000–2007 | 42 | 0,004 | 0,982 |
-| 2008–2014 | 43 | 0,022 | 0,888 |
-| 2015–2021 | 42 | -0,042 | 0,793 |
+| alle Perioden | 68 | 0,515 | < 0,001 |
+| 2000–2007 | 21 | 0,577 | 0,006 |
+| 2008–2014 | 26 | 0,456 | 0,019 |
+| 2015–2021 | 21 | 0,679 | < 0,001 |
 
 ## Capture Ratio ↔ Stromzugang (% der Bevölkerung)
 
 | Ebene | n | Spearman ρ | p |
 |---|---|---|---|
-| alle Perioden | 127 | 0,013 | 0,885 |
-| 2000–2007 | 42 | 0,151 | 0,339 |
-| 2008–2014 | 43 | -0,037 | 0,812 |
-| 2015–2021 | 42 | -0,073 | 0,648 |
+| alle Perioden | 69 | 0,429 | < 0,001 |
+| 2000–2007 | 22 | 0,456 | 0,033 |
+| 2008–2014 | 26 | 0,355 | 0,076 |
+| 2015–2021 | 21 | 0,551 | 0,010 |
 
 ## Two-way-Fixed-Effects-OLS (Ergänzung)
 
 Modell: `hdi ~ capture_ratio + log(BIP pro Kopf) + Land-FE + Jahr-FE`,
 Standardfehler geclustert nach Land.
 
-Koeffizient der Capture Ratio: **0,0018** (SE 0,0013, p 0,155, 95-%-KI [-0,0007; 0,0044]), n = 823 Länderjahre aus 45 Ländern, R² = 0,993 (inkl. Fixed Effects).
+Koeffizient der Capture Ratio: **0,0007** (SE 0,0005, p 0,177, 95-%-KI [-0,0003; 0,0017]), n = 442 Länderjahre aus 28 Ländern, R² = 0,985 (inkl. Fixed Effects).
 
-Lesart: Eine um 0,1 höhere Capture Ratio geht mit einem um 0,0002 HDI-Punkten abweichenden Wert einher — **innerhalb** eines Landes und nach Kontrolle des Jahres und des BIP pro Kopf. Das ist eine Assoziation; die Wirkungsrichtung ist nicht identifiziert.
+Lesart: Eine um 0,1 höhere Capture Ratio geht mit einem um 0,0001 HDI-Punkten abweichenden Wert einher — **innerhalb** eines Landes und nach Kontrolle des Jahres und des BIP pro Kopf. Das ist eine Assoziation; die Wirkungsrichtung ist nicht identifiziert.
 
 ## Einordnung
 
