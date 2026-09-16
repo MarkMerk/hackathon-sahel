@@ -1,0 +1,18 @@
+# Zugangsdaten — niemals committen
+.hrz.env
+.env
+*.env
+
+# Umgebung
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store
+
+# GRD vorsorglich nicht weiterverteilen (Nutzungsbedingungen UNU-WIDER); jede Person lädt selbst
+data/raw/grd_*
+
+# Exporte aus Google Docs
+export_*.txt
+*.pdf
+!docs/Arbeitsauftrag.pdf

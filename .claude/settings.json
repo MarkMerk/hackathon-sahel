@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(./.hrz.env)",
+      "Read(**/.hrz.env)",
+      "Read(./.env)",
+      "Read(**/.env)",
+      "Edit(./.hrz.env)",
+      "Read(~/Library/**)",
+      "Read(~/Documents/**)",
+      "Edit(~/Library/**)",
+      "Edit(~/Documents/**)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)"
+    ]
+  }
+}
