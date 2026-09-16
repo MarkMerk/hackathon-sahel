@@ -19,3 +19,5 @@ export_*.txt
 
 # Persönliche Claude-Code-Einstellungen (können Zugangsdaten enthalten)
 .claude/settings.local.json
+build/
+abgabe/*.pdf
