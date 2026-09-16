@@ -1,0 +1,7 @@
+# Abstract
+
+Rohstoffreichtum und staatliche Armut fallen in der Sahelzone auffällig zusammen. Die vorliegende Arbeit fragt, welcher Anteil der entstehenden Rohstoffrenten im Staatshaushalt ankommt. Aus zwei offenen Quellen bilden wir eine Abschöpfungsquote — staatliche Ressourceneinnahmen des UNU-WIDER Government Revenue Dataset geteilt durch die Rohstoffrenten der Weltbank — für 48 Länder Subsahara-Afrikas von 2000 bis 2021 (455 auswertbare Länderjahre); verglichen wird auf Länder-Periodenmitteln.
+
+Der Sahel erwirtschaftet Renten auf ähnlichem Niveau wie die übrige Region (12,30 gegenüber 16,19 Prozent des Bruttoinlandsprodukts), führt davon aber deutlich weniger ab (2,62 gegenüber 7,70 Prozent); der Median der Abschöpfungsquote beträgt 0,075 gegenüber 0,320. Dieser Abstand erweist sich als Folge der Rohstoffstruktur, nicht der geografischen Lage: Ölfördernde Länder erreichen 0,615, alle übrigen 0,131, und der Kontrast nach Rohstoffart ist in zwei von drei Perioden groß (Cliffs Delta 0,74 und 0,64), während kein Regionsvergleich Signifikanz erreicht. Innerhalb des Sahel zeigt sich dasselbe Muster: Tschad und Mauretanien mit Erdöl erreichen 0,260 und 0,394, das goldfördernde Burkina Faso 0,022 und das uranfördernde Niger 0,038.
+
+Neu ist die Verhältnisbildung zwischen erzeugter Rente und fiskalischer Aneignung, die bislang getrennt betrachtet werden. Die Befunde sind Assoziationen; die kleine Zahl auswertbarer Sahel-Länder und systematische Lücken im Einnahmedatensatz begrenzen ihre Reichweite.
