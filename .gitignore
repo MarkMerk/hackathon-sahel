@@ -16,3 +16,6 @@ data/raw/grd_*
 export_*.txt
 *.pdf
 !docs/Arbeitsauftrag.pdf
+
+# Persönliche Claude-Code-Einstellungen (können Zugangsdaten enthalten)
+.claude/settings.local.json
