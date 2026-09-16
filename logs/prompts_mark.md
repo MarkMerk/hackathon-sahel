@@ -14,3 +14,5 @@
 - 13:25 · Sitzung b3deaa0c · можешь просто объяснить что означает для нас C и как кратко и просто будет звучать наша работа?
 - 13:26 · Sitzung b3deaa0c · еще раз простым языком как будет звучать вопрос какая предыстория и какой ответ
 - 13:29 · Sitzung b3deaa0c · да, давай C, скажи Philipp и Leon что им нужно поменять и какое по итогу будет Aufgabe? и еще philipp написал 1. Mark sagen, dass sein Skript meinen Abschnitt löscht. src/03_capture_ratio.py schreibt results/zahlen.md komplett neu und hat meinen Abschnitt „Philip" gelöscht. Ich habe ihn wiederhergestellt, aber bei seinem nächsten Lauf ist er wieder weg. Das ist das Einzige, was dringend ist.
+- 13:35 · Sitzung b3deaa0c · а какой наш главный вопрос тема работы по итоуг будет
+- 13:37 · Sitzung b3deaa0c · да конечно
