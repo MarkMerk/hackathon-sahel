@@ -170,51 +170,61 @@ def lade_wdi_regionen() -> pd.DataFrame:
 
 
 def lade_grd() -> pd.DataFrame:
-    """GRD: Total Resource Revenue und Resource taxes, jeweils % BIP."""
-    pfad = finde_datei("grd_*")
-    print(f"  GRD-Datei: {pfad.name}")
-    df = lies_tabelle(pfad)
+    """GRD: Total Resource Revenue und Resource Taxes, umgerechnet in % BIP.
 
-    spalte_iso = waehle_spalte(
-        df, ["ISO", "iso3", "ISO3", "Country Code", "countrycode", "iso_3"], "GRD-Ländercode"
-    )
+    Struktur der Datei (UNU-WIDER GRD 2025, geprüft am 16.09.2026):
+      - Das Blatt „Merged“ ist die Datentabelle; es enthält Central- und
+        General-Government-Beobachtungen, unterschieden über die Spalte
+        „General (=1 if General)“.
+      - Über der Kopfzeile stehen zwei weitere Zeilen mit Unterkategorien
+        („Including/Excluding Grants“, „Inc SC/Ex SC“), die übersprungen werden.
+      - Die Werte sind **Anteile am BIP**, nicht Prozent (Saudi-Arabien 0,50 =
+        50 % BIP). Für das Panel wird deshalb mit 100 multipliziert, damit
+        Zähler und Nenner der Capture Ratio dieselbe Einheit haben.
+    """
+    pfad = finde_datei("grd_*.xlsx")
+    print(f"  GRD-Datei: {pfad.name}")
+    df = pd.read_excel(pfad, sheet_name="Merged", skiprows=[1, 2])
+
+    spalte_iso = waehle_spalte(df, ["ISO", "iso3", "Country Code"], "GRD-Ländercode")
     spalte_jahr = waehle_spalte(df, ["Year", "year"], "GRD-Jahr")
     spalte_rev = waehle_spalte(
-        df,
-        ["Total Resource Revenue", "resource_revenue", "Resource Revenue",
-         "rev_resource", "totalresourcerevenue"],
-        "GRD Total Resource Revenue",
+        df, ["Total Resource Revenue", "totalresourcerevenue"], "GRD Total Resource Revenue"
     )
     spalte_tax = waehle_spalte(
-        df,
-        ["Resource taxes", "resource_taxes", "tax_resource", "resourcetaxes"],
-        "GRD Resource taxes",
+        df, ["Resource Taxes", "Resource taxes", "resourcetaxes"], "GRD Resource Taxes"
+    )
+    spalte_ebene = waehle_spalte(
+        df, ["General (=1 if General)", "General"], "GRD-Regierungsebene"
     )
 
-    schlank = df[[spalte_iso, spalte_jahr, spalte_rev, spalte_tax]].copy()
-    schlank.columns = ["iso3", "year", "res_rev_pct_gdp", "res_tax_pct_gdp"]
+    schlank = df[[spalte_iso, spalte_jahr, spalte_ebene, spalte_rev, spalte_tax]].copy()
+    schlank.columns = ["iso3", "year", "_ebene", "res_rev_pct_gdp", "res_tax_pct_gdp"]
     schlank["iso3"] = schlank["iso3"].astype(str).str.strip().str.upper()
     schlank["year"] = pd.to_numeric(schlank["year"], errors="coerce")
     for spalte in ("res_rev_pct_gdp", "res_tax_pct_gdp"):
-        schlank[spalte] = pd.to_numeric(schlank[spalte], errors="coerce")
+        # Anteil am BIP -> Prozent vom BIP (siehe Docstring)
+        schlank[spalte] = pd.to_numeric(schlank[spalte], errors="coerce") * 100
 
     schlank = schlank.dropna(subset=["iso3", "year"])
     schlank["year"] = schlank["year"].astype(int)
     schlank = schlank[schlank["year"].between(JAHR_VON, JAHR_BIS)]
 
-    # Manche GRD-Versionen führen je Land/Jahr mehrere Zeilen (z. B. general vs.
-    # central government). Wir behalten die Zeile mit der besseren Abdeckung.
+    # Das Blatt „Merged“ kann je Land und Jahr sowohl eine Central- als auch eine
+    # General-Government-Zeile enthalten. Wir bevorzugen General Government (breitere
+    # Abgrenzung, enthält subnationale Ebenen) und fallen sonst auf Central zurück.
     if schlank.duplicated(["iso3", "year"]).any():
         vorher = len(schlank)
         schlank = (schlank
-                   .assign(_gefuellt=schlank[["res_rev_pct_gdp", "res_tax_pct_gdp"]].notna().sum(axis=1))
-                   .sort_values("_gefuellt", ascending=False)
+                   .assign(_gefuellt=schlank[["res_rev_pct_gdp", "res_tax_pct_gdp"]]
+                           .notna().sum(axis=1))
+                   .sort_values(["_ebene", "_gefuellt"], ascending=[False, False])
                    .drop_duplicates(["iso3", "year"], keep="first")
-                   .drop(columns="_gefuellt"))
-        print(f"  Hinweis: {vorher - len(schlank)} doppelte Land-Jahr-Zeilen in GRD "
-              "zusammengeführt (Zeile mit mehr Werten behalten) — in der Methodik erwähnen.")
+                   .sort_values(["iso3", "year"]))
+        print(f"  Hinweis: {vorher - len(schlank)} Land-Jahr-Kombinationen lagen doppelt vor "
+              "(Central und General Government) — General bevorzugt. In der Methodik erwähnen.")
 
-    return schlank
+    return schlank.drop(columns=["_ebene", "_gefuellt"], errors="ignore")
 
 
 def lade_hdi() -> pd.DataFrame:
