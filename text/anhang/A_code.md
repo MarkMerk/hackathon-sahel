@@ -1,6 +1,6 @@
 # Anhang A — Code und Reproduktion
 
-Der vollständige Quellcode liegt im Repositorium des Projekts. Sämtliche Zahlen, Tabellen und Abbildungen der Arbeit werden von den unten aufgeführten Skripten erzeugt; keine davon wurde von Hand eingetragen oder nachbearbeitet.
+Der vollständige Quellcode liegt im öffentlichen Repositorium des Projekts: <https://github.com/MarkMerk/hackathon-sahel>. Sämtliche Zahlen, Tabellen und Abbildungen der Arbeit werden von den unten aufgeführten Skripten erzeugt; keine davon wurde von Hand eingetragen oder nachbearbeitet.
 
 ## A.1 Reproduktion
 

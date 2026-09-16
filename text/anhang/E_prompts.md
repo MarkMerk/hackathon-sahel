@@ -92,4 +92,4 @@ Zusammengeführt aus den Abschnitten „KI-Fehler und Korrekturen“ in `logs/LO
 
 ## E.4 Vollständige Protokolle
 
-Die vollständigen, ungekürzten Protokolle liegen im Repository unter `logs/`: die automatisch per Hook geführten Prompt-Protokolle (`logs/prompts_mark.md`, `logs/prompts_philip.md`, `logs/prompts_leon.md`) sowie die manuell gepflegten Arbeitslogs mit den vollständigen Abschnitten „KI-Fehler und Korrekturen“ und „Verworfene Ansätze“ (`logs/LOG_mark.md`, `logs/LOG_philip.md`, `logs/LOG_leon.md`).
+Die vollständigen, ungekürzten Protokolle liegen im Repositorium (<https://github.com/MarkMerk/hackathon-sahel>) unter `logs/`: die automatisch per Hook geführten Prompt-Protokolle (`logs/prompts_mark.md`, `logs/prompts_philip.md`, `logs/prompts_leon.md`) sowie die manuell gepflegten Arbeitslogs mit den vollständigen Abschnitten „KI-Fehler und Korrekturen“ und „Verworfene Ansätze“ (`logs/LOG_mark.md`, `logs/LOG_philip.md`, `logs/LOG_leon.md`).

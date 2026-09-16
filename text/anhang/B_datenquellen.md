@@ -48,7 +48,7 @@ Drei Eigenschaften der Rohdaten waren für die Aufbereitung erheblich und sind i
 
 ## B.5 Weitergabe und Lizenz
 
-Die Dateien der Weltbank und des UNDP sind frei verfügbar und im Repositorium abgelegt. Das Government Revenue Dataset wird aus Rücksicht auf die Nutzungsbedingungen von UNU-WIDER **nicht** mit weitergegeben und ist in `.gitignore` ausgenommen; es ist nach kostenloser Registrierung unmittelbar beziehbar. Zur Reproduktion der Ergebnisse genügt es, die Datei unter dem in B.1 genannten Namen in `data/raw/` abzulegen und die Skripte in der Reihenfolge aus Anhang A auszuführen.
+Die Dateien der Weltbank und des UNDP sind frei verfügbar und im Repositorium (<https://github.com/MarkMerk/hackathon-sahel>) abgelegt. Das Government Revenue Dataset wird aus Rücksicht auf die Nutzungsbedingungen von UNU-WIDER **nicht** mit weitergegeben und ist in `.gitignore` ausgenommen; es ist nach kostenloser Registrierung unmittelbar beziehbar. Zur Reproduktion der Ergebnisse genügt es, die Datei unter dem in B.1 genannten Namen in `data/raw/` abzulegen und die Skripte in der Reihenfolge aus Anhang A auszuführen.
 
 ## B.6 Anmerkung zum Zugriffsweg
 

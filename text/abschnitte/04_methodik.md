@@ -30,4 +30,4 @@ Das Panel umfasst 48 Länder und 1.056 Länderjahre. Für 1.014 liegen Rohstoffr
 
 Innerhalb des Sahel erfüllen vier der fünf Kernländer das Kriterium von mindestens zehn Jahren mit Renten und Ressourceneinnahmen: Niger mit 22, Burkina Faso mit 21, Mauretanien und Tschad mit je 18 Jahren. **Mali verfügt lediglich über vier Jahre (2013–2016)** und geht daher in keinen Gruppenvergleich ein; die Diskussion behandelt es auf Grundlage der Literatur.
 
-Alle Zahlen, Tabellen und Abbildungen stammen aus einzeln lauffähigen Python-Skripten (Anhang A, D); Bezugsquellen und Abrufdaten nennt Anhang B, den Einsatz von KI-Werkzeugen Anhang E.
+Alle Zahlen, Tabellen und Abbildungen stammen aus einzeln lauffähigen Python-Skripten (<https://github.com/MarkMerk/hackathon-sahel>; Anhang A, D); Bezugsquellen und Abrufdaten nennt Anhang B, den Einsatz von KI-Werkzeugen Anhang E.

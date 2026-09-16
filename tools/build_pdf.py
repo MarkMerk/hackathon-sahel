@@ -21,7 +21,8 @@ OUT = ROOT / "abgabe"
 
 # Deckblatt — bei Bedarf Nachnamen/Matrikelnummern ergänzen
 TEAM = r"Mark Merkouchev \\ Leon Demare \\ Philip Schurig"
-GRUPPE = ""  # z. B. "Gruppe 7" — erscheint auf beiden Deckblättern
+GRUPPE = "Team GPTeam"  # erscheint auf beiden Deckblättern
+REPO = "https://github.com/MarkMerk/hackathon-sahel"
 DATUM = "16. September 2026"
 TITEL = "Wer schöpft die Rohstoffrenten ab?"
 UNTERTITEL = ("Der Anteil staatlicher Ressourceneinnahmen an den Rohstoffrenten "
@@ -224,7 +225,8 @@ AI Hackathon im AI Summercamp 2026\par
 {KONTEXT}\par
 \vfill
 {TEAM}\par\vspace{{0.5cm}}
-{GRUPPE}\par
+{GRUPPE}\par\vspace{{0.5cm}}
+\url{{{REPO}}}\par
 {DATUM}\par
 \end{{titlepage}}
 """
