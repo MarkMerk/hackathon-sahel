@@ -164,8 +164,10 @@ nicht aus dem Vorschlag eines Sprachmodells.
   UNU-WIDER-Projektseite weist als aktuelle Fassung **Version 2025 (Stand November 2025)** mit DOI
   `10.35188/UNU-WIDER/GRD-2025` aus; Crossref bestätigt diesen DOI als Datensatz mit dem Titel
   „UNU-WIDER Government Revenue Dataset — Version 2025". `CLAUDE.md` und `docs/Forschungsdesign.md` nennen
-  dagegen **Version 2023**. → **An Mark weitergegeben**, damit Zitat und Abdeckungsangaben zur tatsächlich
-  heruntergeladenen Datei passen. Die Seite bestätigt außerdem, dass Einnahmen inklusive und exklusive
+  dagegen **Version 2023**. → **Für Mark vermerkt** (Commit-Nachricht und dieses Protokoll), damit Zitat und
+  Abdeckungsangaben zur tatsächlich heruntergeladenen Datei passen; `src/01_laden.py` liest die Datei über
+  ein Namensmuster ein und ist von der Version nicht betroffen, das Zitat in Methodik und Anhang B schon.
+  Leon gibt den Befund mündlich an Mark weiter. Die Seite bestätigt außerdem, dass Einnahmen inklusive und exklusive
   Ressourceneinnahmen ausgewiesen werden — die Grundlage unseres Zählers.
 - **Übernommen:** World Bank, World Development Indicators, Indikator `NY.GDP.TOTL.RT.ZS`. Über die
   World-Bank-API geprüft: offizieller Name **„Total natural resources rents (% of GDP)"**, Quelle *World
