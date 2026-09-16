@@ -32,3 +32,5 @@
 - 15:07 · Sitzung 94f2e504 · Was waren meine Aufgaben? Sind alle erledigt?
 - 15:11 · Sitzung 94f2e504 · Was waren meine Aufgaben? Ist alles erledigt?
 - 15:18 · Sitzung 94f2e504 · Punkte 1–5 erledigt und gepusht (Abstract/4/5.1/Fazit gekürzt und auf deine neuen Zahlen gebracht, Anhang D und E fertig). Echte Zählung (ohne HTML-Kommentare, mit Überschriften wie im Export): 35.292, Reserve 2.208. Achtung: count_chars.py zählt mehrzeilige <!-- --> mit – deine Reflexion hat real 12.088, also ca. 410 frei. Dein Vorschlag für meinen Absatz passt, bitte so einsetzen. ⏎ ▎ Drei Befunde in deinen Abschnitten: ⏎ ▎ 1. 5.4: „Ölstaaten-Ausschluss halbiert den Effekt mindestens“ stimmt nicht – a1 2000–07: −0,42 → −0,27; a2 bleibt bei −0,38/−0,42/−0,17. ⏎ ▎ 2. 5.2: „Der Abstand erklärt  …
+- 15:24 · Sitzung 94f2e504 · Wir sollten auch unser vorgehen dokumentieren. Hast du das auch gemacht oder müssen wir das seperat machen?
+- 15:25 · Sitzung 94f2e504 · Bin ich jetzt fertig?
