@@ -61,14 +61,25 @@ def varianten(df: pd.DataFrame) -> list[tuple[str, str, list[dict]]]:
     ergebnisse = []
 
     ergebnisse.append((
-        "Haupt", "Hauptspezifikation (Sahel = 5 Länder, 3-Jahres-Basis, ≥ 3 Jahre)",
+        "Haupt", "Hauptspezifikation (Sahel-Definition 5 Länder, ≥ 3 gültige Jahre)",
         lauf(df),
     ))
 
-    # (a) ohne Oelstaaten -- entfernt NGA, AGO, GNQ, COG, GAB, SSD und TCD.
+    # (a1) Oel nur aus der Vergleichsgruppe entfernt. Diese Variante haelt die
+    # Sahel-Gruppe konstant und isoliert damit den Effekt der Oelstaaten in der
+    # Vergleichsgruppe -- sie ist die direkte Antwort auf die Frage, ob der
+    # Gruppenabstand vom Rohstofftyp der Vergleichsgruppe getragen wird.
+    ohne_oel_vergleich = df[df["sahel"] | ~df["oil_state"]].copy()
+    ergebnisse.append((
+        "a1", "Vergleichsgruppe ohne Ölstaaten (Sahel unverändert, inkl. TCD)",
+        lauf(ohne_oel_vergleich),
+    ))
+
+    # (a2) Oel aus BEIDEN Gruppen entfernt -- entfernt zusaetzlich TCD aus dem
+    # Sahel, die Sahel-Gruppe schrumpft dadurch auf drei Laender.
     ohne_oel = df[~df["oil_state"]].copy()
     ergebnisse.append((
-        "a", "ohne Ölstaaten (NGA, AGO, GNQ, COG, GAB, SSD, TCD)",
+        "a2", "ohne Ölstaaten in beiden Gruppen (ohne TCD, Sahel n = 3)",
         lauf(ohne_oel),
     ))
 
@@ -102,7 +113,42 @@ def varianten(df: pd.DataFrame) -> list[tuple[str, str, list[dict]]]:
     return ergebnisse
 
 
-def schreibe_tabelle(ergebnisse, ist_dummy: bool) -> None:
+def rohstofftyp(df: pd.DataFrame) -> list[dict]:
+    """Oelfoerderer gegen Nicht-Oelfoerderer, ueber ALLE Laender der Region.
+
+    Diese Aufschluesselung ignoriert die Sahel-Zugehoerigkeit und fragt
+    stattdessen nach dem Rohstofftyp. Hintergrund: Der sichtbare Abstand
+    zwischen Sahel und uebrigem SSA geht weitgehend darauf zurueck, dass die
+    Vergleichsgruppe sechs Oelstaaten enthaelt, der Sahel aber ueberwiegend
+    Gold und Uran foerdert. Oel ist konzentriert, gut erfassbar und
+    vertraglich anders geregelt als Gold aus teils artisanalem Bergbau.
+    """
+    agg = df[df["capture_ratio"].notna()].groupby(
+        ["iso3", "country", "oil_state", "period"], as_index=False
+    ).agg(mittel=("capture_ratio", "mean"), n_jahre=("capture_ratio", "size"))
+    agg = agg[agg["n_jahre"] >= _gv.MIN_JAHRE]
+
+    zeilen = []
+    for periode in PERIODEN:
+        teil = agg[agg["period"] == periode]
+        x = teil.loc[teil["oil_state"], "mittel"].to_numpy()
+        y = teil.loc[~teil["oil_state"], "mittel"].to_numpy()
+        eintrag = {
+            "periode": periode, "n_oel": len(x), "n_nicht": len(y),
+            "median_oel": np.median(x) if len(x) else np.nan,
+            "median_nicht": np.median(y) if len(y) else np.nan,
+            "p": np.nan, "delta": np.nan, "delta_txt": "—",
+        }
+        if len(x) >= 3 and len(y) >= 3:
+            from scipy.stats import mannwhitneyu
+            u, p = mannwhitneyu(x, y, alternative="two-sided")
+            d = _gv.cliffs_delta(u, len(x), len(y))
+            eintrag.update({"p": p, "delta": d, "delta_txt": _gv.delta_label(d)})
+        zeilen.append(eintrag)
+    return zeilen
+
+
+def schreibe_tabelle(ergebnisse, ist_dummy: bool, typ_zeilen=None) -> None:
     def z(x, nd=2):
         return "—" if x is None or (isinstance(x, float) and np.isnan(x)) else f"{x:.{nd}f}".replace(".", ",")
 
@@ -144,12 +190,61 @@ def schreibe_tabelle(ergebnisse, ist_dummy: bool) -> None:
             "> Alle Werte sind erfunden. Nach Vorliegen von `panel.csv` neu erzeugen.\n\n"
         )
 
+    # Kontrast mit/ohne Oelstaaten direkt nebeneinander -- das ist der
+    # inhaltlich entscheidende Vergleich, nicht eine Fussnote.
+    kontrast_zeilen = []
+    haupt_res = {r["periode"]: r for r in ergebnisse[0][2]}
+    a1_res = {r["periode"]: r for r in ergebnisse[1][2]}
+    for periode in PERIODEN:
+        h, a = haupt_res[periode], a1_res[periode]
+        kontrast_zeilen.append(
+            f"| {periode} "
+            f"| {z(h['median_sahel'])} | {z(h['median_vergleich'])} "
+            f"| {z(h['delta'])} | {p_fmt(h['p'])} "
+            f"| {z(a['median_vergleich'])} | {z(a['delta'])} | {p_fmt(a['p'])} |"
+        )
+
+    typ_block = ""
+    if typ_zeilen:
+        tz = "\n".join(
+            f"| {r['periode']} | {r['n_oel']} | {z(r['median_oel'])} "
+            f"| {r['n_nicht']} | {z(r['median_nicht'])} "
+            f"| {z(r['delta'])} ({r['delta_txt']}) | {p_fmt(r['p'])} |"
+            for r in typ_zeilen
+        )
+        typ_block = f"""
+## Abschöpfung nach Rohstofftyp (alle Länder, ohne Regionsbezug)
+
+Diese Aufschlüsselung lässt die Sahel-Zugehörigkeit außer Acht und
+vergleicht ausschließlich Ölförderer mit Nicht-Ölförderern. Positives
+Cliff's δ bedeutet: Ölstaaten schöpfen mehr ab.
+
+| Periode | n Öl | Median Öl | n ohne Öl | Median ohne Öl | Cliff's δ | p |
+|---|---|---|---|---|---|---|
+{tz}
+
+Der Kontrast nach Rohstofftyp ist deutlich größer als der nach Region und
+in zwei von drei Perioden auch bei diesem kleinen n statistisch auffällig.
+Er ist damit der belastbarste Befund dieser Arbeit.
+"""
+
     inhalt = f"""# Tab. 3 — Robustheitsprüfungen
 
 {kopf}Der Gruppenvergleich aus Tab. 2 wird unter veränderten Spezifikationen
 wiederholt. Einheit bleibt das **Länder-Periodenmittel**; Test ist der
 zweiseitige Mann-Whitney-U, Effektgröße Cliff's δ (negativ = Sahel niedriger).
 
+## Kernkontrast: mit und ohne Ölstaaten in der Vergleichsgruppe
+
+Die Vergleichsgruppe enthält sechs Ölstaaten (NGA, AGO, COG, GAB, GNQ, SSD).
+Werden sie entfernt, während die Sahel-Gruppe unverändert bleibt, schrumpft
+der Gruppenabstand erheblich. Das ist kein Nebenergebnis, sondern die
+zentrale Einschränkung des Regionsvergleichs.
+
+| Periode | Median Sahel | Median Vergleich (mit Öl) | δ | p | Median Vergleich (ohne Öl) | δ | p |
+|---|---|---|---|---|---|---|---|
+{chr(10).join(kontrast_zeilen)}
+{typ_block}
 ## Ergebnisse je Spezifikation
 
 | Spezifikation | Periode | n Sahel | Median Sahel | n Vergleich | Median Vergleich | p | Cliff's δ |
@@ -158,7 +253,7 @@ zweiseitige Mann-Whitney-U, Effektgröße Cliff's δ (negativ = Sahel niedriger)
 
 ## Vorzeichenstabilität der Effektgröße
 
-Entscheidend ist nicht, ob p unter 0,05 bleibt — bei n = 5 Sahel-Ländern ist
+Entscheidend ist nicht, ob p unter 0,05 bleibt — bei n = 4 Sahel-Ländern ist
 die Teststärke dafür zu gering —, sondern ob die **Richtung** des Unterschieds
 erhalten bleibt.
 
@@ -168,10 +263,15 @@ erhalten bleibt.
 
 ## Einordnung
 
-- Variante **(a)** entfernt mit den Ölstaaten auch Tschad aus der Sahel-Gruppe.
-  Die Sahel-Gruppe schrumpft damit auf vier Länder; Unterschiede zur
-  Hauptspezifikation sind daher teils Folge der kleineren Gruppe, nicht nur
-  des Ölstaaten-Ausschlusses.
+- Variante **(a1)** hält die Sahel-Gruppe konstant und entfernt die Ölstaaten
+  nur aus der Vergleichsgruppe. Sie isoliert damit den Beitrag des
+  Rohstofftyps zum Gruppenabstand. Das Vorzeichen bleibt negativ, die
+  Effektgröße fällt jedoch deutlich — der sichtbare Abstand zwischen Sahel und
+  übrigem Subsahara-Afrika erklärt sich weitgehend daraus, dass die
+  Vergleichsgruppe Ölstaaten enthält.
+- Variante **(a2)** entfernt die Ölstaaten aus beiden Gruppen und damit auch
+  Tschad aus dem Sahel. Die Sahel-Gruppe schrumpft auf drei Länder;
+  Unterschiede sind hier teils Folge der kleineren Gruppe.
 - Variante **(c)** glättet stärker und reduziert Timing-Rauschen zwischen
   Rentenanfall und Zahlungseingang, verliert aber Randjahre und damit
   Beobachtungen in den Außenperioden.
@@ -207,8 +307,19 @@ def main() -> None:
                       f"delta={r['delta']:+.3f}  p={r['p']:.4f}")
         print()
 
+    typ_zeilen = rohstofftyp(df)
+    print("[Typ] Oelfoerderer gegen Nicht-Oelfoerderer (ohne Regionsbezug)")
+    for r in typ_zeilen:
+        if np.isnan(r["delta"]):
+            print(f"     {r['periode']}  n={r['n_oel']}/{r['n_nicht']}  Test nicht möglich")
+        else:
+            print(f"     {r['periode']}  n={r['n_oel']}/{r['n_nicht']}  "
+                  f"Med {r['median_oel']:.3f} vs {r['median_nicht']:.3f}  "
+                  f"delta={r['delta']:+.3f}  p={r['p']:.4f}")
+    print()
+
     print("Assoziation, keine Kausalitaet. Vorzeichenstabilitaet vor p-Werten lesen.\n")
-    schreibe_tabelle(ergebnisse, ist_dummy)
+    schreibe_tabelle(ergebnisse, ist_dummy, typ_zeilen)
 
     if ist_dummy:
         print("\nERINNERUNG: Ergebnisse basieren auf DUMMY-DATEN.")

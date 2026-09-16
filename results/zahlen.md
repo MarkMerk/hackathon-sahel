@@ -121,6 +121,9 @@ Effektgröße: Cliff's δ (negativ = Sahel niedriger).
 - **Kernbefund:** Cliff's δ ist in allen drei Perioden negativ, kein p-Wert
   unterschreitet 0,05. Formulierung im Text: durchgängig niedrigere
   Abschöpfung im Sahel, statistisch nicht abgesichert.
+- **Wichtige Einschränkung (siehe Tab. 3):** Dieser Abstand geht weitgehend
+  auf die Ölstaaten in der Vergleichsgruppe zurück. Er darf nicht als
+  Regionsbefund formuliert werden.
 - **Mali ist in keiner Periode vertreten** (nur 4 Länderjahre mit Renten und
   Ressourceneinnahmen, davon max. 2 je Periode — Schwelle ≥ 3 verfehlt).
   Die Sahel-Gruppe besteht in allen Tests aus BFA, NER, TCD, MRT (n = 4).
@@ -159,18 +162,46 @@ Cliff's δ je Periode, sechs Spezifikationen:
 | Variante | 2000–2007 | 2008–2014 | 2015–2021 |
 |---|---|---|---|
 | Hauptspezifikation | −0,36 | −0,39 | −0,24 |
-| (a) ohne Ölstaaten | −0,39 | −0,38 | −0,17 |
+| (a1) Vergleichsgruppe ohne Ölstaaten, Sahel unverändert | −0,27 | −0,16 | −0,08 |
+| (a2) ohne Ölstaaten in beiden Gruppen (ohne TCD) | −0,39 | −0,38 | −0,17 |
 | (b) Sahel erweitert (+ SDN, SEN) | −0,21 | −0,32 | −0,24 |
 | (c) 5-Jahres-Mittel | −0,34 | −0,36 | −0,22 |
 | (d) ohne geflaggte Länderjahre | −0,28 | −0,33 | −0,24 |
 | (e) ≥ 5 gültige Jahre je Periode | −0,33 | −0,61 | −0,24 |
 
-- **Alle 18 Zellen negativ** — vollständige Vorzeichenstabilität. Kein
+- **Alle 21 Zellen negativ** — vollständige Vorzeichenstabilität. Kein
   p-Wert unter 0,05 in irgendeiner Variante (kleinster Wert: 0,118 in
   Variante e, Periode 2008–2014).
-- In den Varianten (a) und (e) sinkt n Sahel auf 3; Variante (a) entfernt
-  mit den Ölstaaten auch Tschad aus der Sahel-Gruppe.
+- **Kernkontrast mit/ohne Ölstaaten (Tab. 3, oberste Tabelle):** Bleibt die
+  Sahel-Gruppe unverändert und werden nur die sechs Ölstaaten aus der
+  Vergleichsgruppe entfernt, fällt der Median der Vergleichsgruppe von 0,51 /
+  0,25 / 0,27 auf 0,14 / 0,15 / 0,16 und Cliff's δ von −0,36 / −0,39 / −0,24
+  auf −0,27 / −0,16 / −0,08. Der Regionsabstand ist also überwiegend ein
+  Rohstofftyp-Effekt.
+- In den Varianten (a2) und (e) sinkt n Sahel auf 3; (a2) entfernt mit den
+  Ölstaaten auch Tschad aus der Sahel-Gruppe.
 - Die Robustheitsprüfung stützt die **Richtung** des deskriptiven Musters,
   nicht dessen statistische Signifikanz.
+
+### Abschöpfung nach Rohstofftyp (Tab. 3, ohne Regionsbezug)
+
+Ölförderer gegen Nicht-Ölförderer über alle Länder, Länder-Periodenmittel.
+Positives δ = Ölstaaten schöpfen mehr ab.
+
+| Periode | n Öl | Median Öl | n ohne Öl | Median ohne Öl | Cliff's δ | p |
+|---|---|---|---|---|---|---|
+| 2000–2007 | 6 | 0,52 | 16 | 0,12 | +0,31 (klein) | 0,294 |
+| 2008–2014 | 7 | 0,74 | 19 | 0,15 | +0,74 (groß) | 0,003 |
+| 2015–2021 | 6 | 0,46 | 15 | 0,14 | +0,64 (groß) | 0,023 |
+
+- **Stärkster Befund der Arbeit:** Der Kontrast nach Rohstofftyp ist größer
+  als der nach Region und in zwei von drei Perioden auch bei diesem kleinen n
+  auffällig (δ = 0,74 und 0,64, „groß" nach Romano et al., 2006).
+- Dasselbe Muster innerhalb des Sahel (Zahlen von Mark): TCD 0,26 und MRT 0,39
+  (Erdöl) gegenüber BFA 0,02 (Gold) und NER 0,04 (Uran) — die Spannweite im
+  Sahel übersteigt den Gruppenunterschied.
+- Auch dies bleibt eine Assoziation. Plausible Mechanismen (Konzentration der
+  Förderung, Erfassbarkeit, Vertragsregime) sind mit diesen Daten nicht
+  prüfbar und gehören in die Diskussion.
 
 Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDI; eigene Berechnung.

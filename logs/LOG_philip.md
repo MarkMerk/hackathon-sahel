@@ -19,6 +19,9 @@ Format: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil
 - 13:18 · Abdeckungsprüfung der Sahel-Gruppe · Claude Opus 5 · **Mali erreicht in keiner Periode die Schwelle von 3 gültigen Jahren** (18 Länderjahre mit Renten ≥ 1 % BIP ohne GRD-Wert); alle Tests laufen faktisch auf BFA, NER, TCD, MRT. In Tab. 2 jetzt explizit ausgewiesen, in den Limitationen ergänzt
 - 13:20 · results/zahlen.md Abschnitt „Philip" mit echten Zahlen gefüllt · Claude Opus 5 · Gruppenvergleich, Spearman, FE-OLS und alle sechs Robustheitsvarianten
 - 13:22 · Statistik-Review der Auswertung auf echten Daten · Subagent statistik-pruefer · läuft
+- 13:45 · Marks Ölstaaten-Befund nachgerechnet und eingebaut · Claude Opus 5 · Variante (a) in zwei Varianten getrennt: (a1) nur Vergleichsgruppe ohne Öl (Sahel konstant, n = 4) und (a2) beide Gruppen ohne Öl (ohne TCD, n = 3). Marks Zahlen bestätigt: δ fällt von −0,36/−0,39/−0,24 auf −0,27/−0,16/−0,08, wenn nur die Vergleichsgruppe bereinigt wird. Kernkontrast steht jetzt als erste Tabelle in Tab. 3
+- 13:50 · Zusatzauswertung Rohstofftyp ohne Regionsbezug (Marks Punkt 2) · Claude Opus 5 · Ölförderer vs. Nicht-Ölförderer über alle Länder: δ = +0,31 / +0,74 / +0,64, in zwei von drei Perioden p < 0,05 (0,003 und 0,023). Deutlich stärker als der Regionsbefund — stärkster Befund der Arbeit
+- 13:52 · Limitationen um die Zusammensetzung der Vergleichsgruppe erweitert · Claude Opus 5 · 20 von 48 Ländern ohne GRD-Wert, systematisch die rentenärmeren (8,97 vs. 14,28 % BIP); Vergleichsgruppe ist der rohstoffreiche, erfasste Teil der Region aus 21 Ländern, nicht Subsahara-Afrika. 2.290 von 2.300 Zeichen
 
 ## KI-Fehler und Korrekturen
 
