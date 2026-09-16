@@ -1,5 +1,7 @@
 ---
+name: abschluss
 description: Teilaufgabe sauber abschließen — Log-Zeile, nur eigene Dateien committen, pull --rebase, push
+disable-model-invocation: true
 ---
 1. Person über `git config user.name` bestimmen.
 2. `git status` — zeige, welche geänderten Dateien laut CLAUDE.md §5 zur Person gehören und welche nicht. Fremde Dateien NICHT stagen; bei Unklarheit fragen.

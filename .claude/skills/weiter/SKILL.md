@@ -1,4 +1,5 @@
 ---
+name: weiter
 description: Stand prüfen und den nächsten konkreten Schritt der Person aus ihrem Leitfaden vorschlagen
 ---
 1. `git pull --rebase`. Person über `git config user.name` bestimmen (oder aus `$ARGUMENTS`).

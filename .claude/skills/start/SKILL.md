@@ -1,4 +1,5 @@
 ---
+name: start
 description: Einstieg — erklärt der Person am Rechner ihre Rolle, ihre Aufgaben, Dateien und den ersten Schritt
 ---
 Du startest eine Arbeitssitzung im Projekt „Wer schöpft die Rohstoffrenten ab?“ (AI Hackathon, JLU, heute, Abgabe 17:00).

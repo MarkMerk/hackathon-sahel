@@ -16,7 +16,7 @@ Forschungsfrage: *Wer schöpft die Rohstoffrenten ab? Der Anteil staatlicher Res
 | `logs/LOG_<name>.md` | KI-Protokoll je Person, von Claude nach jeder Teilaufgabe gepflegt (Grundlage für die Reflexion) |
 | `logs/prompts_<name>.md` | Automatisches Prompt-Protokoll per Hook (Anhang E) |
 | `.claude/agents/` | Projekt-Subagenten (Datenprüfung, Abbildungen, Statistik-Review, STRaWBERRY-Review, Quellenprüfung) |
-| `.claude/commands/` | `/start`, `/weiter`, `/abschluss` |
+| `.claude/skills/` | `/start`, `/weiter`, `/abschluss` (als Skills — funktionieren in Terminal und VS-Code-Erweiterung) |
 | `.claude/hooks/` | Automatische Protokollierung |
 
 ## Setup (jede Person, ca. 5 Minuten)
@@ -58,7 +58,7 @@ Claude erklärt dir deine Rolle, deine Dateien, Abhängigkeiten, deinen Zeitplan
 
 ### Mit der Claude-Code-Erweiterung für VS Code (grafisches Panel)
 Die Erweiterung nutzt dieselbe Engine wie das Terminal: `CLAUDE.md`, `.claude/settings.json` (Deny-Regeln + Protokoll-Hooks), Subagenten und Projekt-Befehle gelten auch dort. Unterschiede und Lösungen:
-- **`/start` erscheint nicht im `/`-Menü?** → Stattdessen eingeben: *„Lies .claude/commands/start.md und führe die Anweisungen aus. Ich bin <Name>.“* (analog `weiter.md`, `abschluss.md`).
+- **`/start` erscheint nicht im `/`-Menü?** → Stattdessen eingeben: *„Lies .claude/skills/start/SKILL.md und führe die Anweisungen aus. Ich bin <Name>.“* (analog `weiter`, `abschluss`).
 - **Kein Terminal-Befehl `claude`:** Die Erweiterung bringt eine interne Kopie mit; für die Terminal-Variante Claude Code separat installieren oder in den Einstellungen *Extensions → Claude Code → Use Terminal* aktivieren.
 - **Anmeldung mit dem Hackathon-API-Zugang statt eigenem Konto:** Die Erweiterung sieht Umgebungsvariablen nur, wenn VS Code sie erbt.
   - macOS/Linux: VS Code schließen, dann im Terminal im Repo-Ordner `set -a; source .hrz.env; set +a; code .`
