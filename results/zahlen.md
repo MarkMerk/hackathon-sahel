@@ -196,7 +196,7 @@ Querschnitt bestätigt den Befund bei korrekter Fallzahl.
 
 ### Robustheit (Tab. 3)
 
-Cliff's δ je Periode, Hauptspezifikation und acht Varianten:
+Cliff's δ je Periode, Hauptspezifikation und zehn Varianten:
 
 | Variante | 2000–2007 | 2008–2014 | 2015–2021 |
 |---|---|---|---|
@@ -209,11 +209,20 @@ Cliff's δ je Periode, Hauptspezifikation und acht Varianten:
 | (d) ohne geflaggte Länderjahre | −0,34 | −0,34 | −0,26 |
 | (e) ≥ 5 gültige Jahre je Periode | −0,38 | −0,61 | −0,26 |
 | (f) Quotient der Periodensummen | −0,47 | −0,39 | −0,29 |
+| (g0,5) fehlende Zähler mit 0,5 % BIP imputiert | −0,26 | −0,09 | −0,04 |
+| (g0,8) fehlende Zähler mit 0,8 % BIP imputiert | −0,29 | −0,29 | −0,13 |
 
-- **Alle 27 Zellen negativ.** Kein p-Wert unter 0,05 in irgendeiner
-  Regionsvariante (kleinster Wert 0,118 in Variante e, 2008–2014). Die
-  Zellen sind **keine unabhängigen Replikationen**: Sie beruhen alle auf
-  denselben vier Sahel-Ländern.
+- **33 von 33 Zellen negativ**, aber unter Imputation (g) fast bei null.
+  Kein p-Wert unter 0,05 in irgendeiner Regionsvariante (kleinster Wert
+  0,118 in Variante e, 2008–2014). Die Zellen sind **keine unabhängigen
+  Replikationen**: Sie beruhen alle auf denselben vier Sahel-Ländern.
+- **(g) ist die einzige Variante, die den Befund faktisch entkräftet:**
+  Unter Imputation der fehlenden Ressourceneinnahmen mit 0,5 % BIP sinkt
+  δ auf −0,26/−0,09/−0,04 — in den letzten beiden Perioden vernachlässigbar.
+  Das ist plausibel, weil die Ausfallquote asymmetrisch ist (Sahel 25 %,
+  Vergleichsgruppe 56 % fehlende Werte bei Renten ≥ 1 % BIP; siehe
+  Limitationen). Bei 0,8 % BIP fällt δ schwächer, bleibt aber unter der
+  Hauptspezifikation.
 - **Kernkontrast mit/ohne Ölstaaten (Tab. 3, oberste Tabelle):** Bleibt die
   Sahel-Gruppe unverändert und werden nur die Ölstaaten aus der
   Vergleichsgruppe entfernt, fällt der Median der Vergleichsgruppe von 0,51 /

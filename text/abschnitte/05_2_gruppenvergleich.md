@@ -30,9 +30,13 @@ Sahel-Ländern gegenüber 17 bis 22 Vergleichsländern ist die Teststärke so
 gering, dass dies nicht gegen einen Unterschied spricht; für einen Nachweis
 reichen die Daten nicht.
 
-Der Abstand erklärt sich weitgehend über den Rohstofftyp: Werden allein die
-Ölstaaten aus der Vergleichsgruppe entfernt, sinkt deren Median auf 0,14, 0,15
-und 0,16, Cliff's δ auf −0,27, −0,22 und −0,08 (Tab. 3) — in der letzten
-Periode also auf einen vernachlässigbaren Wert. Dasselbe gilt im Sahel: Tschad
-(0,26) und Mauretanien (0,39), beide mit Erdöl, liegen über Burkina Faso
-(0,02, Gold) und Niger (0,04, Uran).
+Der Abstand überlagert sich mit dem Rohstofftyp, erklärt sich aber nicht
+vollständig darüber: Werden die Ölstaaten allein aus der Vergleichsgruppe
+entfernt (Sahel unverändert), sinkt deren Median auf 0,14, 0,15 und 0,16,
+Cliff's δ auf −0,27, −0,22 und −0,08 (Tab. 3) — in der letzten Periode ein
+vernachlässigbarer Wert. Entfernt man Öl dagegen aus **beiden** Gruppen und
+damit auch Tschad aus dem Sahel, bleibt δ bei −0,38, −0,42 und −0,17 fast
+unverändert. Der Rohstofftyp trägt den Abstand also nur, solange er allein
+in der Vergleichsgruppe variiert; sobald er im Sahel selbst variiert (Tschad
+und Mauretanien fördern Erdöl, Burkina Faso und Niger nicht), bleibt ein
+Unterschied bestehen, den der Rohstofftyp nicht erklärt.

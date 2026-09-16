@@ -22,10 +22,11 @@ import sys
 
 
 def count_md(text: str) -> int:
+    text = re.sub(r"<!--.*?-->", "", text, flags=re.DOTALL)
     keep = []
     for line in text.splitlines():
         s = line.strip()
-        if not s or s.startswith(("#", "![", "<!--", "|", "---")):
+        if not s or s.startswith(("#", "![", "|", "---")):
             continue
         keep.append(line)
     body = "\n".join(keep)

@@ -15,6 +15,14 @@ Datenverantwortung und Integration: Downloads, `panel.csv` nach Schema, Abdeckun
 | `quellen-pruefer` | `text/quellen.bib` auf Vollständigkeit/APA/DOI-Plausibilität prüfen | sonnet |
 **Parallelisierungsregeln:** Jeder Subagent bekommt eine Zieldatei und liefert eine Zusammenfassung ≤ 10 Zeilen zurück. Nie zwei Agenten auf dieselbe Datei. Ergebnisse der Agenten vor dem Commit selbst gegenlesen. Jeden Agenteneinsatz in `logs/LOG_mark.md` protokollieren (Name des Agenten, Auftrag, Ergebnis, ggf. Fehler). Subagenten selbst schreiben kein Log — das übernimmt die Hauptsitzung nach Rückgabe. Claude-Science-Nutzung läuft außerhalb der Hooks → manuell ins Log.
 
+## Modell- und Kostenaufteilung (Abo für Opus, Hackathon-Key für Sonnet)
+Claude Code nutzt pro Prozess genau einen Zugang — Subagenten laufen immer über denselben Zugang wie die Hauptsitzung. Deshalb:
+- **Hauptsitzung = Opus über Marks Abo.** Starten **ohne** `.hrz.env`: `claude --model opus`. Mit `/status` prüfen: Anmeldung über claude.ai, nicht API-Key.
+- **Routine = Sonnet über den Hackathon-Key (OpenRouter)** mit `tools/sonnet_api.sh "<Auftrag>"` (eigener Headless-Prozess, lädt `OPENROUTER_API_KEY` aus `.hrz.env`, eigener `CLAUDE_CONFIG_DIR` → Abo-Login der Hauptsitzung bleibt unberührt; **in der Hauptsitzung nie `/logout`**). Verwenden statt der Subagenten `daten-pruefer` und `abbildungen` — diese würden sonst Abo-Kontingent verbrauchen.
+- Parallel: mehrere Aufrufe als Hintergrund-Befehle starten, jeder mit eigener Zieldatei.
+- In der Hauptsitzung (Opus, Abo) bleiben: Planung, Entscheidungen (GRD/EITI), `statistik-pruefer`, `strawberry-reviewer`, Textentwürfe Methodik/Abstract/Fazit.
+- Delegierte Prompts erscheinen in `logs/prompts_mark.md` mit Markierung `[API/Sonnet, delegiert]` — für die Reflexion.
+
 ## Ablauf
 
 ### Schritt 1 — Repo steht (11:15–11:25)

@@ -72,13 +72,10 @@ Rohstofftyp wurde zum Hauptbefund, der Regionsvergleich zum abgeleiteten
 Ergebnis. Fragestellung und Titel blieben unverändert, weil eine unerwartete
 Antwort ein Ergebnis ist und kein Anlass, die Frage nachträglich anzupassen.
 
-<!-- PLATZHALTER Absatz Mark zur eigenen Rolle: Budget nur noch ca. 320 Zeichen.
-     Falls der Absatz laenger wird, muss an anderer Stelle gekuerzt werden. -->
-<!-- Vorschlag aus den Logs, von Mark zu bestaetigen oder zu ersetzen:
 Mark verantwortete Datenaufbereitung und Deskription. Sein lehrreichster
 Fehler: Ein gegen synthetische Daten geschriebener Lader traf vier falsche
-Annahmen ueber die echte Datei, darunter den Maszstab der Werte. Seither
-prueft er jede Strukturannahme an der Quelle. -->
+Annahmen über die echte Datei, darunter den Maßstab der Werte. Seither
+prüft er jede Strukturannahme an der Quelle.
 
 Leon verantwortete Literatur, Theorie und Diskussion. Die
 Modellunterstützung beschleunigte die Literatursuche, war beim Belegen aber
@@ -171,9 +168,9 @@ Ergebnisdarstellung beschlossen, nachdem der Ölstaaten-Befund vorlag.
 Beschleunigt hat die Modellunterstützung vor allem dort, wo die Aufgabe klar
 umrissen war: beim Schreiben und Testen von Auswertungsskripten, beim Erzeugen
 von Abbildungen, beim Auffinden von Literatur und beim Prüfen eigener
-Entwürfe gegen eine Checkliste. Ein Arbeitstag dieser Dichte wäre ohne sie
+Entwürfe gegen eine Checkliste. Ein Arbeitstag wäre ohne sie
 nicht möglich gewesen. Kaum Zeit gespart hat sie beim Kürzen auf ein
-Zeichenbudget, weil die ersten Fassungen verlässlich zu lang waren, und keine
+Zeichenbudget, weil die ersten Fassungen zu lang waren, und keine
 Zeit bei allem, was Urteil erforderte — welche Spezifikation die
 Forschungsfrage tatsächlich beantwortet, wie ein nicht signifikanter Befund zu
 formulieren ist und ob ein unerwartetes Ergebnis die Darstellung ändern muss.

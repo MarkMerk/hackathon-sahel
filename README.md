@@ -66,6 +66,28 @@ Die Erweiterung nutzt dieselbe Engine wie das Terminal: `CLAUDE.md`, `.claude/se
   - Erscheint trotzdem ein Login-Fenster und der Zugang läuft über ein Gateway (`ANTHROPIC_BASE_URL` gesetzt): in den VS-Code-Einstellungen *Claude Code → Disable Login Prompt* aktivieren.
 - **Hooks prüfen:** `/` → *Customize → Hooks* muss SessionStart, UserPromptSubmit und Stop zeigen. Nach dem ersten Prompt existiert `logs/prompts_<name>.md`.
 
+### Neuer Hackathon-Zugang: OpenRouter (ab ca. 15:00)
+Der Key kommt vom Team (nicht ins Repo!). Claude Code spricht OpenRouter über dessen Anthropic-kompatible Schnittstelle.
+
+**VS-Code-Erweiterung (Leon, Philip):** `.claude/settings.local.json` (ignoriert) ersetzen durch
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "https://openrouter.ai/api",
+    "ANTHROPIC_AUTH_TOKEN": "<OPENROUTER-KEY>",
+    "ANTHROPIC_API_KEY": "",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "~anthropic/claude-sonnet-latest",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "~anthropic/claude-opus-latest",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "~anthropic/claude-haiku-latest"
+  }
+}
+```
+Dann *Developer: Reload Window* → neue Unterhaltung → einmal `/logout` (entfernt alten Login) → *Claude Code → Disable Login Prompt* aktivieren → `/status` muss `ANTHROPIC_AUTH_TOKEN` und `openrouter.ai` zeigen. Standardmodell sparsam: `/model sonnet`.
+
+**Terminal:** vor `claude` exportieren: `export ANTHROPIC_BASE_URL=https://openrouter.ai/api ANTHROPIC_AUTH_TOKEN=<KEY> ANTHROPIC_API_KEY=""`.
+
+**Mark:** Hauptsitzung Opus über Abo (ohne diese Variablen), Sonnet-Aufgaben über `tools/sonnet_api.sh` (nutzt OpenRouter mit eigenem Konfigurationsordner, Abo-Login bleibt erhalten).
+
 ## Zeitplan
 | Zeit | Mark | Philip | Leon |
 |---|---|---|---|

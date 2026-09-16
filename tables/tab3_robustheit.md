@@ -144,6 +144,12 @@ vernachlässigbar klein; als Bestätigung einer Richtung trägt sie kaum.
 - Variante **(f)** bildet die Capture Ratio als Quotient der Periodensummen.
   Das gewichtet Jahre mit kleinem Nenner nicht über, ist inhaltlich näher an
   der Forschungsfrage und stützt den Befund.
+- Variante **(g)** ist die einzige, die den Befund faktisch entkräftet: Unter
+  Imputation der fehlenden Ressourceneinnahmen mit 0,5 % BIP sinkt die
+  Effektgröße auf −0,26/−0,09/−0,04, unter 0,8 % BIP schwächer. Plausibel,
+  weil die Ausfallquote asymmetrisch ist (Sahel 25 %, Vergleichsgruppe 56 %
+  fehlende Werte bei Renten ≥ 1 % BIP). Das ist die stärkste Einschränkung
+  dieser Arbeit, nicht eine Variante unter vielen.
 - **Multiples Testen:** Diese Arbeit berichtet 17 Signifikanztests. Die
   p-Werte in dieser Tabelle sind nicht adjustiert; nach Holm-Korrektur über
   alle berichteten Tests bleibt kein Regionstest signifikant — er ist es
