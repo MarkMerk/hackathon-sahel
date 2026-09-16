@@ -17,8 +17,8 @@ export ANTHROPIC_DEFAULT_HAIKU_MODEL="~anthropic/claude-haiku-latest"
 export CLAUDE_CODE_SUBAGENT_MODEL="$ANTHROPIC_DEFAULT_SONNET_MODEL"
 export CLAUDE_CONFIG_DIR="${HOME}/.claude-openrouter"
 export HACKATHON_HEADLESS=1
-exec claude -p \
+PROMPT="Kontext: Projekt laut CLAUDE.md, Regeln dort gelten. Erledige genau diesen Auftrag, ändere nur die dafür nötigen Dateien, gib am Ende eine Zusammenfassung in max. 10 Zeilen (geänderte Dateien, Ergebnis, Probleme). Auftrag: $*"
+exec printf '%s' "$PROMPT" | claude -p \
   --model sonnet \
   --permission-mode acceptEdits \
-  --allowedTools "Read,Write,Edit,Glob,Grep,Bash" \
-  "Kontext: Projekt laut CLAUDE.md, Regeln dort gelten. Erledige genau diesen Auftrag, ändere nur die dafür nötigen Dateien, gib am Ende eine Zusammenfassung in max. 10 Zeilen (geänderte Dateien, Ergebnis, Probleme). Auftrag: $*"
+  --allowedTools "Read,Write,Edit,Glob,Grep,Bash"
