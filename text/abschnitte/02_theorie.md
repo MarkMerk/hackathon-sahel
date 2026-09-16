@@ -35,12 +35,12 @@ und Unternehmen aufgeteilt wird, bleibt ungemessen.
 
 ## 2.3 Institutionen als entscheidende Bedingung
 
-Mehlum, Moene und Torvik (2006b) schließen diese Lücke theoretisch. In ihrem Modell senkt zusätzlicher
+Mehlum et al. (2006b) schließen diese Lücke theoretisch. In ihrem Modell senkt zusätzlicher
 Ressourcenreichtum das Aggregateinkommen, wenn die Institutionen aneignungsfreundlich sind, und erhöht
 es, wenn sie produktionsfreundlich sind. Ob Rohstoffe Fluch oder Segen sind, entscheidet damit nicht die
 Menge der Ressourcen, sondern die Regeln, unter denen um die Rente konkurriert wird. Empirisch
 fällt der Zusammenhang zwischen Ressourcenreichtum und Wachstum je nach Institutionenqualität
-unterschiedlich aus (Mehlum, Moene & Torvik, 2006a).
+unterschiedlich aus (Mehlum et al., 2006a).
 
 Daraus folgt unsere Operationalisierung: Wenn Institutionen über die Verwendung der Rente entscheiden,
 ist der Anteil, der in den Staatshaushalt gelangt, ein beobachtbarer Indikator dieser Konstellation. Wir

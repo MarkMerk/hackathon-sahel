@@ -110,7 +110,7 @@ nicht aus dem Vorschlag eines Sprachmodells.
 | Treffer | 9 + 4 Crossref-Treffer, 2 übernommen |
 
 - **Übernommen:** Nkemgha (2026), *The extractive sector and illicit financial flows in Africa: mechanisms and
-  policy implications for transparency and governance*, Economics of Governance 27(1). Crossref bestätigt
+  policy implications for transparency and governance*, Economics of Governance 27, Artikel 28. Crossref bestätigt
   Autor, Journal, Band und Abstract; DOI `10.1007/s10101-026-00367-1`. Panel aus 27 afrikanischen Ländern
   2004–2018, System-GMM: der Rohstoffsektor treibt illegale Finanzflüsse signifikant.
 - **Übernommen:** Corrigan (2017), *The effects of increased revenue transparency in the extractives sector:
@@ -215,13 +215,53 @@ und ist Material für die Reflexion.
 
 | Kategorie | Anzahl |
 |---|---|
-| In `text/quellen.bib` übernommen (DOI/URL geprüft) | **13** (11 Literatur + 2 Datenquellen) |
+| In `text/quellen.bib` übernommen (DOI/URL geprüft) | **14** (11 Literatur + 3 Datenquellen; einschließlich Nachtrag in Abschnitt 9) |
 | davon Klassiker (bis 2011) | 5 (Beblawi/Luciani 1987; Sachs/Warner 2001; Mehlum et al. 2006 ×2; van der Ploeg 2011) |
 | davon ab 2015 | 5 (Corrigan 2017; Albertin et al. 2021; Debonheur 2025; Nkemgha 2026; Tull 2026) |
 | dazwischen | 1 (Crivelli & Gupta 2014) |
-| davon Datenquellen | 2 (GRD Version 2025; WDI `NY.GDP.TOTL.RT.ZS`) |
+| davon Datenquellen | 3 (GRD Version 2025; World Development Indicators; UNDP HDR 2025) |
 | Als „nicht verifiziert" vermerkt | 5 (Mahdavy 1970; Smith 2012; AU/ECA-Bericht; AES/ECOWAS-Daten; McNabb/Oppel) |
 | Verworfen | ca. 25 Treffer (Presse, Advocacy, Preprints, Wikipedia, thematisch fremd) |
 
 **Offen für Schritt 4:** Mahdavy (1970) und der AU/ECA-Bericht sind inhaltlich wertvoll. Entweder mit
 belastbarem Nachweis nachtragen oder im Text durch bereits verifizierte Literatur ersetzen.
+
+## 9. APA-7-Verzeichnis und Quellenprüfung (16.09.2026)
+
+Nachtrag durch Leon mit Codex (GPT-6); unabhängiger Subagent nach `.claude/agents/quellen-pruefer.md`. Ergebnisdatei: `text/literaturverzeichnis.md`. Der frühere Stand oben bleibt als Recherchehistorie erhalten; aktuell **14 Einträge (11 Literatur + 3 Datenquellen)**.
+
+- **UNDP ergänzt:** In der Methodik bereits als (UNDP, 2025) zitiert, bislang ohne Bib-Eintrag. Die [offizielle Dokumentationsseite](https://hdr.undp.org/data-center/documentation-and-downloads) wurde geöffnet: „All composite indices and components time series (1990–2023)“, HDR-Datenupdate vom 6. Mai 2025. Der dortige Download verweist auf die in Anhang B genannte CSV. Der Webabruf der CSV liefert „Unsupported content-type: text/csv“; Titel, Jahr und Download-Ziel sind über die Dokumentationsseite bestätigt, die Datei liegt bereits lokal vor. Im Verzeichnis steht der ausgeschriebene institutionelle Autor.
+- **Nkemgha vervollständigt:** Die [Verlagsseite](https://doi.org/10.1007/s10101-026-00367-1) bestätigt Band 27, Artikel 28, veröffentlicht am 12. Juni 2026. Artikelnummer ergänzt; die zuvor eingetragene Heftnummer wird im Verzeichnis nicht verwendet.
+- **Albertin et al.:** Die [IMF-Publikationsseite](https://www.imf.org/en/publications/departmental-papers-policy-papers/issues/2021/09/27/tax-avoidance-in-sub-saharan-africas-mining-sector-464850) bestätigt die acht Autoren, einschließlich Vimal V Thakoor. Zweite Initiale ergänzt.
+- **Beblawi/Luciani:** Erstausgabe 1987 bei Croom Helm gemäß bisheriger Recherche beibehalten. Die [Routledge-Trefferseite](https://www.routledge.com/The-Rentier-State/Beblawi-Luciani/p/book/9781138923713) bestätigt die Erstveröffentlichung 1987; erneuter direkter Seiten- und DOI-Abruf scheiterte mit „Internal Error“. DOI 10.4324/9781315684864 gehört laut früherem Crossref-Nachweis zur Neuausgabe 2015 und wird deshalb nur als Editionsnachweis in der Bib-Notiz aufbewahrt, nicht als DOI der Erstausgabe ausgegeben. Dies korrigiert die frühere Vorgehensweise in Abschnitt 1.
+- **World Bank:** Eintrag auf den gemeinsam verwendeten Datensatz *World Development Indicators* erweitert, damit auch BIP pro Kopf und Stromzugang erfasst sind. [Offizielle DataBank-Seite](https://databank.worldbank.org/source/world-development-indicators) aufgerufen. Alle drei lokalen WDI-CSV-Dateien nennen „Last Updated Date“, „2026-07-13“; das Jahr 2026 ist damit ein belegter Datenstand und nicht aus dem Abrufdatum abgeleitet. Verwendete Indikatoren: NY.GDP.TOTL.RT.ZS, NY.GDP.PCAP.KD, EG.ELC.ACCS.ZS.
+- **APA-Formalia:** Alphabetische Reihenfolge, Initialen, englische Werktitel in sentence case, Zeitschriften und Bände kursiv, DOI als URL, Artikelnummern statt Seiten bei Debonheur und Nkemgha. Mehlum 2006a = *Cursed ...*, 2006b = *Institutions ...*. Drei Kurzbelege in Leons Theorie/Diskussion auf „Mehlum et al.“ gekürzt.
+- **Für Mark bei der Endredaktion:** Bei erster Nennung in Abschnitt 4 die Abkürzung einführen: (United Nations Development Programme [UNDP], 2025). Anhang B.3 enthält noch die ältere GRD-Zitierform mit Verlagsort; für das endgültige Literaturverzeichnis die neue APA-Fassung übernehmen. Diese Dateien gehören Mark und wurden nicht verändert.
+- **Für die Übernahme ins Google Doc:** Hängenden Einzug von 1,27 cm setzen; Arial 12 und Zeilenabstand 1,5 gemäß Projektvorgabe. Markdown bildet den hängenden Einzug nicht ab. Das Verzeichnis wurde lokal erstellt; die Übernahme ins Google Doc ist nicht erfolgt.
+
+
+
+### Ergebnis des unabhängigen Quellen-Prüfers
+
+Alle 14 Quellen werden in den Textentwürfen zitiert; sämtliche Autor-Jahr-Zitate lassen sich zuordnen. Keine im Suchprotokoll als nicht verifiziert geführte Quelle ist übernommen. Fünf Klassiker bis 2011, eine Arbeit 2014, fünf Literaturquellen ab 2015 und drei Datensätze ergeben eine angemessene zeitliche Mischung.
+
+| Quelle | Status | Befund |
+|---|---|---|
+| Albertin et al. (2021) | ok | Acht Autoren, Berichtnummer, Institution und DOI vollständig |
+| Beblawi & Luciani (1987) | ok | Herausgeber korrekt; DOI der Neuausgabe separat dokumentiert |
+| Corrigan (2017) | ok | Metadaten vollständig; früherer Crossref-Nachweis |
+| Crivelli & Gupta (2014) | ok | Metadaten vollständig; früherer Crossref-Nachweis |
+| Debonheur (2025) | ok | Artikelnummer 105622 korrekt bezeichnet |
+| Mehlum et al. (2006a) | ok | Cursed vor Institutions; Textsuffix korrekt |
+| Mehlum et al. (2006b) | ok | Angaben und Textsuffix konsistent |
+| Nkemgha (2026) | ok | Band 27, Artikel 28 erneut bei Springer bestätigt |
+| Sachs & Warner (2001) | ok | Metadaten vollständig; früherer Crossref-Nachweis |
+| Tull (2026) | ok | Berichtnummer, Institution und stabile URL vorhanden |
+| United Nations Development Programme (2025) | ok | Fehlender Eintrag ergänzt; Abkürzung im Text noch einzuführen |
+| UNU-WIDER (2025) | ok | Datensatz, Version, DOI und Dokumentationsnachweis vorhanden |
+| van der Ploeg (2011) | ok | Metadaten vollständig; früherer Crossref-Nachweis |
+| World Bank (2026) | ok | Gemeinsamer WDI-Datensatz; Datenstand und Abrufdatum dokumentiert |
+
+**Prüfgrenze:** Vollständigkeit, DOI-Format und Textabgleich wurden geprüft; frühere Crossref-Nachweise wurden anhand dieses Protokolls nachvollzogen. Keine vollständige erneute Online-Verifikation aller DOI. Erneute DOI-Abrufe für van der Ploeg und beide Mehlum-Titel scheiterten technisch; daraus folgt keine Ungültigkeit der DOI. Inhaltliche Deckung sämtlicher Aussagen war nicht Gegenstand dieser bibliografischen Prüfung.
+
+**Offen:** Mark führt UNDP in Abschnitt 4 ausgeschrieben ein; Leon übernimmt das Verzeichnis ins Google Doc und setzt den hängenden Einzug. Alle übrigen Befunde sind eingearbeitet.
