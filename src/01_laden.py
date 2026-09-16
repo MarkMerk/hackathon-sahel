@@ -117,7 +117,11 @@ def lies_wdi(pfad: Path, wertname: str) -> pd.DataFrame:
 
 
 def lies_tabelle(pfad: Path) -> pd.DataFrame:
-    """Excel, Stata oder CSV einlesen — je nach Dateiendung."""
+    """Excel, Stata oder CSV einlesen — je nach Dateiendung.
+
+    Die UNDP-HDR-Datei ist nicht UTF-8 kodiert (Ländernamen wie „Côte d'Ivoire“),
+    deshalb werden mehrere Kodierungen der Reihe nach versucht.
+    """
     suffix = pfad.suffix.lower()
     if suffix in {".xlsx", ".xls"}:
         blaetter = pd.read_excel(pfad, sheet_name=None)
@@ -128,7 +132,18 @@ def lies_tabelle(pfad: Path) -> pd.DataFrame:
         return df
     if suffix == ".dta":
         return pd.read_stata(pfad, convert_categoricals=False)
-    return pd.read_csv(pfad, encoding="utf-8-sig", low_memory=False)
+
+    for kodierung in ("utf-8-sig", "latin-1"):
+        try:
+            df = pd.read_csv(pfad, encoding=kodierung, low_memory=False)
+        except UnicodeDecodeError:
+            continue
+        if kodierung != "utf-8-sig":
+            print(f"  Hinweis: {pfad.name} als {kodierung} gelesen (nicht UTF-8).")
+        return df
+    raise UnicodeDecodeError(
+        "utf-8", b"", 0, 1, f"{pfad.name} ließ sich mit keiner bekannten Kodierung lesen."
+    )
 
 
 # ---------------------------------------------------------------------------
