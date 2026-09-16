@@ -1,32 +1,76 @@
 # Zahlen für den Text
 
-Jede Zahl mit Skriptverweis. Nur eigener Abschnitt bearbeiten.
+> Verbindliche Quelle für alle Zahlenangaben in der Abhandlung. Keine Zahl in einen Textentwurf, die nicht hier steht. Erzeugt am 16.09.2026.
 
 ## Mark
 
-## Philip
+_Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv`._
 
-> **Stand 12:05 — noch keine Zahlen eingetragen.** Die Skripte `src/04`–`src/06`
-> laufen, aber bislang nur auf `panel_dummy.csv`. Dummy-Werte werden hier
-> bewusst **nicht** aufgeführt (CLAUDE.md §6.2). Sobald `data/processed/panel.csv`
-> von Mark vorliegt, werden die Skripte erneut ausgeführt und die Zahlen hier
-> eingetragen.
+### Datengrundlage
 
-### Gruppenvergleich (`src/04_gruppenvergleich.py` → `tables/tab2_gruppenvergleich.md`, `figures/fig4_boxplot.png`)
-Einzutragen je Periode (2000–2007, 2008–2014, 2015–2021):
-- n Sahel / n übriges SSA (Länder-Periodenmittel, ≥ 3 gültige Jahre)
-- Median und IQR der Capture Ratio je Gruppe
-- Mann-Whitney-U, p, Cliff's δ mit Einordnung
+- Analysefenster: 2000–2021
+- Länder der World-Bank-Region Subsahara-Afrika im Panel: **48**
+- Länderjahre insgesamt: **1056**
+- davon mit Rohstoffrenten (WDI): **1014**
+- davon mit Ressourceneinnahmen (GRD): **478**
+- davon mit berechenbarer Capture Ratio (Renten ≥ 1 % BIP): **455** in 28 Ländern
+- geflaggte Werte > 1,5: **19** (4,2 % der gültigen Werte)
 
-### Zusammenhang mit Entwicklung (`src/05_zusammenhang_hdi.py` → `tables/tab2b_zusammenhang.md`, `figures/fig5_hdi.png`)
-- Spearman ρ, p, n für Capture Ratio ↔ HDI (gesamt und je Periode)
-- Spearman ρ, p, n für Capture Ratio ↔ Stromzugang (gesamt und je Periode)
-- FE-OLS: Koeffizient der Capture Ratio, Cluster-SE, p, 95-%-KI, n, Anzahl Länder
-- *Durchgängig als Assoziation formulieren, nicht als Effekt.*
+### Capture Ratio je Sahel-Kernland (alle Jahre)
 
-### Robustheit (`src/06_robustheit.py` → `tables/tab3_robustheit.md`)
-- Cliff's δ und p je Periode für die Varianten (a) ohne Ölstaaten, (b) Sahel
-  erweitert um SDN/SEN, (c) 5-Jahres-Mittel, (d) ohne geflaggte Länderjahre
-  (Ratio > 1,5), (e) mindestens 5 gültige Jahre
-- Vorzeichenstabilität gegenüber der Hauptspezifikation je Variante
-- Anzahl geflaggter Länderjahre (`flag_ratio_high`) im Datensatz
+| Land | ISO3 | n Jahre | Median | Mittelwert | Minimum | Maximum |
+|---|---|---|---|---|---|---|
+| Mali | MLI | 4 | 0,200 | 0,208 | 0,172 | 0,258 |
+| Burkina Faso | BFA | 21 | 0,022 | 0,033 | 0,001 | 0,112 |
+| Niger | NER | 22 | 0,038 | 0,040 | 0,022 | 0,072 |
+| Chad | TCD | 18 | 0,260 | 0,285 | 0,046 | 0,499 |
+| Mauritania | MRT | 18 | 0,394 | 0,542 | 0,138 | 1,355 |
+
+### Gruppenvergleich (gepoolte Länderjahre, nur deskriptiv)
+
+| Gruppe | n Länderjahre | n Länder | Median | 1. Quartil | 3. Quartil |
+|---|---|---|---|---|---|
+| Sahel (5 Kernländer) | 83 | 5 | 0,075 | 0,036 | 0,285 |
+| übriges Subsahara-Afrika | 334 | 21 | 0,320 | 0,075 | 0,654 |
+
+> Hinweis: Tests laufen auf Länder-Periodenmitteln (`src/04_gruppenvergleich.py`), nicht auf diesen gepoolten Werten. Die Tabelle dient nur der Beschreibung.
+
+### Entwicklung über die Perioden (Median der Länder-Periodenmittel)
+
+| Periode | Sahel: Median | n Länder | übriges SSA: Median | n Länder |
+|---|---|---|---|---|
+| 2000–2007 | 0,097 | 4 | 0,506 | 16 |
+| 2008–2014 | 0,214 | 4 | 0,252 | 20 |
+| 2015–2021 | 0,154 | 4 | 0,365 | 15 |
+
+### Niveau von Renten und Einnahmen (Mittelwert der Länderjahre, % BIP)
+
+| Gruppe | Renten (WDI) | Ressourceneinnahmen (GRD) |
+|---|---|---|
+| Sahel | 12,30 | 2,62 |
+| übriges SSA | 16,19 | 7,70 |
+
+### Geflaggte Länderjahre (Capture Ratio > 1,5)
+
+Nicht gelöscht, sondern gekennzeichnet. Ursachen sind zeitliche Verschiebungen zwischen Rentenentstehung und Einnahmeverbuchung sowie Einnahmen, die nicht als Rente im Sinne der WDI-Definition erfasst werden (etwa Dividenden aus staatlichen Beteiligungen).
+
+| Land | ISO3 | betroffene Jahre | Median der Quote |
+|---|---|---|---|
+| Botswana | BWA | 14 | 7,38 |
+| Namibia | NAM | 2 | 1,72 |
+| South Sudan | SSD | 1 | 5,36 |
+| Sao Tome and Principe | STP | 2 | 10,15 |
+
+Davon im Sahel: **keines**.
+
+### Datenabdeckung der Sahel-Kernländer
+
+| ISO3 | Jahre mit Renten und Ressourceneinnahmen |
+|---|---|
+| MLI | 4 |
+| BFA | 21 |
+| NER | 22 |
+| TCD | 18 |
+| MRT | 18 |
+
+Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDR; eigene Berechnung.

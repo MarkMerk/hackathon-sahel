@@ -57,7 +57,7 @@ logs/               LOG_<name>.md (manuell/Claude), prompts_<name>.md (automatis
 ## 6. Arbeitsregeln
 1. **Keine Quelle erfinden.** Nur zitieren, was mit DOI/URL geprüft ist; sonst in `text/anhang/C_suchprotokoll.md` als „nicht verifiziert“.
 2. **Keine Zahl in einem Textentwurf, die nicht in `results/zahlen.md` steht.**
-3. Abbildungen: matplotlib, `dpi=300`, `bbox_inches="tight"`, deutsche Achsenbeschriftung mit Einheit, Legende, Quelle in `figures/captions.md` („Quelle: World Bank WDI, ICTD/UNU-WIDER GRD 2023; eigene Berechnung und Darstellung.“). Keine Screenshots.
+3. Abbildungen: matplotlib, `dpi=300`, `bbox_inches="tight"`, deutsche Achsenbeschriftung mit Einheit, Legende, Quelle in `figures/captions.md` („Quelle: World Bank WDI, UNU-WIDER GRD 2025; eigene Berechnung und Darstellung.“). Keine Screenshots.
 4. Statistik: n immer angeben; Assoziation ≠ Kausalität; Effektgrößen vor p-Werten.
 5. Textentwürfe: wissenschaftliches Deutsch, nüchtern, „wir“ bzw. „die vorliegende Arbeit“, Zitate APA 7 im Format (Autor, Jahr), Zeichenbudget laut Forschungsdesign §8, danach gegen `STRAWBERRY.md` prüfen.
 6. **Log (Pflicht, Grundlage der Reflexion):** Nach jeder abgeschlossenen Teilaufgabe, jedem Subagenten-Einsatz, jeder verworfenen Idee und jedem entdeckten KI-Fehler eine Zeile in `logs/LOG_<name>.md`: `HH:MM · Aufgabe · Modell/Subagent · Ergebnis oder „verworfen, weil …“`. KI-Fehler zusätzlich unter „## KI-Fehler und Korrekturen“. **Automatisch per Hook** (`.claude/settings.json`): jeder Prompt landet mit Uhrzeit in `logs/prompts_<name>.md`; beim Sitzungsstart wird an die Pflicht erinnert; wenn das Log > 25 Min. nicht aktualisiert wurde, fordert der Stop-Hook einmal zum Nachtragen auf. Log-Dateien mit der jeweiligen Arbeit committen.

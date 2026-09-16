@@ -4,7 +4,8 @@
 
 ## 1. Datenlage (geprüft am 16.09.2026)
 - **World Bank WDI, `NY.GDP.TOTL.RT.ZS`** (Rohstoffrenten, % BIP; Stand 13.07.2026): Für NER, MLI, BFA, TCD, MRT, SDN liegt der letzte Wert bei **2021** (2021: TCD 21,3; BFA 20,1; MLI 18,4; SDN 12,8; MRT 11,5; NER 6,4). 2022–2024 leer.
-- **ICTD/UNU-WIDER Government Revenue Dataset (GRD)**: Version 2023 deckt **1980–2021/22** ab. Relevante Variablen: *Total Resource Revenue*, *Resource taxes* sowie Ressourcenkomponenten der Einkommen-/Unternehmens-, indirekten und nichtsteuerlichen Einnahmen. Laut User Guide fehlen Werte meist, wenn Ressourceneinnahmen unter ca. 1 % des BIP liegen.
+- **UNU-WIDER Government Revenue Dataset (GRD)**: Verwendet wird **Version 2025** (DOI 10.35188/UNU-WIDER/GRD-2025, abgerufen 16.09.2026); der frühere Planungsstand nannte Version 2023. Die offizielle Zitation führt ICTD nicht mehr als Herausgeber. Relevante Variablen: *Total Resource Revenue*, *Resource Taxes* sowie Ressourcenkomponenten der Einkommen-/Unternehmens-, indirekten und nichtsteuerlichen Einnahmen. Laut User Guide fehlen Werte meist, wenn Ressourceneinnahmen unter ca. 1 % des BIP liegen.
+  - Struktur der Datei (geprüft 16.09.2026): Datentabelle im Blatt *Merged*, zwei Zwischenzeilen über der Kopfzeile, Regierungsebene in der Spalte `General (=1 if General)`. **Die Werte sind Anteile am BIP, nicht Prozent** — für das Panel mit 100 multipliziert. Für die Sahel-Länder liegen 2000–2021 ausschließlich Central-Government-Werte vor.
 - **Konsequenz:** Analysefenster **2000–2021**. Entwicklungen nach 2021/2023 nur qualitativ und über EITI-Daten.
 - **Zugriff:** APIs von World Bank und UNU-WIDER sind aus den Sandbox-Umgebungen blockiert → manueller Download (`DATA_DOWNLOAD.md`).
 

@@ -1,0 +1,248 @@
+"""03_capture_ratio.py — deskriptive Kennzahlen der Capture Ratio.
+
+Erzeugt alle Zahlen, die in Abschnitt 5.1 und im Abstract verwendet werden, und
+schreibt sie nach results/zahlen.md (Abschnitt „Mark“) sowie die Quellenübersicht
+nach tables/tab1_datenquellen.md.
+
+Grundregel des Projekts: Keine Zahl darf in einen Textentwurf, die nicht hier
+erzeugt und in results/zahlen.md dokumentiert ist.
+
+Aufruf: python src/03_capture_ratio.py
+"""
+
+from __future__ import annotations
+
+import sys
+from datetime import date
+from pathlib import Path
+
+import pandas as pd
+
+ROOT = Path(__file__).resolve().parents[1]
+PANEL = ROOT / "data" / "processed" / "panel.csv"
+ZAHLEN = ROOT / "results" / "zahlen.md"
+TAB1 = ROOT / "tables" / "tab1_datenquellen.md"
+
+SAHEL = ["MLI", "BFA", "NER", "TCD", "MRT"]
+PERIODEN = ["2000–2007", "2008–2014", "2015–2021"]
+MIN_JAHRE_PERIODE = 3  # Länder-Periodenmittel erst ab drei gültigen Jahren
+
+
+def fmt(wert: float | None, stellen: int = 3) -> str:
+    """Zahl deutsch formatieren (Komma als Dezimaltrennzeichen)."""
+    if wert is None or pd.isna(wert):
+        return "n. v."
+    return f"{wert:.{stellen}f}".replace(".", ",")
+
+
+def periodenmittel(panel: pd.DataFrame) -> pd.DataFrame:
+    """Länder-Periodenmittel der Capture Ratio.
+
+    Tests und Gruppenvergleiche laufen auf dieser Ebene, nicht auf gepoolten
+    Länderjahren — sonst zählt ein Land mit vielen Beobachtungen mehrfach
+    (Pseudoreplikation).
+    """
+    gueltig = panel[panel["capture_ratio"].notna()]
+    mittel = (gueltig
+              .groupby(["iso3", "country", "period", "sahel", "sahel_ext", "oil_state"],
+                       as_index=False)
+              .agg(capture_ratio=("capture_ratio", "mean"),
+                   n_jahre=("capture_ratio", "size"),
+                   rents=("rents_pct_gdp", "mean"),
+                   res_rev=("res_rev_pct_gdp", "mean")))
+    return mittel[mittel["n_jahre"] >= MIN_JAHRE_PERIODE]
+
+
+def main() -> int:
+    if not PANEL.exists():
+        print(f"FEHLER: {PANEL.relative_to(ROOT)} fehlt. Zuerst src/01_laden.py ausführen.")
+        return 1
+
+    panel = pd.read_csv(PANEL)
+    gueltig = panel[panel["capture_ratio"].notna()]
+    mittel = periodenmittel(panel)
+
+    sahel = gueltig[gueltig["sahel"]]
+    # Vergleichsgruppe: übriges SSA ohne die erweiterten Sahel-Länder SDN und SEN,
+    # damit die Gruppen trennscharf bleiben.
+    vergleich = gueltig[~gueltig["sahel_ext"]]
+
+    print("03_capture_ratio.py — deskriptive Kennzahlen")
+    print(f"  {len(gueltig)} Länderjahre mit Capture Ratio, "
+          f"{gueltig['iso3'].nunique()} Länder")
+    print(f"  Sahel: Median {fmt(sahel['capture_ratio'].median())} (n = {len(sahel)})")
+    print(f"  übriges SSA: Median {fmt(vergleich['capture_ratio'].median())} "
+          f"(n = {len(vergleich)})")
+
+    zeilen: list[str] = [
+        "# Zahlen für den Text",
+        "",
+        "> Verbindliche Quelle für alle Zahlenangaben in der Abhandlung. "
+        "Keine Zahl in einen Textentwurf, die nicht hier steht. "
+        f"Erzeugt am {date.today().strftime('%d.%m.%Y')}.",
+        "",
+        "## Mark",
+        "",
+        "_Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv`._",
+        "",
+        "### Datengrundlage",
+        "",
+        f"- Analysefenster: {int(panel['year'].min())}–{int(panel['year'].max())}",
+        f"- Länder der World-Bank-Region Subsahara-Afrika im Panel: "
+        f"**{panel['iso3'].nunique()}**",
+        f"- Länderjahre insgesamt: **{len(panel)}**",
+        f"- davon mit Rohstoffrenten (WDI): **{int(panel['rents_pct_gdp'].notna().sum())}**",
+        f"- davon mit Ressourceneinnahmen (GRD): "
+        f"**{int(panel['res_rev_pct_gdp'].notna().sum())}**",
+        f"- davon mit berechenbarer Capture Ratio (Renten ≥ 1 % BIP): **{len(gueltig)}** "
+        f"in {gueltig['iso3'].nunique()} Ländern",
+        f"- geflaggte Werte > 1,5: **{int(panel['flag_ratio_high'].sum())}** "
+        f"({fmt(panel['flag_ratio_high'].sum() / len(gueltig) * 100, 1)} % der gültigen Werte)",
+        "",
+        "### Capture Ratio je Sahel-Kernland (alle Jahre)",
+        "",
+        "| Land | ISO3 | n Jahre | Median | Mittelwert | Minimum | Maximum |",
+        "|---|---|---|---|---|---|---|",
+    ]
+
+    for iso3 in SAHEL:
+        g = gueltig[gueltig["iso3"] == iso3]
+        if not len(g):
+            zeilen.append(f"| — | {iso3} | 0 | n. v. | n. v. | n. v. | n. v. |")
+            continue
+        zeilen.append(
+            f"| {g['country'].iloc[0]} | {iso3} | {len(g)} | "
+            f"{fmt(g['capture_ratio'].median())} | {fmt(g['capture_ratio'].mean())} | "
+            f"{fmt(g['capture_ratio'].min())} | {fmt(g['capture_ratio'].max())} |"
+        )
+
+    zeilen += [
+        "",
+        "### Gruppenvergleich (gepoolte Länderjahre, nur deskriptiv)",
+        "",
+        "| Gruppe | n Länderjahre | n Länder | Median | 1. Quartil | 3. Quartil |",
+        "|---|---|---|---|---|---|",
+    ]
+    for name, teil in [("Sahel (5 Kernländer)", sahel),
+                       ("übriges Subsahara-Afrika", vergleich)]:
+        zeilen.append(
+            f"| {name} | {len(teil)} | {teil['iso3'].nunique()} | "
+            f"{fmt(teil['capture_ratio'].median())} | "
+            f"{fmt(teil['capture_ratio'].quantile(0.25))} | "
+            f"{fmt(teil['capture_ratio'].quantile(0.75))} |"
+        )
+
+    zeilen += [
+        "",
+        f"> Hinweis: Tests laufen auf Länder-Periodenmitteln (`src/04_gruppenvergleich.py`), "
+        "nicht auf diesen gepoolten Werten. Die Tabelle dient nur der Beschreibung.",
+        "",
+        "### Entwicklung über die Perioden (Median der Länder-Periodenmittel)",
+        "",
+        "| Periode | Sahel: Median | n Länder | übriges SSA: Median | n Länder |",
+        "|---|---|---|---|---|",
+    ]
+    for p in PERIODEN:
+        s = mittel[(mittel["period"] == p) & mittel["sahel"]]
+        v = mittel[(mittel["period"] == p) & ~mittel["sahel_ext"]]
+        zeilen.append(
+            f"| {p} | {fmt(s['capture_ratio'].median())} | {len(s)} | "
+            f"{fmt(v['capture_ratio'].median())} | {len(v)} |"
+        )
+
+    # Renten- und Einnahmenniveau: zeigt, ob der Unterschied am Zähler oder am Nenner liegt
+    zeilen += [
+        "",
+        "### Niveau von Renten und Einnahmen (Mittelwert der Länderjahre, % BIP)",
+        "",
+        "| Gruppe | Renten (WDI) | Ressourceneinnahmen (GRD) |",
+        "|---|---|---|",
+    ]
+    for name, teil in [("Sahel", sahel), ("übriges SSA", vergleich)]:
+        zeilen.append(
+            f"| {name} | {fmt(teil['rents_pct_gdp'].mean(), 2)} | "
+            f"{fmt(teil['res_rev_pct_gdp'].mean(), 2)} |"
+        )
+
+    # Geflaggte Länder transparent ausweisen — gehört in die Limitationen
+    geflaggt = panel[panel["flag_ratio_high"]]
+    if len(geflaggt):
+        zeilen += [
+            "",
+            "### Geflaggte Länderjahre (Capture Ratio > 1,5)",
+            "",
+            "Nicht gelöscht, sondern gekennzeichnet. Ursachen sind zeitliche Verschiebungen "
+            "zwischen Rentenentstehung und Einnahmeverbuchung sowie Einnahmen, die nicht "
+            "als Rente im Sinne der WDI-Definition erfasst werden (etwa Dividenden aus "
+            "staatlichen Beteiligungen).",
+            "",
+            "| Land | ISO3 | betroffene Jahre | Median der Quote |",
+            "|---|---|---|---|",
+        ]
+        for (iso3, land), g in geflaggt.groupby(["iso3", "country"]):
+            zeilen.append(f"| {land} | {iso3} | {len(g)} | "
+                          f"{fmt(g['capture_ratio'].median(), 2)} |")
+        im_sahel = sorted(geflaggt[geflaggt["sahel_ext"]]["iso3"].unique())
+        zeilen += ["", f"Davon im Sahel: **{', '.join(im_sahel) if im_sahel else 'keines'}**."]
+
+    zeilen += [
+        "",
+        "### Datenabdeckung der Sahel-Kernländer",
+        "",
+        "| ISO3 | Jahre mit Renten und Ressourceneinnahmen |",
+        "|---|---|",
+    ]
+    for iso3 in SAHEL:
+        g = panel[(panel["iso3"] == iso3) & panel["rents_pct_gdp"].notna()
+                  & panel["res_rev_pct_gdp"].notna()]
+        zeilen.append(f"| {iso3} | {len(g)} |")
+    zeilen += [
+        "",
+        "Quelle: World Bank WDI, UNU-WIDER GRD 2025, UNDP HDR; eigene Berechnung.",
+        "",
+    ]
+
+    ZAHLEN.parent.mkdir(parents=True, exist_ok=True)
+    ZAHLEN.write_text("\n".join(zeilen), encoding="utf-8")
+    print(f"\nGeschrieben: {ZAHLEN.relative_to(ROOT)}")
+
+    # --- Tabelle 1: Datenquellen ---
+    tab1 = [
+        "# Tabelle 1: Datenquellen und Indikatoren",
+        "",
+        "| Indikator | Variable im Panel | Quelle | Einheit | Abdeckung |",
+        "|---|---|---|---|---|",
+        "| Rohstoffrenten | `rents_pct_gdp` | World Bank WDI, `NY.GDP.TOTL.RT.ZS` | "
+        f"% des BIP | {int(panel['rents_pct_gdp'].notna().sum())} Länderjahre |",
+        "| Staatliche Ressourceneinnahmen | `res_rev_pct_gdp` | UNU-WIDER GRD 2025, "
+        f"*Total Resource Revenue* | % des BIP | "
+        f"{int(panel['res_rev_pct_gdp'].notna().sum())} Länderjahre |",
+        "| Ressourcensteuern | `res_tax_pct_gdp` | UNU-WIDER GRD 2025, *Resource Taxes* | "
+        f"% des BIP | {int(panel['res_tax_pct_gdp'].notna().sum())} Länderjahre |",
+        "| Bruttoinlandsprodukt pro Kopf | `gdppc_const` | World Bank WDI, `NY.GDP.PCAP.KD` | "
+        f"konstante US-Dollar (2015) | {int(panel['gdppc_const'].notna().sum())} Länderjahre |",
+        "| Zugang zu Elektrizität | `elec_access_pct` | World Bank WDI, `EG.ELC.ACCS.ZS` | "
+        f"% der Bevölkerung | {int(panel['elec_access_pct'].notna().sum())} Länderjahre |",
+        "| Index der menschlichen Entwicklung | `hdi` | UNDP HDR 2025 | "
+        f"Index 0–1 | {int(panel['hdi'].notna().sum())} Länderjahre |",
+        "| Abschöpfungsquote | `capture_ratio` | eigene Berechnung: "
+        f"`res_rev_pct_gdp / rents_pct_gdp` | einheitenlos | {len(gueltig)} Länderjahre |",
+        "",
+        f"Grundgesamtheit: {panel['iso3'].nunique()} Länder der World-Bank-Region "
+        f"Subsahara-Afrika, {int(panel['year'].min())}–{int(panel['year'].max())} "
+        f"({len(panel)} Länderjahre).",
+        "Die Abschöpfungsquote wird nur für Länderjahre mit Rohstoffrenten von mindestens "
+        "1 % des BIP berechnet, da der Quotient bei kleinerem Nenner instabil wird.",
+        "",
+        "Quelle: eigene Zusammenstellung.",
+        "",
+    ]
+    TAB1.parent.mkdir(parents=True, exist_ok=True)
+    TAB1.write_text("\n".join(tab1), encoding="utf-8")
+    print(f"Geschrieben: {TAB1.relative_to(ROOT)}")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
