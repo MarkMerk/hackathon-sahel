@@ -14,8 +14,7 @@ sondern zwischen Rohstoffarten. Länder mit Erdölförderung erreichen
 Medianquoten von 0,62, 0,66 und 0,45, alle übrigen 0,11, 0,10 und 0,10
 (Tab. 3). Cliff's δ beträgt +0,54, +0,76 und +0,78 (p = 0,038; 0,001; 0,003)
 und hält in den beiden späteren Perioden der Holm-Korrektur über alle 17
-berichteten Tests stand. Öl wird demnach wirksamer abgeschöpft als Gold und
-Uran. Diese Auswertung kam allerdings **post hoc** hinzu, und die drei
+berichteten Tests stand. Als Ölstaaten klassifizierte Länder weisen höhere Quoten auf als die übrigen. Diese Auswertung kam allerdings **post hoc** hinzu, und die drei
 Periodentests beruhen auf denselben wenigen Ländern.
 
 **Region.** Der Vergleich zwischen Sahel und übrigem Subsahara-Afrika zeigt

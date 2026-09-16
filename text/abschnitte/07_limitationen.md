@@ -23,7 +23,7 @@ fehlt der Einnahmewert im Sahel in 25 Prozent der Länderjahre, in der
 Vergleichsgruppe in 56 Prozent — diese ist damit stärker nach oben verzerrt.
 Imputiert man fehlende Zähler mit einem halben Prozent des
 Bruttoinlandsprodukts, schrumpft Cliff's δ von −0,42, −0,43 und −0,26 auf
-−0,26, −0,09 und −0,04 (Tab. 3, Variante g) — der Abstand könnte ein Artefakt
+−0,26, −0,09 und −0,04 (Tab. 3, Variante g0,5) — der Abstand könnte ein Artefakt
 der Abdeckung sein.
 
 **Reichweite der Aussagen.** Alle Ergebnisse sind Assoziationen. Je Periode
@@ -31,7 +31,7 @@ stehen vier Sahel-Staaten 17 bis 22 Vergleichsländern gegenüber; weder der
 Regionsabstand noch sein Verschwinden ohne die Ölstaaten ist gesichert. Von 17
 berichteten Tests überleben nach Holm-Korrektur sechs, darunter kein
 Regionstest. Die Aufschlüsselung nach Rohstofftyp kam post hoc hinzu, und die
-Fixed-Effects-Schätzung trägt wegen weniger Extremwerte nicht.
+Fixed-Effects-Schätzung trägt wegen weniger Extremwerte nicht. Die Öl-Klassifikation ist statisch je Land; Niger fördert seit 2011 auch Erdöl, Mauretaniens Ölförderung beschränkte sich auf 2006–2017. Eine jahresbezogene Klassifikation (z. B. über NY.GDP.PETR.RT.ZS) könnte den Rohstoffkontrast verändern; er ist daher als explorativ zu lesen.
 
 **Zeitliche Grenzen.** Das Fenster endet 2021, weil der Rentenindikator danach
 keine Werte für die Sahel-Staaten ausweist; Politikwechsel nach 2021 liegen
