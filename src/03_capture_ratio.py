@@ -102,9 +102,11 @@ def main() -> int:
     mittel = periodenmittel(panel)
 
     sahel = gueltig[gueltig["sahel"]]
-    # Vergleichsgruppe: übriges SSA ohne die erweiterten Sahel-Länder SDN und SEN,
-    # damit die Gruppen trennscharf bleiben.
-    vergleich = gueltig[~gueltig["sahel_ext"]]
+    # Vergleichsgruppe: übriges Subsahara-Afrika ohne die fünf Sahel-Kernländer.
+    # Sudan und Senegal bleiben enthalten — dieselbe Abgrenzung wie in
+    # src/04_gruppenvergleich.py, damit alle Tabellen der Arbeit auf einer
+    # einheitlichen Vergleichsgruppe beruhen.
+    vergleich = gueltig[~gueltig["sahel"]]
 
     print("03_capture_ratio.py — deskriptive Kennzahlen")
     print(f"  {len(gueltig)} Länderjahre mit Capture Ratio, "
@@ -183,7 +185,7 @@ def main() -> int:
     ]
     for p in PERIODEN:
         s = mittel[(mittel["period"] == p) & mittel["sahel"]]
-        v = mittel[(mittel["period"] == p) & ~mittel["sahel_ext"]]
+        v = mittel[(mittel["period"] == p) & ~mittel["sahel"]]
         zeilen.append(
             f"| {p} | {fmt(s['capture_ratio'].median())} | {len(s)} | "
             f"{fmt(v['capture_ratio'].median())} | {len(v)} |"
@@ -304,7 +306,7 @@ def main() -> int:
 
     # Auf Länder-Periodenmitteln (Testebene), damit die Zahlen zu Tab. 2/3 passen
     m_sahel = mittel[mittel["sahel"]]
-    m_vgl = mittel[~mittel["sahel_ext"]]
+    m_vgl = mittel[~mittel["sahel"]]
     m_vgl_ohne_oel = m_vgl[~m_vgl["oil_state"]]
     zeilen += [
         "Auf Ebene der Länder-Periodenmittel (Einheit der Tests):",

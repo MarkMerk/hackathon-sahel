@@ -31,7 +31,7 @@ _Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv` am 16.09.2
 | Gruppe | n Länderjahre | n Länder | Median | 1. Quartil | 3. Quartil |
 |---|---|---|---|---|---|
 | Sahel (5 Kernländer) | 83 | 5 | 0,075 | 0,036 | 0,285 |
-| übriges Subsahara-Afrika | 334 | 21 | 0,320 | 0,075 | 0,654 |
+| übriges Subsahara-Afrika | 372 | 23 | 0,299 | 0,079 | 0,644 |
 
 > Hinweis: Tests laufen auf Länder-Periodenmitteln (`src/04_gruppenvergleich.py`), nicht auf diesen gepoolten Werten. Die Tabelle dient nur der Beschreibung.
 
@@ -39,16 +39,16 @@ _Erzeugt von `src/03_capture_ratio.py` aus `data/processed/panel.csv` am 16.09.2
 
 | Periode | Sahel: Median | n Länder | übriges SSA: Median | n Länder |
 |---|---|---|---|---|
-| 2000–2007 | 0,097 | 4 | 0,506 | 16 |
-| 2008–2014 | 0,214 | 4 | 0,252 | 20 |
-| 2015–2021 | 0,154 | 4 | 0,365 | 15 |
+| 2000–2007 | 0,097 | 4 | 0,506 | 18 |
+| 2008–2014 | 0,214 | 4 | 0,252 | 22 |
+| 2015–2021 | 0,154 | 4 | 0,265 | 17 |
 
 ### Niveau von Renten und Einnahmen (Mittelwert der Länderjahre, % BIP)
 
 | Gruppe | Renten (WDI) | Ressourceneinnahmen (GRD) |
 |---|---|---|
 | Sahel | 12,30 | 2,62 |
-| übriges SSA | 16,19 | 7,70 |
+| übriges SSA | 15,19 | 7,22 |
 
 ### Geflaggte Länderjahre (Capture Ratio > 1,5)
 
@@ -90,7 +90,7 @@ Grundlage: 46 Länder der Region mit vorhandenem Wert für 2021.
 - Länder der Region insgesamt: **48**; davon mit mindestens einem GRD-Wert: **28**
 - **20 Länder ohne jeden GRD-Wert** und damit nicht in der Analyse: BDI, BEN, CAF, COM, CPV, ERI, ETH, GMB, GNB, KEN, LSO, MOZ, MUS, MWI, RWA, SOM, SWZ, SYC, TZA, ZAF
 - Länderjahre ohne GRD-Wert weisen im Mittel **8,97 % BIP** Renten auf, solche mit GRD-Wert **14,28 % BIP** — die Lücken liegen also systematisch bei den rentenärmeren Ländern, wie es der GRD User Guide beschreibt.
-- Vergleichsgruppe der Analyse: **21 Länder**, davon **6 Ölstaaten** (NGA, AGO, COG, GAB, GNQ, SSD), die 29 % der Länder und 33 % der Länderjahre stellen.
+- Vergleichsgruppe der Analyse: **23 Länder**, davon **6 Ölstaaten** (NGA, AGO, COG, GAB, GNQ, SSD), die 26 % der Länder und 30 % der Länderjahre stellen.
 
 ### Abschöpfung nach Rohstofftyp statt nach Region
 
@@ -100,14 +100,14 @@ Die Ölstaaten prägen den Gruppenunterschied. Ihre Abschöpfungsquote liegt deu
 |---|---|---|---|---|---|
 | Sahel (Kernländer) | 5 | 83 | 0,075 | 0,036 | 0,285 |
 | übriges SSA: Ölstaaten | 6 | 110 | 0,615 | 0,447 | 0,742 |
-| übriges SSA: ohne Ölstaaten | 15 | 224 | 0,131 | 0,043 | 0,413 |
+| übriges SSA: ohne Ölstaaten | 17 | 262 | 0,145 | 0,049 | 0,424 |
 
 Auf Ebene der Länder-Periodenmittel (Einheit der Tests):
 
 | Vergleich | Sahel | Vergleichsgruppe |
 |---|---|---|
-| gegen das gesamte übrige SSA | 0,116 (n = 4 Länder) | 0,365 (n = 20) |
-| gegen das übrige SSA ohne Ölstaaten | 0,116 (n = 4) | 0,145 (n = 14) |
+| gegen das gesamte übrige SSA | 0,116 (n = 4 Länder) | 0,265 (n = 22) |
+| gegen das übrige SSA ohne Ölstaaten | 0,116 (n = 4) | 0,145 (n = 16) |
 
 > **Einordnung:** Der Abstand zwischen Sahel und übrigem Subsahara-Afrika geht weitgehend auf die Ölstaaten zurück. Ohne sie liegen die Mediane nahe beieinander. Innerhalb des Sahel ist die Spannweite größer als der Gruppenunterschied: Tschad und Mauretanien (beide mit Erdölförderung) erreichen 0,26 bzw. 0,39, Burkina Faso (Gold) 0,02 und Niger (Uran) 0,04. Die Signifikanztests dazu stehen in Tab. 2 und Tab. 3 (Philip).
 
