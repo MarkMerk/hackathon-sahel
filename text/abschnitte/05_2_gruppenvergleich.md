@@ -15,9 +15,8 @@ Medianquoten von 0,62, 0,66 und 0,45, alle übrigen 0,11, 0,10 und 0,10
 (Tab. 3). Cliff's δ beträgt +0,54, +0,76 und +0,78 (p = 0,038; 0,001; 0,003)
 und hält in den beiden späteren Perioden der Holm-Korrektur über alle 17
 berichteten Tests stand. Öl wird demnach wirksamer abgeschöpft als Gold und
-Uran. Diese Auswertung kam allerdings **post hoc** hinzu, nachdem die
-Regionsergebnisse vorlagen, und die drei Periodentests beruhen auf denselben
-wenigen Ländern.
+Uran. Diese Auswertung kam allerdings **post hoc** hinzu, und die drei
+Periodentests beruhen auf denselben wenigen Ländern.
 
 **Region.** Der Vergleich zwischen Sahel und übrigem Subsahara-Afrika zeigt
 dasselbe Muster in abgeleiteter Form. Die Sahel-Gruppe umfasst vier Länder
@@ -31,10 +30,9 @@ Sahel-Ländern gegenüber 17 bis 22 Vergleichsländern ist die Teststärke so
 gering, dass dies nicht gegen einen Unterschied spricht; für einen Nachweis
 reichen die Daten nicht.
 
-Zudem erklärt sich dieser Abstand weitgehend über den Rohstofftyp: Werden
-allein die Ölstaaten aus der Vergleichsgruppe entfernt, sinkt deren Median auf
-0,14, 0,15 und 0,16, Cliff's δ auf −0,27, −0,22 und −0,08 (Tab. 3) — in der
-letzten Periode also auf einen vernachlässigbaren Wert. Dasselbe gilt im
-Sahel: Tschad (0,26) und Mauretanien (0,39), beide mit Erdöl, liegen über
-Burkina Faso (0,02, Gold) und Niger (0,04, Uran); die Spannweite in der Gruppe
-übersteigt den Gruppenunterschied.
+Der Abstand erklärt sich weitgehend über den Rohstofftyp: Werden allein die
+Ölstaaten aus der Vergleichsgruppe entfernt, sinkt deren Median auf 0,14, 0,15
+und 0,16, Cliff's δ auf −0,27, −0,22 und −0,08 (Tab. 3) — in der letzten
+Periode also auf einen vernachlässigbaren Wert. Dasselbe gilt im Sahel: Tschad
+(0,26) und Mauretanien (0,39), beide mit Erdöl, liegen über Burkina Faso
+(0,02, Gold) und Niger (0,04, Uran).

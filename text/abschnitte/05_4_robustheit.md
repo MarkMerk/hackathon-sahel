@@ -21,6 +21,6 @@ auf −0,08 senkt.
 Zwei Einschränkungen gehören dazu: Die Zellen sind keine unabhängigen
 Replikationen, da sie auf denselben vier Ländern beruhen, und der Ausschluss
 der Quoten über 1,5 entfernt mit Botswana ein ganzes Land. Die niedrigere
-Abschöpfung im Sahel ist somit als deskriptives Muster belastbar, weil keine
-Spezifikation ihr widerspricht; ihre Größenordnung hängt jedoch von der
-Abgrenzung der Vergleichsgruppe ab.
+Abschöpfung im Sahel ist somit als Muster belastbar, weil keine Spezifikation
+ihr widerspricht; ihre Größenordnung hängt jedoch von der Abgrenzung der
+Vergleichsgruppe ab.
