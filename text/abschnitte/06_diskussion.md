@@ -1,10 +1,10 @@
 # 6 Diskussion
 
-## 6.1 Nicht die Region trennt die Länder, sondern der Rohstofftyp
+## 6.1 Region und Rohstofftyp überlagern sich
 
-Die Frage war regional gestellt: Schöpfen die Sahel-Staaten weniger ab als das übrige Subsahara-Afrika? Dem Anschein nach ja, der Sache nach anders. Cliffs δ ist in allen drei Perioden negativ (−0,36; −0,39; −0,24), doch kein p-Wert unterschreitet 0,05, und die Robustheitsprüfung bestätigt über 21 Zellen nur das Vorzeichen. Entfernt man die sechs Ölstaaten aus der Vergleichsgruppe, fällt deren Median von 0,51 / 0,25 / 0,27 auf 0,14 / 0,15 / 0,16 und δ auf −0,27 / −0,16 / −0,08: ein Zusammensetzungseffekt.
+Die Frage war regional gestellt: Schöpfen die Sahel-Staaten weniger ab als das übrige Subsahara-Afrika? Dem Muster nach ja. Cliffs δ ist in allen drei Perioden negativ (−0,42; −0,43; −0,26), doch kein p-Wert unterschreitet 0,05, und die Robustheitsprüfung bestätigt in allen Varianten nur das Vorzeichen. Entfernt man die Ölstaaten aus der Vergleichsgruppe, fällt deren Median von 0,51 / 0,35 / 0,26 auf 0,14 / 0,15 / 0,16 und δ auf −0,27 / −0,22 / −0,08. Entfernt man sie aus beiden Gruppen und damit auch Tschad, bleibt δ bei −0,38 / −0,42 / −0,17. Region und Rohstofftyp überlagern sich und sind bei vier Sahel-Ländern nicht zu trennen.
 
-Der Kontrast nach Rohstofftyp fällt stärker aus: δ = +0,31 / +0,74 / +0,64, in zwei Perioden bei p = 0,003 bzw. 0,023. Dasselbe gilt innerhalb des Sahel, wo die Spannweite den Gruppenunterschied übersteigt: Tschad (0,26) und Mauretanien (0,39) fördern Erdöl, Burkina Faso (0,02) Gold und Niger (0,04) Uran. Wer die Renten abschöpft, unterscheidet sich in unserem Material stärker nach Art der Lagerstätte als nach Geografie.
+Der Kontrast nach Rohstofftyp fällt deutlicher aus: δ = +0,54 / +0,76 / +0,78 (p = 0,038; 0,001; 0,003), allerdings in einer post hoc ergänzten Auswertung. Dasselbe gilt innerhalb des Sahel, wo die Spannweite den Gruppenunterschied übersteigt: Tschad (0,26) und Mauretanien (0,39) fördern Erdöl, Burkina Faso (0,02) Gold und Niger (0,04) Uran. Wer die Renten abschöpft, unterscheidet sich in unserem Material deutlicher nach Art der Lagerstätte als nach Geografie.
 
 Warum, können wir mit diesen Daten nicht prüfen. Plausibel ist, dass Ölförderung sich auf wenige Bohrstellen und Betreiber konzentriert und einen messbaren Strom bildet, während Gold- und Uranabbau viele Standorte, konzerninterne Verrechnungspreise und im Goldbereich einen handwerklichen Sektor außerhalb der Erfassung umfasst. Albertin et al. (2021) beschreiben für den Bergbau Subsahara-Afrikas Mechanismen der Gewinnverlagerung multinationaler Unternehmen, Nkemgha (2026) findet ein Einhergehen von ausgeprägtem Rohstoffsektor und höheren illegalen Finanzflüssen. Beide machen eine niedrige Abschöpfung bei verteilter Förderung plausibel, ohne sie zu belegen.
 
@@ -24,7 +24,7 @@ Für Mali gilt eine Einschränkung, die ausdrücklich zu benennen ist: Mali erre
 
 ## 6.4 Abschöpfung und menschliche Entwicklung
 
-Im Ländervergleich besteht zwischen Abschöpfungsquote und Entwicklung ein mittlerer positiver Zusammenhang (Spearman ρ = 0,515 für HDI, n = 68; ρ = 0,429 für Stromzugang, n = 69). Innerhalb der Länder über die Zeit verschwindet er: Das Modell mit Länder- und Jahresfixeffekten weist einen Koeffizienten von 0,0007 aus (p = 0,177, n = 442). Der Querschnittszusammenhang spiegelt stabile Länderunterschiede, nicht eine Entwicklung, die der Abschöpfung folgt. Wer aus ihm auf eine Wirkung schließt, überdehnt die Daten.
+Im Ländervergleich besteht zwischen Abschöpfungsquote und Entwicklung ein mittlerer positiver Zusammenhang (Spearman ρ = 0,517 für HDI und ρ = 0,410 für Stromzugang, je n = 26 Länder). Über die Entwicklung innerhalb der Länder erlauben die Daten keine Aussage: Das Modell mit Länder- und Jahresfixeffekten ist nicht belastbar, sein Vorzeichen wechselt mit der Spezifikation (Abschnitt 5.3). Der Querschnittszusammenhang beschreibt Unterschiede zwischen Ländern, keine Entwicklung, die der Abschöpfung folgt. Wer aus ihm auf eine Wirkung schließt, überdehnt die Daten.
 
 ## 6.5 Implikationen und offene Fragen
 

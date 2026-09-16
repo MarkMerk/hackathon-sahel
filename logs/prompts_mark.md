@@ -36,3 +36,4 @@
 - 15:22 · Sitzung 2c859f2e · нет везде был опус 5, собирать буду я полностью, но в отдельной сессии
 - 15:35 · Sitzung 2c859f2e · филипп закончил, собирать будем не в гугл доке, Eine Kleinigkeit für Mark: 04_methodik.md sagt noch „Die Robustheit prüfen wir in acht Varianten" — seit meinem Fix sind es zehn (g0,5/g0,8 kamen dazu). Das ist Marks Datei, ich kann sie nicht selbst ändern — gib ihm kurz Bescheid, dass er „acht" auf „zehn" ändert. собери сам скриптом, через латех чтобы формат точно соответствовал заданию. леон тоже закончил
 - 15:36 · Sitzung 2c859f2e · не забывай чтбы все было на немецком
+- 15:44 · Sitzung 2c859f2e · и объясни что я это делаю вместо леона потому что у него возникли проблемы с аутентификацией
